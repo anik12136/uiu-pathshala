@@ -1,10 +1,11 @@
+import Banner from "../shared/Banner/Banner";
 
 
 const Home = () => {
     return (
-        <div>
-            <p className="text-red-500">This is Home Page</p>
-        </div>
+        <main className="mt-16">
+           <Banner/>
+        </main>
     );
 };
 
