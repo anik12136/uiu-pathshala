@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import CommunityDropdown from "../../../components/CommunityDropdown";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,12 +54,10 @@ const Navbar = () => {
             <Link to="/library" className="text-gray-600 hover:text-gray-900">
               Library
             </Link>
-            <Link to="/contact" className="text-gray-600 hover:text-gray-900">
-              Contact
+            <Link to="/tutor" className="text-gray-600 hover:text-gray-900">
+              Tutor
             </Link>
-            <Link to="/aboutUs" className="text-gray-600 hover:text-gray-900">
-              About Us
-            </Link>
+            <button><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline"/></button>
             <Link to="/login" className="text-gray-600 hover:text-gray-900">
               Login
             </Link>
