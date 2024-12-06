@@ -16,8 +16,8 @@ const Home = () => {
   return (
     <main className="mt-16">
       <Banner />
-      <section className="h-[300px] max-w-7xl mx-auto my-4 rounded-lg bg-[#FFD460]">
-        <h1 className="text-gray-600 text-4xl p-6">Your Favorite Teachers</h1>
+      <section className="h-auto max-w-7xl mx-auto my-4 rounded-lg">
+        <h1 className="text-gray-600 text-4xl py-6">Your Favorite Teachers</h1>
         <div className="flex justify-center gap-5 flex-1">
           {teachers.map((teacher) => (
             <FavoriteTeachers
@@ -32,7 +32,7 @@ const Home = () => {
         </div>
       </section>
       <section className="h-auto max-w-7xl mx-auto my-6 rounded-lg ">
-        <h1 className="text-gray-600 text-4xl p-6">Recently Uploaded</h1>
+        <h1 className="text-gray-600 text-4xl py-6">Recently Uploaded</h1>
         <div className="flex justify-center gap-5 flex-1">
           {teachers.slice(0,4).map((course) => (
             <RecentlyUploaded

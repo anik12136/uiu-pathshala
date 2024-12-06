@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import CommunityDropdown from "../../../components/CommunityDropdown";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,11 +46,12 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link to="/" className="text-gray-600 hover:text-gray-900">
-              Home
+            <Link to="/dashboard" className="text-gray-600 hover:text-gray-900">
+              Dashboard
             </Link>
-            <Link to="/gallery" className="text-gray-600 hover:text-gray-900">
-              Gallery
+            <CommunityDropdown></CommunityDropdown>
+            <Link to="/library" className="text-gray-600 hover:text-gray-900">
+              Library
             </Link>
             <Link to="/contact" className="text-gray-600 hover:text-gray-900">
               Contact
