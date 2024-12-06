@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,6 +57,9 @@ const Navbar = () => {
             <Link to="/aboutUs" className="text-gray-600 hover:text-gray-900">
               About Us
             </Link>
+            <Link to="/login" className="text-gray-600 hover:text-gray-900">
+              Login
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,12 +109,21 @@ const Navbar = () => {
           >
             Contact
           </Link>
+
           <Link
             to="/about"
             className="text-gray-600 hover:text-gray-900"
             onClick={closeMenu}
           >
             About Us
+          </Link>
+          
+          <Link
+            to="/login"
+            className="text-gray-600 hover:text-gray-900"
+            onClick={closeMenu}
+          >
+            Login
           </Link>
         </div>
       </div>
