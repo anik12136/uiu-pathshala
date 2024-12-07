@@ -1,13 +1,14 @@
 import { IoIosSearch } from "react-icons/io";
+import "./Banner.css"
 
 const Banner = () => {
   return (
-    <section className={`py-10`}>
-      <h1 className="text-center text-5xl font-medium">BEST HELPING HAND </h1>
-      <h1 className="text-center text-5xl font-medium  mt-2">
+    <section className="pathshala-banner-bg py-20">
+      <h1 className="text-center text-5xl font-medium text-white">BEST HELPING HAND </h1>
+      <h1 className="text-center text-5xl font-medium  mt-2 text-white">
         FOR UIU STUDENTS
       </h1>
-      <p className="text-center max-w-[700px] mx-auto mt-4">
+      <p className="text-center max-w-[700px] mx-auto mt-4 text-white">
         We are a team of researchers and engineers at GitHub, exploring things
         beyond the adjacent possible. We prototype tools and technologies that
         will change our craft. We identify new approaches to building healthy,

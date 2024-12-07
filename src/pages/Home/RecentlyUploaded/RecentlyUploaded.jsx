@@ -5,7 +5,7 @@ const RecentlyUploaded = ({ course }) => {
   console.log(course);
 
   return (
-    <div className="w-96 border flex flex-col gap-2 p-4  bg-white text-gray-500 rounded-lg shadow-lg cursor-pointer">
+    <div className=" border flex flex-col gap-2 p-4 bg-white text-gray-500 rounded-lg shadow-lg cursor-pointer">
       <img
         src={defaultCourseBanner}
         className="w-full rounded-lg object-contain"
