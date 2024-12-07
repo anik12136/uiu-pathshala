@@ -57,7 +57,9 @@ const Navbar = () => {
             <Link to="/tutor" className="text-gray-600 hover:text-gray-900">
               Tutor
             </Link>
-            <button><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline"/></button>
+            <button>
+              <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" />
+            </button>
             <Link to="/login" className="text-gray-600 hover:text-gray-900">
               Login
             </Link>
@@ -90,40 +92,23 @@ const Navbar = () => {
             <X size={24} />
           </button>
           <Link
-            to="/"
+            to="/dashboard"
             className="text-gray-600 hover:text-gray-900"
             onClick={closeMenu}
           >
-            Home
+            Dashboard
           </Link>
-          <Link
-            to="/gallery"
-            className="text-gray-600 hover:text-gray-900"
-            onClick={closeMenu}
-          >
-            Gallery
+          <CommunityDropdown></CommunityDropdown>
+          <Link to="/library" className="text-gray-600 hover:text-gray-900">
+            Library
           </Link>
-          <Link
-            to="/contact"
-            className="text-gray-600 hover:text-gray-900"
-            onClick={closeMenu}
-          >
-            Contact
+          <Link to="/tutor" className="text-gray-600 hover:text-gray-900">
+            Tutor
           </Link>
-
-          <Link
-            to="/about"
-            className="text-gray-600 hover:text-gray-900"
-            onClick={closeMenu}
-          >
-            About Us
-          </Link>
-          
-          <Link
-            to="/login"
-            className="text-gray-600 hover:text-gray-900"
-            onClick={closeMenu}
-          >
+          <button>
+            <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" />
+          </button>
+          <Link to="/login" className="text-gray-600 hover:text-gray-900">
             Login
           </Link>
         </div>
