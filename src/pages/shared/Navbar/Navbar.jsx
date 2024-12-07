@@ -57,9 +57,7 @@ const Navbar = () => {
             <Link to="/tutor" className="text-gray-600 hover:text-gray-900">
               Tutor
             </Link>
-            <button>
-              <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" />
-            </button>
+            <button><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline"/></button>
             <Link to="/login" className="text-gray-600 hover:text-gray-900">
               Login
             </Link>
@@ -98,17 +96,28 @@ const Navbar = () => {
           >
             Dashboard
           </Link>
-          <CommunityDropdown></CommunityDropdown>
-          <Link to="/library" className="text-gray-600 hover:text-gray-900">
-            Library
+          <CommunityDropdown onClick={closeMenu}></CommunityDropdown>
+          <Link
+            to="/library"
+            className="text-gray-600 hover:text-gray-900"
+            onClick={closeMenu}
+          >
+           Library
           </Link>
-          <Link to="/tutor" className="text-gray-600 hover:text-gray-900">
-            Tutor
+
+          <button onClick={closeMenu}><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline"/></button>
+          <Link
+            to="/tutor"
+            className="text-gray-600 hover:text-gray-900"
+            onClick={closeMenu}
+          >
+           Tutor
           </Link>
-          <button>
-            <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" />
-          </button>
-          <Link to="/login" className="text-gray-600 hover:text-gray-900">
+          <Link
+            to="/login"
+            className="text-gray-600 hover:text-gray-900"
+            onClick={closeMenu}
+          >
             Login
           </Link>
         </div>
