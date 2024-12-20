@@ -47,18 +47,18 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link to="/dashboard" className="text-gray-600 hover:text-gray-900">
+            <Link to="/dashboard" className="text-gray-600 hover:text-orange-500">
               Dashboard
             </Link>
             <CommunityDropdown></CommunityDropdown>
-            <Link to="/library" className="text-gray-600 hover:text-gray-900">
+            <Link to="/library" className="text-gray-600 hover:text-orange-500">
               Library
             </Link>
-            <Link to="/tutor" className="text-gray-600 hover:text-gray-900">
+            <Link to="/tutor" className="text-gray-600 hover:text-orange-500">
               Tutor
             </Link>
-            <button><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline"/></button>
-            <Link to="/login" className="text-gray-600 hover:text-gray-900">
+            <button><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500"/></button>
+            <Link to="/login" className="text-gray-600 hover:text-orange-500">
               Login
             </Link>
           </div>

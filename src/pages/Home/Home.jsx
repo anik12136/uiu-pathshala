@@ -12,7 +12,8 @@ import libraryImage from "../../assets/images/library.webp";
 const Home = () => {
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
-    fetch("../../../public/fakeDB/top-rated-tutors.json")
+    // fetch("../../../public/fakeDB/top-rated-tutors.json")
+    fetch("http://localhost:7000/demoCourses")
       .then((res) => res.json())
       .then((data) => setTeachers(data));
   }, []);
