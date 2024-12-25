@@ -2,9 +2,15 @@ import { useState, useEffect, useRef } from "react";
 
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+
 import CommunityDropdown from "../../../components/CommunityDropdown";
 import { IoIosNotificationsOutline } from "react-icons/io";
+
+// default image for user account. This will be displayed if there is no user image
+import defaultUserImage from "../../../assets/images/user.png";
+import { BiMessageRounded } from "react-icons/bi";
+import { CiBookmark } from "react-icons/ci";
+import { SiMessenger } from "react-icons/si";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,7 +45,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link
               to="/"
-              className="text-2xl font-bold bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text"
+              className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text"
             >
               UIU Pathshala
             </Link>
@@ -47,7 +53,10 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link to="/dashboard" className="text-gray-600 hover:text-orange-500">
+            <Link
+              to="/dashboard"
+              className="text-gray-600 hover:text-orange-500"
+            >
               Dashboard
             </Link>
             <CommunityDropdown></CommunityDropdown>
@@ -57,7 +66,23 @@ const Navbar = () => {
             <Link to="/tutor" className="text-gray-600 hover:text-orange-500">
               Tutor
             </Link>
-            <button><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500"/></button>
+            {/* Notification button */}
+            <button>
+              <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
+            </button>
+            {/* Bookmarks button */}
+            <button>
+              <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
+            </button>
+            {/* Messages */}
+            <button className="mr-2">
+              <SiMessenger className="text-2xl text-orange-500 inline hover:text-orange-500" />
+            </button>
+            
+            <div className="size-9 cursor-pointer">
+              <img src={defaultUserImage} />
+            </div>
+
             <Link to="/login" className="text-gray-600 hover:text-orange-500">
               Login
             </Link>
@@ -65,6 +90,12 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center">
+            <button className="mr-2">
+              <SiMessenger className="text-3xl text-orange-500 inline hover:text-orange-500" />
+            </button>
+            <div className="size-7 cursor-pointer mr-2">
+              <img src={defaultUserImage} />
+            </div>
             <button
               onClick={toggleMenu}
               className="text-gray-600 hover:text-gray-900 focus:outline-none"
@@ -102,16 +133,22 @@ const Navbar = () => {
             className="text-gray-600 hover:text-gray-900"
             onClick={closeMenu}
           >
-           Library
+            Library
           </Link>
 
-          <button onClick={closeMenu}><IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline"/></button>
+          <button onClick={closeMenu} className="flex text-gray-600">
+            <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" /> <span>Notification </span> 
+          </button>
+
+          <button className="flex text-gray-600">
+         <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />  <span>Bookmarks </span> 
+            </button>
           <Link
             to="/tutor"
             className="text-gray-600 hover:text-gray-900"
             onClick={closeMenu}
           >
-           Tutor
+            Tutor
           </Link>
           <Link
             to="/login"
