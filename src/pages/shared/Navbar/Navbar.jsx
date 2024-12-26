@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import CommunityDropdown from "../../../components/CommunityDropdown";
 
@@ -15,6 +15,8 @@ import { MdOutlineExplore, MdSpaceDashboard } from "react-icons/md";
 import { LiaBookSolid, LiaChalkboardTeacherSolid } from "react-icons/lia";
 
 const Navbar = () => {
+ 
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -38,7 +40,7 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
+  
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,7 +70,7 @@ const Navbar = () => {
             <Link to="/tutor" className="text-gray-600 hover:text-orange-500">
               Tutor
             </Link>
-            <Link to="/" className="text-gray-600 hover:text-orange-500">
+            <Link to="/explore" className="text-gray-600 hover:text-orange-500">
               Explore
             </Link>
             {/* Notification button */}
@@ -143,9 +145,10 @@ const Navbar = () => {
           </Link>
 
            {/* Explore */}
-           <button onClick={closeMenu} className="flex gap-4 text-gray-600">
-            <MdOutlineExplore className="text-black font-extrabold text-2xl inline" /> <span>Explore </span> 
-          </button>
+           <Link to="/explore" onClick={closeMenu} className="text-gray-600 hover:text-orange-500 flex gap-4">
+           <MdOutlineExplore className="text-black font-extrabold text-2xl inline" /> <span>Explore </span>
+            </Link>
+          
           {/* Notification */}
           <button onClick={closeMenu} className="flex gap-4 text-gray-600">
             <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" /> <span>Notification </span> 

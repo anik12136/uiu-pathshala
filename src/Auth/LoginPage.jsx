@@ -10,6 +10,8 @@ import { AuthContext } from "../providers/AuthProviders";
 const LoginPage = () => {
   // Context value
   const {signIn} = useContext(AuthContext);
+  //get the location
+
   
 
   const [email, setEmail] = useState("");
