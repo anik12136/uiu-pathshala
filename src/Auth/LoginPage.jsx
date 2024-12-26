@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.png";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Ensure you include the toast CSS
 import auth from "../utils/firebase.config";
 
-
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-   const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  
   // Handle Email Change
   const handleEmailChange = (e) => setEmail(e.target.value);
 
@@ -73,7 +72,8 @@ const LoginPage = () => {
             <div>
               <label
                 className="block text-gray-600 font-medium mb-1"
-                htmlFor="email">
+                htmlFor="email"
+              >
                 Email
               </label>
               <input
@@ -91,7 +91,8 @@ const LoginPage = () => {
             <div>
               <label
                 className="block text-gray-600 font-medium mb-1"
-                htmlFor="password">
+                htmlFor="password"
+              >
                 Password
               </label>
               <div className="relative">
@@ -107,7 +108,8 @@ const LoginPage = () => {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-600">
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-600"
+                >
                   {showPassword ? "🙈" : "👁️"}
                 </button>
               </div>
@@ -121,7 +123,8 @@ const LoginPage = () => {
                   ? "bg-orange-200 text-gray-700 cursor-not-allowed"
                   : "bg-[#f68c1e] text-white hover:bg-orange-600"
               }`}
-              disabled={isLoginDisabled}>
+              disabled={isLoginDisabled}
+            >
               Login
             </button>
           </form>
@@ -132,7 +135,8 @@ const LoginPage = () => {
               Don’t have an account?{" "}
               <Link
                 to="/Signup"
-                className="text-orange-500 font-bold hover:underline">
+                className="text-orange-500 font-bold hover:underline"
+              >
                 Sign up here
               </Link>
             </p>

@@ -4,13 +4,15 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import CommunityDropdown from "../../../components/CommunityDropdown";
-import { IoIosNotificationsOutline } from "react-icons/io";
 
 // default image for user account. This will be displayed if there is no user image
 import defaultUserImage from "../../../assets/images/user.png";
-import { BiMessageRounded } from "react-icons/bi";
+//Icons
+import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { SiMessenger } from "react-icons/si";
+import { MdOutlineExplore, MdSpaceDashboard } from "react-icons/md";
+import { LiaBookSolid, LiaChalkboardTeacherSolid } from "react-icons/lia";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,6 +68,9 @@ const Navbar = () => {
             <Link to="/tutor" className="text-gray-600 hover:text-orange-500">
               Tutor
             </Link>
+            <Link to="/" className="text-gray-600 hover:text-orange-500">
+              Explore
+            </Link>
             {/* Notification button */}
             <button>
               <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
@@ -93,6 +98,7 @@ const Navbar = () => {
             <button className="mr-2">
               <SiMessenger className="text-3xl text-orange-500 inline hover:text-orange-500" />
             </button>
+           
             <div className="size-7 cursor-pointer mr-2">
               <img src={defaultUserImage} />
             </div>
@@ -122,33 +128,38 @@ const Navbar = () => {
           </button>
           <Link
             to="/dashboard"
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-600 hover:text-gray-900 flex gap-4 "
             onClick={closeMenu}
           >
-            Dashboard
+           <MdSpaceDashboard className="text-black font-extrabold text-2xl inline"/> Dashboard 
           </Link>
           <CommunityDropdown onClick={closeMenu}></CommunityDropdown>
           <Link
             to="/library"
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-600 hover:text-gray-900 flex gap-4"
             onClick={closeMenu}
           >
-            Library
+           <LiaBookSolid className="text-black font-extrabold text-2xl inline"/> Library 
           </Link>
 
-          <button onClick={closeMenu} className="flex text-gray-600">
+           {/* Explore */}
+           <button onClick={closeMenu} className="flex gap-4 text-gray-600">
+            <MdOutlineExplore className="text-black font-extrabold text-2xl inline" /> <span>Explore </span> 
+          </button>
+          {/* Notification */}
+          <button onClick={closeMenu} className="flex gap-4 text-gray-600">
             <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" /> <span>Notification </span> 
           </button>
-
-          <button className="flex text-gray-600">
+          {/* Bookmarks */}
+          <button className="flex gap-4 text-gray-600">
          <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />  <span>Bookmarks </span> 
             </button>
           <Link
             to="/tutor"
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-600 hover:text-gray-900 flex gap-4"
             onClick={closeMenu}
           >
-            Tutor
+           <LiaChalkboardTeacherSolid className="text-black font-extrabold text-2xl inline"/> Tutor
           </Link>
           <Link
             to="/login"
