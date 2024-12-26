@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Banner from "../shared/Banner/Banner";
 import FavoriteTeachers from "./Favorite-Teachers/FavoriteTeachers";
 import { MdArrowForwardIos } from "react-icons/md";
@@ -8,8 +8,14 @@ import programmingCommunityImage from "../../assets/images/programming-community
 import generalCommunity from "../../assets/images/general-community.webp";
 import departmentalImage from "../../assets/images/departments.webp";
 import libraryImage from "../../assets/images/library.webp";
+import { AuthContext } from "../../providers/AuthProviders";
 
 const Home = () => {
+  // Context value
+  const {user} = useContext(AuthContext);
+  console.log("User data",user);
+  
+  
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
     // fetch("../../../public/fakeDB/top-rated-tutors.json")

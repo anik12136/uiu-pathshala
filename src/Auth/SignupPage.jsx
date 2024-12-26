@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import signupImage from "../assets/signup.png";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Ensure you include the toast CSS
-import auth from "../utils/firebase.config";
+import { AuthContext } from "../providers/AuthProviders";
+// import auth from "../utils/firebase.config";
 
 
 const SignupPage = () => {
+  const {createUser} = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,13 +65,10 @@ const SignupPage = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-
-
-
     if (password === confirmPassword) {
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
+     await createUser(
+       
           email,
           password
         );

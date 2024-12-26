@@ -2,7 +2,7 @@ import { FaStar } from "react-icons/fa";
 import defaultCourseBanner from "../../../../src/assets/images/intro-data-structure-–-1.png";
 import defaultImage from "../../../../src/assets/images/pylyp-sukhenko-SrsIBiJPpxs-unsplash.webp";
 const RecentlyUploaded = ({ course }) => {
-  console.log(course);
+  // console.log(course);
 
   return (
     <div className=" border flex flex-col gap-2 p-4 bg-white text-gray-500 rounded-lg shadow-lg cursor-pointer">

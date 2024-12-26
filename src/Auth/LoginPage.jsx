@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.png";
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Ensure you include the toast CSS
-import auth from "../utils/firebase.config";
+// import auth from "../utils/firebase.config";
+import { AuthContext } from "../providers/AuthProviders";
 
 const LoginPage = () => {
+  // Context value
+  const {signIn} = useContext(AuthContext);
+  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -29,8 +34,7 @@ const LoginPage = () => {
     e.preventDefault(); // Prevent the default form submission
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
+      await signIn(
         email,
         password
       );
