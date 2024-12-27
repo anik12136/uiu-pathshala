@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 import CommunityDropdown from "../../../components/CommunityDropdown";
 
@@ -15,8 +15,6 @@ import { MdOutlineExplore, MdSpaceDashboard } from "react-icons/md";
 import { LiaBookSolid, LiaChalkboardTeacherSolid } from "react-icons/lia";
 
 const Navbar = () => {
- 
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
