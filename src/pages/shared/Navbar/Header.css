@@ -1,0 +1,32 @@
+
+.hover-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hover-text {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    color:black;
+    padding: 5px 10px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .hover-container:hover .hover-text {
+    opacity: 1;
+  }
+  
+  .hover-text span {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .hover-container img {
+    width: 35px; 
+    height: 35px;
+  }
+  
