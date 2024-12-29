@@ -2,7 +2,7 @@ import  { useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Link } from 'react-router-dom';
 
-const options = ["Prog. Community", "General Community"];
+const options = ["Prog_Community", "General_Community"];
 
 export default function CommunityDropdown() {
   const [isOpen, setIsOpen] = useState(false)
@@ -53,7 +53,7 @@ export default function CommunityDropdown() {
             aria-labelledby="options-menu">
             {options.map((option) => (
               <Link
-                to="General_Community"
+                to={option}
                 key={option}
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500"

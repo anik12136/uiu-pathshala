@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-avatar": "^1.1.2",
     "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
     "firebase": "^11.1.0",
     "lucide-react": "^0.464.0",
     "react": "^18.3.1",
