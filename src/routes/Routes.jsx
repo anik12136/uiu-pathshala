@@ -9,6 +9,7 @@ import Tutor from "../pages/Tutor/Tutor";
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes";
 import Explore from "../pages/Explore/Explore";
 import GeneralCommunity from "../pages/General Community/MainLayout";
+import Prog_Community from "../pages/Programming  Community/MainLayout";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutes>
             <GeneralCommunity></GeneralCommunity>,
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/Prog_Community",
+        element: (
+          <ProtectedRoutes>
+            <Prog_Community></Prog_Community>,
           </ProtectedRoutes>
         ),
       },

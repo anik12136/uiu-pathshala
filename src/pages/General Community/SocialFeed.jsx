@@ -3,7 +3,6 @@ import { AuthContext } from "../../providers/AuthProviders";
 import {
   Trash2,
   Send,
-
   Heart,
   MessageCircle,
 } from "lucide-react";
