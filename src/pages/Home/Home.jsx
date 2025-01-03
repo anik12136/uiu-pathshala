@@ -9,6 +9,7 @@ import generalCommunity from "../../assets/images/general-community.webp";
 import departmentalImage from "../../assets/images/departments.webp";
 import libraryImage from "../../assets/images/library.webp";
 import { AuthContext } from "../../providers/AuthProviders";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   // Context value
@@ -35,8 +36,7 @@ const Home = () => {
           {teachers.map((teacher) => (
             <FavoriteTeachers
               key={teacher.id}
-              teacher={teacher}
-            ></FavoriteTeachers>
+              teacher={teacher}></FavoriteTeachers>
           ))}
           <div className="w-40 h-40 border flex flex-col gap-2 p-4 justify-center items-center bg-white text-gray-500 rounded-lg shadow-lg cursor-pointer">
             <span>View All</span>
@@ -51,8 +51,7 @@ const Home = () => {
           {teachers.slice(0, 4).map((course) => (
             <RecentlyUploaded
               key={course.id}
-              course={course}
-            ></RecentlyUploaded>
+              course={course}></RecentlyUploaded>
           ))}
         </div>
         {/* View all recently uploaded courses */}
@@ -97,9 +96,11 @@ const Home = () => {
             ipsum eius minus velit sint accusamus accusantium ducimus ex
             eligendi deserunt?
           </p>
-          <button className="border border-gray-500 hover:bg-gray-200 rounded-full p-3 ">
+          <Link
+            to="General_Community"
+            className="border border-gray-500 hover:bg-gray-200 rounded-full p-3 ">
             General Community
-          </button>
+          </Link>
         </div>
       </section>
       {/* Departments */}

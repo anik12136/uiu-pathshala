@@ -8,6 +8,9 @@ import Library from "../pages/Library/Library";
 import Tutor from "../pages/Tutor/Tutor";
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes";
 import Explore from "../pages/Explore/Explore";
+import GeneralCommunity from "../pages/General Community/MainLayout";
+import Prog_Community from "../pages/Programming  Community/MainLayout";
+import Messaging from "../pages/Messaging/Messaging";
 
 const router = createBrowserRouter([
   {
@@ -34,11 +37,10 @@ const router = createBrowserRouter([
         path: "/messaging",
         element: (
           <ProtectedRoutes>
-            <Dashboard></Dashboard>,
+            <Messaging></Messaging>,
           </ProtectedRoutes>
         ),
       },
-      
       {
         path: "/library",
         element: (
@@ -57,10 +59,28 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:"/explore",
-        element:<ProtectedRoutes>
-          <Explore></Explore>
-        </ProtectedRoutes>
+        path: "/General_Community",
+        element: (
+          <ProtectedRoutes>
+            <GeneralCommunity></GeneralCommunity>,
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/Prog_Community",
+        element: (
+          <ProtectedRoutes>
+            <Prog_Community></Prog_Community>,
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/explore",
+        element: (
+          <ProtectedRoutes>
+            <Explore></Explore>
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/login",
