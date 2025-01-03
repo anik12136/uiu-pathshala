@@ -31,6 +31,15 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/messaging",
+        element: (
+          <ProtectedRoutes>
+            <Dashboard></Dashboard>,
+          </ProtectedRoutes>
+        ),
+      },
+      
+      {
         path: "/library",
         element: (
           <ProtectedRoutes>
