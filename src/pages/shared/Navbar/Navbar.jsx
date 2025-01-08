@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 import CommunityDropdown from "../../../components/CommunityDropdown";
 
@@ -24,6 +24,12 @@ const Navbar = () => {
       .then(() => { })
       .catch(error => console.log(error));
   }
+
+  const navigate = useNavigate();
+  const messagingHandler = ()=>{
+    navigate("/messaging");
+  }
+
   console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -89,17 +95,21 @@ const Navbar = () => {
             <button>
               <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
             </button>
-            {/* Messages */}
-            <button className="mr-2">
+            {/* Messaging */}
+            <button className="mr-2" onClick={messagingHandler}>
               <SiMessenger className="text-2xl text-orange-500 inline hover:text-orange-500" />
             </button>
 
+            {/* profile image */}
             <div className="size-9 cursor-pointer">
               {
-                user? <img src={user?.photoURL} />
+                user && !user.photoURL==""? <img src={user?.photoURL} />
                 : <img src={defaultUserImage} />
               }
             </div>
+            {/* {
+              user? <img src={user?.photoURL} /> :<img src={defaultUserImage} />
+            } */}
 
             {/* login/logout button */}
             {/* <Link to="/login" className="text-gray-600 hover:text-orange-500">
@@ -121,6 +131,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center">
+            {/* Messaging */}
             <button className="mr-2">
               <SiMessenger className="text-3xl text-orange-500 inline hover:text-orange-500" />
             </button>

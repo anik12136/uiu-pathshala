@@ -1,7 +1,8 @@
 import  { useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { Link } from 'react-router-dom';
 
-const options = ['Prog. Community', 'General Community']
+const options = ["Prog_Community", "General_Community"];
 
 export default function CommunityDropdown() {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,8 +38,7 @@ export default function CommunityDropdown() {
           id="options-menu"
           aria-haspopup="true"
           aria-expanded="true"
-          onClick={toggleDropdown}
-        >
+          onClick={toggleDropdown}>
           {selectedOption}
           <ChevronDown className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </button>
@@ -46,22 +46,26 @@ export default function CommunityDropdown() {
 
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+          <div
+            className="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu">
             {options.map((option) => (
-              <a
+              <Link
+                to={option}
                 key={option}
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500"
                 role="menuitem"
-                onClick={() => handleOptionClick(option)}
-              >
+                onClick={() => handleOptionClick(option)}>
                 {option}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
       )}
     </div>
-  )
+  );
 }
 

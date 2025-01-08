@@ -48,9 +48,11 @@ const SignupPage = () => {
       const userData = {
         name,
         email,
-        // photoURL,
-        // role: "user",
-        rating:0
+        photoURL,
+        role: "user",
+        rating:0,
+        department:"",
+        studentID:""
       };
 
       const response = await fetch(

@@ -1,8 +1,7 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../pages/shared/Navbar/Navbar";
 import Footer from "../pages/shared/Footer/Footer";
-import { useState } from "react";
-import { use } from "react";
+
 const Root = () => {
  
   return (
@@ -18,3 +17,4 @@ const Root = () => {
 };
 
 export default Root;
+ 
