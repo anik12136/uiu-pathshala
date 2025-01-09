@@ -11,6 +11,8 @@ import Explore from "../pages/Explore/Explore";
 import GeneralCommunity from "../pages/General Community/MainLayout";
 import Prog_Community from "../pages/Programming  Community/MainLayout";
 import Messaging from "../pages/Messaging/Messaging";
+import Test from "../Laboratory/Test";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -25,11 +27,24 @@ const router = createBrowserRouter([
           </ProtectedRoutes>
         ),
       },
+      // This route is for tes purpose
+      {
+        path:"/test",
+        element:<Test></Test>
+      },
       {
         path: "/dashboard",
         element: (
           <ProtectedRoutes>
             <Dashboard></Dashboard>,
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/user-profile",
+        element: (
+          <ProtectedRoutes>
+            <UserProfile></UserProfile>,
           </ProtectedRoutes>
         ),
       },

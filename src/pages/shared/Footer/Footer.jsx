@@ -2,7 +2,7 @@
 import uiuLogo from "../../../../src/assets/uiu_logo.png";
 const Footer = () => {
   return (
-    <footer className="max-w-7xl mx-auto h-auto lg:h-80 bg-[#2D4059] rounded-lg grid grid-cols-1 lg:grid-cols-3 text-white p-6">
+    <footer className=" h-auto lg:h-80 bg-[#2D4059] grid grid-cols-1 lg:grid-cols-3 text-white p-6">
       {/* item-1 */}
       <div className=" flex flex-col justify-center items-center mb-3">
         <img
