@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { AuthContext } from "../../../providers/AuthProviders";
 import axios from "axios";
+import { fetchContests } from "./AllContest";
 
 // Quill configuration for text editor
 const descriptionModules = {
@@ -17,7 +18,8 @@ const descriptionModules = {
   ],
 };
 
-const CreateContest = () => {
+const CreateContest = ({ setContests }) => {
+  // Accept setContests function as a prop
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -60,7 +62,7 @@ const CreateContest = () => {
     }));
   };
 
-  // Submit Contest Form Data
+  // After contest is successfully created, refetch the contests and update the state in AllContest
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -83,6 +85,15 @@ const CreateContest = () => {
           banner: "",
           author: "",
         });
+
+        // Fetch contests again to update the contest list
+        fetchContests()
+          .then((data) => {
+            setContests(data); // Update the state with the new list
+          })
+          .catch((error) => {
+            console.error("Error fetching contests:", error);
+          });
       }
     } catch (error) {
       console.error("Error creating contest:", error);
@@ -121,7 +132,7 @@ const CreateContest = () => {
         {/* Banner URL */}
         <div>
           <label className="block text-lg font-medium text-gray-700">
-            Banner Image URL 
+            Banner Image URL
           </label>
           <input
             type="text"
@@ -130,7 +141,6 @@ const CreateContest = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg"
             placeholder="Enter the URL of the banner image"
-            
           />
           {formData.banner && (
             <div className="mt-2">
@@ -270,12 +280,6 @@ const CreateContest = () => {
           </div>
         </div>
       )}
-
-
-
-
-
-      
     </div>
   );
 };

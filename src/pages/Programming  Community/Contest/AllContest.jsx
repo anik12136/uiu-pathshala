@@ -14,7 +14,9 @@ import {
   Target,
 } from "lucide-react";
 import { AuthContext } from "../../../providers/AuthProviders";
+import CreateContest from "./ContestPost";
 
+// Difficulty configuration for styling and icons
 const difficultyConfig = {
   easy: {
     color: "bg-emerald-500",
@@ -33,7 +35,8 @@ const difficultyConfig = {
   },
 };
 
-const fetchContests = async () => {
+// Fetch contests from the backend
+export const fetchContests = async () => {
   try {
     const response = await axios.get("http://localhost:7000/GetContest");
     return response.data;
@@ -43,6 +46,7 @@ const fetchContests = async () => {
   }
 };
 
+// Delete a contest by its ID
 const deleteContest = async (id) => {
   try {
     await axios.delete(`http://localhost:7000/DeleteContest/${id}`);
@@ -54,9 +58,10 @@ const deleteContest = async (id) => {
 const AllContest = () => {
   const [contests, setContests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // User context to check for author
+  const navigate = useNavigate(); // Navigate hook for routing
 
+  // Fetch contests when the component is mounted
   useEffect(() => {
     fetchContests()
       .then((data) => {
@@ -69,18 +74,29 @@ const AllContest = () => {
       });
   }, []);
 
+  // Handle contest deletion with confirmation
   const handleDelete = async (id, e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent propagation of click to the parent div
     if (window.confirm("Are you sure you want to delete this contest?")) {
       try {
         await deleteContest(id);
         setContests(contests.filter((contest) => contest._id !== id));
+
+        // Fetch contests again to update the contest list
+        fetchContests()
+          .then((data) => {
+            setContests(data); // Update the state with the new list
+          })
+          .catch((error) => {
+            console.error("Error fetching contests:", error);
+          });
       } catch (error) {
         console.error("Error deleting contest", error);
       }
     }
   };
 
+  // Format date into a readable string
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString("en-US", {
       weekday: "long",
@@ -90,15 +106,7 @@ const AllContest = () => {
     });
   };
 
-  const truncateHTML = (html, maxWords = 50) => {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const text = div.textContent || div.innerText || "";
-    const words = text.trim().split(/\s+/);
-    if (words.length <= maxWords) return html;
-    return words.slice(0, maxWords).join(" ") + "...";
-  };
-
+  // Show loading spinner while fetching contests
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -109,6 +117,7 @@ const AllContest = () => {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 p-6">
+      <CreateContest setContests={setContests} />
       <h2 className="text-3xl font-bold text-gray-800 text-center">
         Explore All Programming Contests
       </h2>
@@ -132,7 +141,7 @@ const AllContest = () => {
               <img
                 src={
                   banner ||
-                  "https://i.ibb.co.com/bJ0D1bP/depositphotos-522754740-stock-illustration-megaphone-contest-speech-bubble-banner.jpg"
+                  "https://media.istockphoto.com/id/1137980342/vector/male-hand-holding-megaphone-with-contest-speech-bubble-loudspeaker-banner-for-business.jpg?s=2048x2048&w=is&k=20&c=eGwAfnwuOrOZBjGdzqzIcDRBjUwx_-e5fq1813d7ceU="
                 }
                 alt={title}
                 className="w-full h-full object-cover"
@@ -189,11 +198,6 @@ const AllContest = () => {
                 </div>
               </div>
 
-              {/* Description */}
-              <p className="text-gray-600 text-sm mb-6 bg-gray-50 p-3 rounded-lg">
-                Description: {truncateHTML(description)}
-              </p>
-
               {/* Action Buttons */}
               <div className="flex items-center justify-between">
                 <button
@@ -204,6 +208,7 @@ const AllContest = () => {
                   <ArrowRight className="h-4 w-4" />
                 </button>
 
+                {/* Show Delete button only if the current user is the author of the contest */}
                 {user?.email?.split("@")[0] === author && (
                   <button
                     onClick={(e) => handleDelete(_id, e)}
