@@ -109,6 +109,9 @@ const AllContest = () => {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 p-6">
+      <h2 className="text-3xl font-bold text-gray-800 text-center">
+        Explore All Programming Contests
+      </h2>
       {contests.map(
         ({
           _id,
@@ -127,7 +130,10 @@ const AllContest = () => {
             className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
             <div className="h-96">
               <img
-                src={banner || "/api/placeholder/800/400"}
+                src={
+                  banner ||
+                  "https://i.ibb.co.com/bJ0D1bP/depositphotos-522754740-stock-illustration-megaphone-contest-speech-bubble-banner.jpg"
+                }
                 alt={title}
                 className="w-full h-full object-cover"
               />

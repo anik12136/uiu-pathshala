@@ -7,7 +7,6 @@ import {
   Code2,
   Timer,
   AlertTriangle,
-  Trophy,
   Loader2,
   Play,
 } from "lucide-react";
@@ -39,6 +38,7 @@ const ContestDetails = () => {
   const [timeLeft, setTimeLeft] = useState(null);
   const [contestStatus, setContestStatus] = useState("upcoming"); // 'upcoming', 'ongoing', 'completed'
   const { user } = useContext(AuthContext);
+  const [modalOpen, setModalOpen] = useState(false); // Modal state
 
   useEffect(() => {
     const fetchContest = async () => {
@@ -69,12 +69,10 @@ const ContestDetails = () => {
 
       if (now < startDate) {
         setContestStatus("upcoming");
-        // Calculate time until start
         const timeToStart = startDate - now;
         setTimeLeft(timeToStart);
       } else if (now >= startDate && now < endDate) {
         setContestStatus("ongoing");
-        // Calculate time remaining
         const timeRemaining = endDate - now;
         setTimeLeft(timeRemaining);
       } else {
@@ -83,10 +81,8 @@ const ContestDetails = () => {
       }
     };
 
-    // Initial check
     checkContestStatus();
 
-    // Update every second
     const timer = setInterval(checkContestStatus, 1000);
     return () => clearInterval(timer);
   }, [contest]);
@@ -101,9 +97,22 @@ const ContestDetails = () => {
       .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  const formatAMPM = (date) => {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutesStr = minutes < 10 ? "0" + minutes : minutes;
+    return `${hours}:${minutesStr} ${ampm}`;
+  };
+
   const handleJoinContest = () => {
-    // Add your contest joining logic here
-    console.log("Joining contest...");
+    setModalOpen(true); // Open the modal upon clicking join contest
+  };
+
+  const closeModal = () => {
+    setModalOpen(false); // Close the modal
   };
 
   if (loading) {
@@ -124,7 +133,7 @@ const ContestDetails = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6">
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         {/* Banner Image */}
         <div className="h-64 relative">
@@ -137,16 +146,14 @@ const ContestDetails = () => {
 
         {/* Contest Status Banner */}
         <div
-          className={`
-          p-4 text-white text-center font-semibold
+          className={`p-4 text-white text-center font-semibold
           ${
             contestStatus === "upcoming"
               ? "bg-blue-600"
               : contestStatus === "ongoing"
               ? "bg-green-600"
               : "bg-gray-600"
-          }
-        `}>
+          }`}>
           {contestStatus === "upcoming"
             ? "Starting in: "
             : contestStatus === "ongoing"
@@ -192,7 +199,11 @@ const ContestDetails = () => {
                 <div className="text-sm font-medium text-gray-600">
                   Start Time
                 </div>
-                <div className="text-gray-800">{contest.startTime}</div>
+                <div className="text-gray-800">
+                  {formatAMPM(
+                    new Date(`${contest.startDate}T${contest.startTime}`)
+                  )}
+                </div>
               </div>
             </div>
 
@@ -237,15 +248,12 @@ const ContestDetails = () => {
           {/* Join Button */}
           <div className="flex justify-center">
             <button
-              className={`
-                px-8 py-3 rounded-lg font-semibold text-white
-                inline-flex items-center gap-2 transition-colors duration-200
+              className={`px-8 py-3 rounded-lg font-semibold text-white inline-flex items-center gap-2 transition-colors duration-200
                 ${
                   contestStatus === "ongoing"
                     ? "bg-green-600 hover:bg-green-700"
                     : "bg-gray-400 cursor-not-allowed"
-                }
-              `}
+                }`}
               disabled={contestStatus !== "ongoing"}
               onClick={handleJoinContest}>
               <Play className="h-5 w-5" />
@@ -257,6 +265,25 @@ const ContestDetails = () => {
             </button>
           </div>
         </div>
+
+        {/* Modal */}
+        {modalOpen && (
+          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+              <h2 className="text-xl font-semibold text-gray-800">Success!</h2>
+              <p className="text-gray-600 mt-2">
+                You have successfully joined the contest: {contest.title}
+              </p>
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={closeModal}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -92,9 +92,14 @@ const CreateContest = () => {
 
   return (
     <div className="w-full max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">
-        Create New Contest
-      </h2>
+      <header className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-gray-800">
+          Create a New Programming Contest
+        </h1>
+        <p className="text-gray-500 mt-2">
+          Showcase your skills and challenge the coding community!
+        </p>
+      </header>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
@@ -116,7 +121,7 @@ const CreateContest = () => {
         {/* Banner URL */}
         <div>
           <label className="block text-lg font-medium text-gray-700">
-            Banner Image URL <span className="text-red-500">*</span>
+            Banner Image URL 
           </label>
           <input
             type="text"
@@ -125,7 +130,7 @@ const CreateContest = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg"
             placeholder="Enter the URL of the banner image"
-            required
+            
           />
           {formData.banner && (
             <div className="mt-2">
@@ -265,6 +270,12 @@ const CreateContest = () => {
           </div>
         </div>
       )}
+
+
+
+
+
+      
     </div>
   );
 };
