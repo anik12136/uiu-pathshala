@@ -1,0 +1,38 @@
+[
+    {
+      "id": "C101",
+      "title": "Introduction to Web Development",
+      "instructor": "John Doe",
+      "description": "Learn the fundamentals of web development, including HTML, CSS, and basic JavaScript. This course provides hands-on experience to build responsive websites.",
+      "banner": "https://via.placeholder.com/600x200?text=Web+Development"
+    },
+    {
+      "id": "C102",
+      "title": "Advanced JavaScript",
+      "instructor": "Jane Smith",
+      "description": "Dive deeper into JavaScript concepts like closures, async programming, and advanced DOM manipulation. Suitable for those with basic JavaScript knowledge.",
+      "banner": "https://via.placeholder.com/600x200?text=Advanced+JavaScript"
+    },
+    {
+      "id": "C103",
+      "title": "Database Management",
+      "instructor": "Mark Williams",
+      "description": "Master database design, SQL queries, and data management techniques. Ideal for students looking to enhance their backend development skills.",
+      "banner": "https://via.placeholder.com/600x200?text=Database+Management"
+    },
+    {
+      "id": "C104",
+      "title": "UI/UX Design Principles",
+      "instructor": "Emily Davis",
+      "description": "Understand the principles of user interface and user experience design. Learn wireframing, prototyping, and creating visually appealing interfaces.",
+      "banner": "https://via.placeholder.com/600x200?text=UI+UX+Design"
+    },
+    {
+      "id": "C105",
+      "title": "Python for Data Science",
+      "instructor": "Michael Lee",
+      "description": "Explore Python libraries like NumPy, pandas, and Matplotlib to analyze and visualize data. A great starting point for data science enthusiasts.",
+      "banner": "https://via.placeholder.com/600x200?text=Python+Data+Science"
+    }
+  ]
+  

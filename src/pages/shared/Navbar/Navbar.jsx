@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 
 import { Menu, X } from "lucide-react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import CommunityDropdown from "../../../components/CommunityDropdown";
 
@@ -14,21 +14,15 @@ import { SiMessenger } from "react-icons/si";
 import { MdOutlineExplore, MdSpaceDashboard } from "react-icons/md";
 import { LiaBookSolid, LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { AuthContext } from "../../../providers/AuthProviders";
-import "./Header.css"
+import "./Header.css";
+import ProfileDropdownMenu from "../../../components/ProfileDropdown";
 
 const Navbar = () => {
-
-  const { user, logOut } = useContext(AuthContext);
-  const handleLogOut = () => {
-    logOut()
-      .then(() => { })
-      .catch(error => console.log(error));
-  }
-
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const messagingHandler = ()=>{
+  const messagingHandler = () => {
     navigate("/messaging");
-  }
+  };
 
   console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,34 +93,8 @@ const Navbar = () => {
             <button className="mr-2" onClick={messagingHandler}>
               <SiMessenger className="text-2xl text-orange-500 inline hover:text-orange-500" />
             </button>
-
-            {/* profile image */}
-            <div className="size-9 cursor-pointer">
-              {
-                user && !user.photoURL==""? <img src={user?.photoURL} />
-                : <img src={defaultUserImage} />
-              }
-            </div>
-            {/* {
-              user? <img src={user?.photoURL} /> :<img src={defaultUserImage} />
-            } */}
-
-            {/* login/logout button */}
-            {/* <Link to="/login" className="text-gray-600 hover:text-orange-500">
-              Login
-            </Link> */}
-            {
-              user ? <>
-                <button onClick={handleLogOut} className="text-gray-600 hover:text-orange-500">LogOut</button>
-                {/* <button className="btn btn-outline btn-default">LogOut</button> */}
-              </> : <>
-                <Link to="/login" className="text-gray-600 hover:text-orange-500">
-                  Login
-                </Link>
-              </>
-            }
-
-
+            {/* user profile dropdown section */}
+            <ProfileDropdownMenu></ProfileDropdownMenu>
           </div>
 
           {/* Mobile Menu Button */}
@@ -152,8 +120,9 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         ref={menuRef}
-        className={`fixed top-0 right-0 h-full w-4/5 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 h-full w-4/5 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="flex flex-col space-y-4 p-6">
           <button
@@ -167,7 +136,8 @@ const Navbar = () => {
             className="text-gray-600 hover:text-gray-900 flex gap-4 "
             onClick={closeMenu}
           >
-            <MdSpaceDashboard className="text-black font-extrabold text-2xl inline" /> Dashboard
+            <MdSpaceDashboard className="text-black font-extrabold text-2xl inline" />{" "}
+            Dashboard
           </Link>
           <CommunityDropdown onClick={closeMenu}></CommunityDropdown>
           <Link
@@ -175,28 +145,37 @@ const Navbar = () => {
             className="text-gray-600 hover:text-gray-900 flex gap-4"
             onClick={closeMenu}
           >
-            <LiaBookSolid className="text-black font-extrabold text-2xl inline" /> Library
+            <LiaBookSolid className="text-black font-extrabold text-2xl inline" />{" "}
+            Library
           </Link>
 
           {/* Explore */}
-          <Link to="/explore" onClick={closeMenu} className="text-gray-600 hover:text-orange-500 flex gap-4">
-            <MdOutlineExplore className="text-black font-extrabold text-2xl inline" /> <span>Explore </span>
+          <Link
+            to="/explore"
+            onClick={closeMenu}
+            className="text-gray-600 hover:text-orange-500 flex gap-4"
+          >
+            <MdOutlineExplore className="text-black font-extrabold text-2xl inline" />{" "}
+            <span>Explore </span>
           </Link>
 
           {/* Notification */}
           <button onClick={closeMenu} className="flex gap-4 text-gray-600">
-            <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" /> <span>Notification </span>
+            <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline" />{" "}
+            <span>Notification </span>
           </button>
           {/* Bookmarks */}
           <button className="flex gap-4 text-gray-600">
-            <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />  <span>Bookmarks </span>
+            <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />{" "}
+            <span>Bookmarks </span>
           </button>
           <Link
             to="/tutor"
             className="text-gray-600 hover:text-gray-900 flex gap-4"
             onClick={closeMenu}
           >
-            <LiaChalkboardTeacherSolid className="text-black font-extrabold text-2xl inline" /> Tutor
+            <LiaChalkboardTeacherSolid className="text-black font-extrabold text-2xl inline" />{" "}
+            Tutor
           </Link>
           <Link
             to="/login"

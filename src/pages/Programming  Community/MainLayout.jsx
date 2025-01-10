@@ -6,16 +6,16 @@ import PostView from "./Postview";
 
 
 
-const Prog_Community = () => {
-    return (
-      <div className="  ">
-        <ProgrammingPost></ProgrammingPost>
-        <PostView></PostView>
-      </div>
-    );
+const Question_Answer = () => {
+  return (
+    <div className="  ">
+      <ProgrammingPost></ProgrammingPost>
+      <PostView></PostView>
+    </div>
+  );
 };
 
-export default Prog_Community;
+export default Question_Answer;
 
 
 

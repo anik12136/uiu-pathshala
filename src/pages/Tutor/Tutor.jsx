@@ -7,7 +7,7 @@ const Tutor = () => {
         const title = event.target.title.value;
         const subject = event.target.subject.value;
         const courseDescription = event.target.courseDescription.value;
-        let bannerImage = event.target.bannerImage.value;
+        let bannerImage = event.target.bannerImage.files;
         if(!bannerImage){
             bannerImage= bannerImage;
         }
@@ -56,7 +56,7 @@ const Tutor = () => {
             <input
               type="file"
               name="bannerImage"
-              
+              accept="image/*"
               className="border border-gray-400 rounded-md w-full p-2 my-2 focus:outline-none"
             />
           </label>
