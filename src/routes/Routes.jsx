@@ -17,6 +17,7 @@ import ProgrammingCommunityTabs from "../components/ProgrammingCommunityLayout";
 import Question_Answer from "../pages/Programming  Community/MainLayout";
 import Contest from "../pages/Programming  Community/Contest/MainLayout";
 import ContestDetails from "../pages/Programming  Community/Contest/ContestDetails";
+import ProtectedLogin from "./ProtectedRoutes/ProtectedLogin";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
           </ProtectedRoutes>
         ),
       },
-      // This route is for tes purpose
+      // This route is for test purpose
       {
         path: "/test",
         element: <Test></Test>,
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutes>
             <Library />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/explore",
+        element: (
+          <ProtectedRoutes>
+            <Explore />
           </ProtectedRoutes>
         ),
       },
@@ -128,11 +137,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <LoginPage />,
+        element: (
+          <ProtectedLogin>
+            <LoginPage />
+          </ProtectedLogin>
+        ),
       },
       {
         path: "/signup",
-        element: <SignupPage />,
+        element: (
+          <ProtectedLogin>
+            <SignupPage />
+          </ProtectedLogin>
+        ),
       },
     ],
   },

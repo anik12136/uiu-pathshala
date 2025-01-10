@@ -4,7 +4,7 @@ import UnderConstruction from '../../components/UnderConstruction';
 const UserProfile = () => {
     return (
         <div>
-            <UnderConstruction></UnderConstruction>
+            <UnderConstruction className="border-dashed"></UnderConstruction>
         </div>
     );
 };
