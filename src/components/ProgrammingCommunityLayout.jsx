@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Code2, Trophy } from "lucide-react";
-import Question_Answer from "../pages/Programming  Community/MainLayout";
+import React, { useState } from "react";
 import Contest from "../pages/Programming  Community/Contest/MainLayout";
+import Question_Answer from "../pages/Programming  Community/MainLayout";
 
 const ProgrammingCommunityTabs = () => {
   const [activeTab, setActiveTab] = useState("qa");

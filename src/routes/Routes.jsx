@@ -11,6 +11,12 @@ import Explore from "../pages/Explore/Explore";
 import GeneralCommunity from "../pages/General Community/MainLayout";
 import ProgCommunity from "../pages/Programming  Community/MainLayout";
 import Messaging from "../pages/Messaging/Messaging";
+import Test from "../Laboratory/Test";
+import UserProfile from "../pages/UserProfile/UserProfile";
+import ProgrammingCommunityTabs from "../components/ProgrammingCommunityLayout";
+import Question_Answer from "../pages/Programming  Community/MainLayout";
+import Contest from "../pages/Programming  Community/Contest/MainLayout";
+import ContestDetails from "../pages/Programming  Community/Contest/ContestDetails";
 
 const router = createBrowserRouter([
   {
@@ -27,8 +33,8 @@ const router = createBrowserRouter([
       },
       // This route is for tes purpose
       {
-        path:"/test",
-        element:<Test></Test>
+        path: "/test",
+        element: <Test></Test>,
       },
       {
         path: "/dashboard",
@@ -82,7 +88,7 @@ const router = createBrowserRouter([
         path: "/Prog_Community",
         element: (
           <ProtectedRoutes>
-            <ProgrammingCommunityLayout />
+            <ProgrammingCommunityTabs />
           </ProtectedRoutes>
         ),
         children: [
