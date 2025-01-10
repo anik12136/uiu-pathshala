@@ -9,21 +9,19 @@ import Tutor from "../pages/Tutor/Tutor";
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes";
 import Explore from "../pages/Explore/Explore";
 import GeneralCommunity from "../pages/General Community/MainLayout";
-import Prog_Community from "../pages/Programming  Community/MainLayout";
+import ProgCommunity from "../pages/Programming  Community/MainLayout";
 import Messaging from "../pages/Messaging/Messaging";
-import Test from "../Laboratory/Test";
-import UserProfile from "../pages/UserProfile/UserProfile";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root></Root>,
+    element: <Root />,
     children: [
       {
         path: "/",
         element: (
           <ProtectedRoutes>
-            <Home></Home>
+            <Home />
           </ProtectedRoutes>
         ),
       },
@@ -36,7 +34,7 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
           <ProtectedRoutes>
-            <Dashboard></Dashboard>,
+            <Dashboard />
           </ProtectedRoutes>
         ),
       },
@@ -52,7 +50,7 @@ const router = createBrowserRouter([
         path: "/messaging",
         element: (
           <ProtectedRoutes>
-            <Messaging></Messaging>,
+            <Messaging />
           </ProtectedRoutes>
         ),
       },
@@ -60,16 +58,15 @@ const router = createBrowserRouter([
         path: "/library",
         element: (
           <ProtectedRoutes>
-            <Library></Library>,
+            <Library />
           </ProtectedRoutes>
         ),
       },
-
       {
         path: "/tutor",
         element: (
           <ProtectedRoutes>
-            <Tutor></Tutor>,
+            <Tutor />
           </ProtectedRoutes>
         ),
       },
@@ -77,7 +74,7 @@ const router = createBrowserRouter([
         path: "/General_Community",
         element: (
           <ProtectedRoutes>
-            <GeneralCommunity></GeneralCommunity>,
+            <GeneralCommunity />
           </ProtectedRoutes>
         ),
       },
@@ -85,25 +82,51 @@ const router = createBrowserRouter([
         path: "/Prog_Community",
         element: (
           <ProtectedRoutes>
-            <Prog_Community></Prog_Community>,
+            <ProgrammingCommunityLayout />
           </ProtectedRoutes>
         ),
+        children: [
+          {
+            index: true, // This will make `Question_Answer` the default route when visiting `/Prog_Community`
+            element: (
+              <ProtectedRoutes>
+                <Question_Answer />
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "Question_Answer", // Relative path
+            element: (
+              <ProtectedRoutes>
+                <Question_Answer />
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "Contest", // Relative path
+            element: (
+              <ProtectedRoutes>
+                <Contest />
+              </ProtectedRoutes>
+            ),
+          },
+        ],
       },
       {
-        path: "/explore",
+        path: "/contest-details/:id", // Add the new route for contest details
         element: (
           <ProtectedRoutes>
-            <Explore></Explore>
+            <ContestDetails />
           </ProtectedRoutes>
         ),
       },
       {
         path: "/login",
-        element: <LoginPage></LoginPage>,
+        element: <LoginPage />,
       },
       {
         path: "/signup",
-        element: <SignupPage></SignupPage>,
+        element: <SignupPage />,
       },
     ],
   },

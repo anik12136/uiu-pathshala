@@ -85,7 +85,7 @@ const { user } = useContext(AuthContext);
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-4xl font-extrabold text-gray-900">

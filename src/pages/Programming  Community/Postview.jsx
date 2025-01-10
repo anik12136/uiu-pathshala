@@ -14,7 +14,7 @@ export const PostView = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {posts.map((post) => (
           <Post
             key={post._id}
