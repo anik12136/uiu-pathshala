@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut, LogIn } from "lucide-react";
+
 import { Link, useNavigate } from "react-router-dom";
 
 import CommunityDropdown from "../../../components/CommunityDropdown";
@@ -18,10 +19,22 @@ import "./Header.css";
 import ProfileDropdownMenu from "../../../components/ProfileDropdown";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user,logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const messagingHandler = () => {
     navigate("/messaging");
+  };
+  //LogIn and LogOut handling for mobile
+  const handleLogOut = () => {
+    closeMenu();
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
+  const navigateToLogIn = () => {
+    navigate("/login");
+    closeMenu();
   };
 
   console.log(user);
@@ -104,9 +117,9 @@ const Navbar = () => {
               <SiMessenger className="text-3xl text-orange-500 inline hover:text-orange-500" />
             </button>
 
-            <div className="size-7 cursor-pointer mr-2">
-              <img src={defaultUserImage} />
-            </div>
+            <button className="size-8 cursor-pointer mr-2">
+              <Link to={"/user-profile"}><img src={defaultUserImage} /></Link>
+            </button>
             <button
               onClick={toggleMenu}
               className="text-gray-600 hover:text-gray-900 focus:outline-none"
@@ -177,13 +190,23 @@ const Navbar = () => {
             <LiaChalkboardTeacherSolid className="text-black font-extrabold text-2xl inline" />{" "}
             Tutor
           </Link>
-          <Link
-            to="/login"
-            className="text-gray-600 hover:text-gray-900"
-            onClick={closeMenu}
-          >
-            Login
-          </Link>
+          {user ? (
+                <button
+                  className="flex items-center w-full  py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={handleLogOut}
+                >
+                  <LogOut className="mr-3 h-5 w-5" />
+                  LogOut
+                </button>
+              ) : (
+                <button
+                  className="flex items-center w-full  py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={navigateToLogIn}
+                >
+                  <LogIn className="mr-3 h-5 w-5" />
+                  LogIn
+                </button>
+              )}
         </div>
       </div>
     </nav>

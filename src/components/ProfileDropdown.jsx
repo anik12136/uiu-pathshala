@@ -44,8 +44,9 @@ export default function ProfileDropdownMenu() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button onClick={toggleDropdown} className="w-7 h-7">
+      <button onClick={toggleDropdown} className="w-8 h-8 relative">
         <img src={defaultImage} className="inline-block" />
+        <ChevronDown className="absolute -bottom-0 right-0 w-3 h-3 text-white bg-slate-400 rounded-full"></ChevronDown>
       </button>
       {isOpen && (
         <div className="absolute mt-2 right-1 w-48 bg-white rounded-md shadow-lg z-10">
