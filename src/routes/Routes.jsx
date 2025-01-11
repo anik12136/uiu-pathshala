@@ -22,7 +22,10 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import MyBooks from "../pages/Dashboard/MyBooks/MyBooks";
 import UnderConstruction from "../components/UnderConstruction";
 import ProtectedLogin from "./ProtectedRoutes/ProtectedLogin";
-
+import LiveSessions from "../pages/Tutor/LiveSessions";
+import Teaching from "../pages/Tutor/Teaching";
+import Courses from "../pages/Tutor/Courses";
+import EditCourse from "../pages/Tutor/EditCourse";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,6 +84,40 @@ const router = createBrowserRouter([
             <Tutor />
           </ProtectedRoutes>
         ),
+        children: [
+          {
+            index: true, // Default route for `/tutor`
+            element: (
+              <ProtectedRoutes>
+                <Courses />
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "live-sessions",
+            element: (
+              <ProtectedRoutes>
+                <LiveSessions />
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "teaching",
+            element: (
+              <ProtectedRoutes>
+                <Teaching />
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "edit-course/:courseId",
+            element: (
+              <ProtectedRoutes>
+                <EditCourse />
+              </ProtectedRoutes>
+            ),
+          },
+        ],
       },
       {
         path: "/General_Community",
