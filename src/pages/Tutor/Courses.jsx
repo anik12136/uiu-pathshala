@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import NewCourseCard from "../../components/NewCourseCard";
 import NewCourseModal from "../../components/NewCourseModal";
 import { FaSearch, FaPlus } from "react-icons/fa";
+import { AuthContext } from "../../providers/AuthProviders"; // Import the AuthContext
 
 const Courses = () => {
   const navigate = useNavigate();
-
+  const userContext = useContext(AuthContext); // Get the user object from the AuthContext
 
   const [searchTerm, setSearchTerm] = useState("");
   const [courses, setCourses] = useState([]);
@@ -15,48 +16,13 @@ const Courses = () => {
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const [newCourse, setNewCourse] = useState({
-    title: "",
-    banner: "",
-    description: "",
-    tags: "",
-    published: false,
-  });
-
-  const handleSaveCourse = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:7000/api/courses",
-        newCourse
-      );
-      console.log(response.data);
-      setCourses([...courses, response.data]); // Add the newly created course to the list
-      setShowModal(false);
-      setNewCourse({
-        title: "",
-        banner: "",
-        description: "",
-        tags: "",
-        published: false,
-      });
-    } catch (err) {
-      console.error("Error saving course:", err);
-      setError("Failed to save the course. Please try again.");
-    }
+  const onModalClose = () => {
     setShowModal(false);
-    setNewCourse({
-      title: "",
-      banner: "",
-      description: "",
-      tags: "",
-      published: false,
-    });
+    fetchCourses(); // Fetch courses after closing the modal
   };
 
   const handleEditCourse = (id) => {
-    
-    navigate(`edit-course/${id}`)
-    console.log("Editing course:", id);
+    navigate(`edit-course/${id}`); // Navigate to the edit course page
   };
 
   const handleDeleteCourse = async (id) => {
@@ -69,26 +35,33 @@ const Courses = () => {
     }
   };
 
-  
+  const fetchCourses = async () => {
+    try {
+      const response = await axios.get("http://localhost:7000/api/courses");
+      setCourses(response.data); // Assuming API returns an array of courses
+      setLoading(false);
+      
+    } catch (err) {
+      setError("Failed to fetch courses. Please try again later.");
+      setLoading(false);
+    }
+  };
 
   // Fetch courses on page load
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get("http://localhost:7000/api/courses");
-        setCourses(response.data); // Assuming API returns an array of courses
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch courses. Please try again later.");
-        setLoading(false);
-      }
-    };
-
     fetchCourses();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-450px)]">
+        <div className="loader animate-spin rounded-full h-32 w-32 border-t-8 border-orange-400"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-[calc(100vh-450px)] flex flex-col">
+    <div className="min-h-[calc(100vh-450px)] flex ">
       <div className="max-w-6xl mx-auto p-6 flex-grow">
         {/* Search Bar */}
         <div className="flex items-center mb-6 bg-[#ff6c26] p-2 rounded-lg shadow-md">
@@ -111,6 +84,7 @@ const Courses = () => {
         </div>
 
         {/* Course List */}
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {courses &&
             courses.map((course) => (
@@ -127,8 +101,8 @@ const Courses = () => {
       {/* New Course Modal */}
       <NewCourseModal
         isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onSave={handleSaveCourse}
+        onClose={onModalClose}
+        creator={userContext.user.email} // Pass the user object email to the modal
       />
     </div>
   );

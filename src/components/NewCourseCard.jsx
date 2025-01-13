@@ -4,7 +4,7 @@ const NewCourseCard = ({ course, onEdit, onDelete }) => {
   const isPublished = course.published;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-pointer overflow-hidden">
+    <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-pointer overflow-hidden border-2 border-slate-300">
       {/* Banner Image */}
         <img
           src={(course.bannerImage)? `http://localhost:7000/uploads/${course.bannerImage}` : "https://placehold.co/600x400"}
@@ -15,8 +15,8 @@ const NewCourseCard = ({ course, onEdit, onDelete }) => {
       {/* Content */}
       <div className="p-4 flex flex-col bg-[#ff6c26] text-white h-48">
         <h3 className="font-semibold text-lg h-20">{course.title}</h3>
-        <p className="text-sm mt-1">Lessons: {course.lessons}</p>
-        <p className="text-xs text-neutral-300 mt-1">Created: {course.createdAt}</p>
+        <p className="text-sm mt-1">Chapters: {course.chapters.length ===0? "none":course.chapters.length }</p>
+        <p className="text-xs text-neutral-300 mt-1">Created: {course?.publishedOn || " Unpublished"}</p>
 
         {/* Bottom Row */}
         <div className="flex justify-between items-center mt-4">

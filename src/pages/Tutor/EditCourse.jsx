@@ -1,166 +1,146 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Import useParams
+import { useParams } from "react-router-dom";
 import axios from "axios";
-// import "./CoursePage.css";
 
-const CoursePage = () => {
-  const { id: courseId } = useParams(); // Destructure 'id' from useParams
+const EditCourse = () => {
+  const { courseId } = useParams(); // Get course ID from route params
   const [course, setCourse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [showChapterModal, setShowChapterModal] = useState(false);
-  const [showVideoModal, setShowVideoModal] = useState(false);
-  const [currentChapterId, setCurrentChapterId] = useState(null);
-  const [newChapter, setNewChapter] = useState({ title: "", description: "" });
-  const [newVideo, setNewVideo] = useState({ title: "", description: "", file: null });
+  const [loading, setLoading] = useState(true); // Page loader
+  const [modalOpen, setModalOpen] = useState(false); // Modal state
+  const [newChapterTitle, setNewChapterTitle] = useState(""); // Chapter input state
+  const [newChapterDescription, setNewChapterDescription] = useState(""); // Chapter description
+  const [savingChapter, setSavingChapter] = useState(false); // Add chapter loader
 
-  // Fetch course data
+  // Fetch course details
   useEffect(() => {
-    const fetchCourse = async () => {
+    const fetchCourseDetails = async () => {
       try {
-        setLoading(true);
-        const response = await axios.get(`/api/courses/${courseId}`);
+        const response = await axios.get(`http://localhost:7000/api/courses/${courseId}`);
+        console.log("Course details:", response.data);
         setCourse(response.data);
       } catch (error) {
-        console.error("Error fetching course details:", error);
+        console.error("Error loading course details:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchCourse();
-  }, [courseId]);
 
-  const handleAddChapter = () => {
-    const newChapterObj = {
-      _id: Date.now().toString(), // Temporary ID for the front end
-      title: newChapter.title,
-      description: newChapter.description,
-      videos: [],
-    };
+    fetchCourseDetails();
+  }, []);
 
-    setCourse({ ...course, chapters: [...course.chapters, newChapterObj] });
-    setNewChapter({ title: "", description: "" });
-    setShowChapterModal(false);
+  // Add a new chapter
+  const handleAddChapter = async () => {
+    if (!newChapterTitle.trim() || !newChapterDescription.trim()) return; // Ensure both fields are filled
+
+    setSavingChapter(true);
+    try {
+      await axios.post(`http://localhost:7000/api/courses/${courseId}/chapters`, { 
+        title: newChapterTitle,
+        description: newChapterDescription,
+      });
+      setNewChapterTitle(""); // Clear input
+      setNewChapterDescription(""); // Clear input
+      setModalOpen(false); // Close modal
+      setLoading(true); // Show loader while reloading the course
+      const response = await axios.get(`http://localhost:7000/api/courses/${courseId}`); // Reload course
+      setCourse(response.data); // Update course data
+    } catch (error) {
+      console.error("Error adding chapter:", error);
+    } finally {
+      setSavingChapter(false);
+      setLoading(false);
+    }
   };
 
-  const handleAddVideo = () => {
-    const updatedChapters = course.chapters.map((chapter) =>
-      chapter._id === currentChapterId
-        ? {
-            ...chapter,
-            videos: [
-              ...chapter.videos,
-              {
-                _id: Date.now().toString(), // Temporary ID for the front end
-                title: newVideo.title,
-                description: newVideo.description,
-                url: URL.createObjectURL(newVideo.file), // Temporary URL for front end
-              },
-            ],
-          }
-        : chapter
-    );
 
-    setCourse({ ...course, chapters: updatedChapters });
-    setNewVideo({ title: "", description: "", file: null });
-    setShowVideoModal(false);
-  };
+  
+
 
   if (loading) {
-    return <div>Loading course details...</div>;
-  }
-
-  if (!course) {
-    return <div>Error loading course details. Please try again.</div>;
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-450px)] ">
+        <div className="loader animate-spin rounded-full h-32 w-32 border-t-8 border-orange-400"></div>
+      </div>
+    );
   }
 
   return (
-    <div className="course-page">
-      <div className="course-banner">
-        <img src={`/uploads/${course.bannerImage || "default-banner.png"}`} alt={course.title} />
-      </div>
-      <div className="course-details">
-        <h1>{course.title || "Untitled Course"}</h1>
-        <p>{course.description || "No description available."}</p>
-        <button onClick={() => setShowChapterModal(true)} className="add-btn">
+    <div className="p-6 min-h-[calc(100vh-450px)] flex flex-col gap-6 justify-center ">
+      
+      {/* Course Details */}
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden grid-cols-1 border-2 border-slate-300 pb-8">
+        <img
+          src={ course.bannerImage? `http://localhost:7000/uploads/${course.bannerImage}` : "https://placehold.co/600x400"}
+          alt={course.title}
+          className="w-full h-60 object-cover"
+        />
+        <div className="p-6">
+          <h1 className="text-3xl font-bold">{course.title || "Untitled Course"}</h1>
+          <p className="text-gray-700 mt-2">{course.description || "No description provided."}</p>
+          <p className="text-sm text-gray-500 mt-4">Creator: {course.creator || "Unknown"}</p>
+          
+        </div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 ml-4 hover:bg-blue-600 justify-self-end"
+          onClick={() => setModalOpen(true)}
+        >
           Add Chapter
         </button>
       </div>
-      <div className="course-chapters">
-        {course.chapters && course.chapters.length === 0 ? (
-          <p>No chapters added yet.</p>
-        ) : (
+
+      {/* Chapters */}
+      <div className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden grid-cols-1 border-2 border-slate-300 pb-8 col-span-full">
+        <h2 className="text-2xl font-semibold mb-4 ">Chapters</h2>
+        {course.chapters && course.chapters.length > 0 ? (
           course.chapters.map((chapter) => (
-            <div key={chapter._id} className="chapter">
-              <h2>{chapter.title || "Untitled Chapter"}</h2>
-              <p>{chapter.description || "No description available."}</p>
-              {chapter.videos?.map((video) => (
-                <video key={video._id} controls>
-                  <source src={video.url} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              ))}
-              <button
-                onClick={() => {
-                  setCurrentChapterId(chapter._id);
-                  setShowVideoModal(true);
-                }}
-                className="add-btn"
-              >
+            <div key={chapter._id} className="p-4 bg-gray-100 rounded-lg mb-4">
+              <h3 className="text-xl font-bold">{chapter.title || "Untitled Chapter"}</h3>
+              <p className="text-gray-600">{chapter.description || "No description provided."}</p>
+              <button className="bg-green-500 text-white px-3 py-1 rounded mt-2 hover:bg-green-600">
                 Add Video
               </button>
             </div>
           ))
+        ) : (
+          <p className="text-gray-500">No chapters added yet.</p>
         )}
       </div>
 
-      {/* Modals */}
-      {showChapterModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Add Chapter</h2>
+      {/* Add Chapter Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">Add New Chapter</h2>
             <input
               type="text"
-              placeholder="Title"
-              value={newChapter.title}
-              onChange={(e) => setNewChapter({ ...newChapter, title: e.target.value })}
+              placeholder="Chapter Title"
+              value={newChapterTitle}
+              onChange={(e) => setNewChapterTitle(e.target.value)}
+              className="w-full p-2 border rounded mb-4"
             />
             <textarea
-              placeholder="Description"
-              value={newChapter.description}
-              onChange={(e) => setNewChapter({ ...newChapter, description: e.target.value })}
+              placeholder="Chapter Description"
+              value={newChapterDescription}
+              onChange={(e) => setNewChapterDescription(e.target.value)}
+              className="w-full p-2 border rounded h-28 mb-4"
             />
-            <button onClick={handleAddChapter} className="save-btn">
-              Save Chapter
-            </button>
-            <button onClick={() => setShowChapterModal(false)} className="cancel-btn">
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
-      {showVideoModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Add Video</h2>
-            <input
-              type="text"
-              placeholder="Title"
-              value={newVideo.title}
-              onChange={(e) => setNewVideo({ ...newVideo, title: e.target.value })}
-            />
-            <textarea
-              placeholder="Description"
-              value={newVideo.description}
-              onChange={(e) => setNewVideo({ ...newVideo, description: e.target.value })}
-            />
-            <input type="file" onChange={(e) => setNewVideo({ ...newVideo, file: e.target.files[0] })} />
-            <button onClick={handleAddVideo} className="save-btn">
-              Save Video
-            </button>
-            <button onClick={() => setShowVideoModal(false)} className="cancel-btn">
-              Cancel
-            </button>
+            <div className="flex justify-end">
+              <button
+                className="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-600"
+                onClick={() => setModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className={`px-4 py-2 rounded ${
+                  savingChapter ? "bg-blue-300" : "bg-blue-500 hover:bg-blue-600"
+                } text-white`}
+                onClick={handleAddChapter}
+                disabled={savingChapter}
+              >
+                {savingChapter ? "Saving..." : "Save"}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -168,4 +148,4 @@ const CoursePage = () => {
   );
 };
 
-export default CoursePage;
+export default EditCourse;
