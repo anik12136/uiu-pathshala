@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const ImageUploader = ({ className, getUploadedImageData }) => {
-  const [imageBinaryFile, setImageBinaryFile] = useState({});
+  const [imageBinaryFile, setImageBinaryFile] = useState([]);
   const [cloudImageData, setCloudImageData] = useState("");
   getUploadedImageData(imageBinaryFile, cloudImageData);
 

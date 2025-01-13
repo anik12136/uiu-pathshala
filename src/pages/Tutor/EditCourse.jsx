@@ -86,10 +86,10 @@ const CoursePage = () => {
         </button>
       </div>
       <div className="course-chapters">
-        {course.chapters && course.chapters.length === 0 ? (
+        {course?.chapters && course?.chapters.length === 0 ? (
           <p>No chapters added yet.</p>
         ) : (
-          course.chapters.map((chapter) => (
+          course?.chapters?.map((chapter) => (
             <div key={chapter._id} className="chapter">
               <h2>{chapter.title || "Untitled Chapter"}</h2>
               <p>{chapter.description || "No description available."}</p>
