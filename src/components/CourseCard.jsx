@@ -1,8 +1,54 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FaRegBookmark } from "react-icons/fa";
+import { AuthContext } from "../providers/AuthProviders";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CourseCard = ({ course }) => {
+  const { user } = useContext(AuthContext);
+
+  const handleBookmark = async () => {
+    const bookmarkData = {
+      createBy: user.email,
+      type: "course",
+      courseId: course.id,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:7000/BookMark/addBookmark",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookmarkData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message || "Bookmark added successfully!");
+      } else {
+        toast.info(data.message || "An error occurred.");
+      }
+    } catch (error) {
+      console.error("Error adding bookmark:", error);
+      toast.error("Error adding bookmark.");
+    }
+  };
+
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-80">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-80 relative">
+      {/* Bookmark Icon */}
+      <button
+        onClick={handleBookmark}
+        className="absolute top-4 right-4 text-gray-800 text-xl"
+        aria-label="Bookmark Course">
+        <FaRegBookmark />
+      </button>
+
       {/* Course Banner */}
       <img
         src={course.banner}
@@ -27,6 +73,9 @@ const CourseCard = ({ course }) => {
           View Course
         </button>
       </div>
+
+      {/* ToastContainer */}
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };
