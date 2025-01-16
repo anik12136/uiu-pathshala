@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import NewCourseCard from "../../components/NewCourseCard";
-import NewCourseModal from "../../components/NewCourseModal";
+import NewCourseCard from "../../components/Course/NewCourseCard";
+import NewCourseModal from "../../components/Course/NewCourseModal";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProviders"; // Import the AuthContext
 

@@ -1,105 +1,190 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import BannerTitleDescription from "../../components/Course/BannerTitleDescription";
+import Loader from "../../components/Course/Loader";
+import Chapter from "../../components/Course/Chapter";
+
 
 const EditCourse = () => {
   const { courseId } = useParams(); // Get course ID from route params
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true); // Page loader
   const [modalOpen, setModalOpen] = useState(false); // Modal state
-  const [newChapterTitle, setNewChapterTitle] = useState(""); // Chapter input state
-  const [newChapterDescription, setNewChapterDescription] = useState(""); // Chapter description
-  const [savingChapter, setSavingChapter] = useState(false); // Add chapter loader
+  const [newChapter, setNewChapter] = useState({ title: "", description: "" });
+  const [newVideo, setNewVideo] = useState({
+    title: "",
+    description: "",
+    file: null,
+  });
 
-  // Fetch course details
-  useEffect(() => {
-    const fetchCourseDetails = async () => {
-      try {
-        const response = await axios.get(`http://localhost:7000/api/courses/${courseId}`);
-        console.log("Course details:", response.data);
-        setCourse(response.data);
-      } catch (error) {
-        console.error("Error loading course details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCourseDetails();
-  }, []);
-
-  // Add a new chapter
-  const handleAddChapter = async () => {
-    if (!newChapterTitle.trim() || !newChapterDescription.trim()) return; // Ensure both fields are filled
-
-    setSavingChapter(true);
+  const fetchCourseDetails = async () => {
     try {
-      await axios.post(`http://localhost:7000/api/courses/${courseId}/chapters`, { 
-        title: newChapterTitle,
-        description: newChapterDescription,
-      });
-      setNewChapterTitle(""); // Clear input
-      setNewChapterDescription(""); // Clear input
-      setModalOpen(false); // Close modal
-      setLoading(true); // Show loader while reloading the course
-      const response = await axios.get(`http://localhost:7000/api/courses/${courseId}`); // Reload course
-      setCourse(response.data); // Update course data
+      const response = await axios.get(
+        `http://localhost:7000/api/courses/${courseId}`
+      );
+      console.log("Course details:", response.data);
+      setCourse(response.data);
     } catch (error) {
-      console.error("Error adding chapter:", error);
+      console.error("Error loading course details:", error);
     } finally {
-      setSavingChapter(false);
       setLoading(false);
     }
   };
 
+  // Fetch course details
+  useEffect(() => {
+    fetchCourseDetails();
+  }, [loading]);
+
+
+  const refreshCourse = async () => {
+    // setLoading(true);
+    fetchCourseDetails();
+  }; // Refresh course details after editing
+
+  // Handle editing a field
+  const handleEdit = (field) => {
+    setEditingField(field);
+    setEditedValue(course[field] || "");
+  };
+
+  const saveField = async (entityType, ids, field, value) => {
+    try {
+      let apiUrl;
+      setLoading(true);
+
+      // Construct API URL based on entity type
+      switch (entityType) {
+        case "course":
+          apiUrl = `http://localhost:7000/api/courses/${ids.courseId}/${field}`;
+          break;
+        case "chapter":
+          apiUrl = `http://localhost:7000/api/courses/${ids.courseId}/chapters/${ids.chapterId}/${field}`;
+          break;
+        case "video":
+          apiUrl = `http://localhost:7000/api/courses/${ids.courseId}/videos/${ids.videoId}/${field}`;
+          break;
+        default:
+          throw new Error("Invalid entity type");
+      }
+
+      // Make the API request with Axios
+      const response = await axios.put(apiUrl, {
+        [field]: value,
+      });
+
+      if (response.status === 200) {
+        console.log(`${field} updated successfully for ${entityType}`);
+        setLoading(false);
+      } else {
+        throw new Error("Failed to update field");
+      }
+    } catch (error) {
+      console.error("Error updating field:", error.message);
+    }
+  };
+
+  const handleDelete = async (id, type, videoId = null) => {
+    const endpoint =
+      type === "chapter"
+        ? `/api/courses/${courseId}/chapters/${id}`
+        : `/api/courses/${courseId}/chapters/${id}/videos/${videoId}`;
+
+    try {
+      await axios.delete(`http://localhost:7000${endpoint}`);
+      fetchCourseDetails();
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
+  const handleAddChapter = async () => {
+    if (!newChapter.title.trim()) {
+      alert("Chapter title cannot be blank.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `http://localhost:7000/api/courses/${courseId}/chapters`,
+        newChapter
+      );
+      setNewChapter({ title: "", description: "" });
+      setModalOpen(false);
+      fetchCourseDetails();
+    } catch (error) {
+      console.error("Error adding chapter:", error);
+    }
+  };
+
+  const handleAddVideo = async (chapterId) => {
+    if (!newVideo.title.trim() || !newVideo.file) {
+      alert("Please provide a title and select a file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", newVideo.title);
+    formData.append("description", newVideo.description);
+    formData.append("file", newVideo.file);
+
+    try {
+      setUploading(true);
+      await axios.post(
+        `http://localhost:7000/api/courses/${courseId}/chapters/${chapterId}/videos`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          onUploadProgress: (progressEvent) => {
+            const percent = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percent);
+          },
+        }
+      );
+      setUploading(false);
+      setNewVideo({ title: "", description: "", file: null });
+      fetchCourseDetails();
+    } catch (error) {
+      console.error("Error adding video:", error);
+    }
+  };
 
   
 
+  
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-450px)] ">
-        <div className="loader animate-spin rounded-full h-32 w-32 border-t-8 border-orange-400"></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
-    <div className="p-6 min-h-[calc(100vh-450px)] flex flex-col gap-6 justify-center ">
-      
-      {/* Course Details */}
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden grid-cols-1 border-2 border-slate-300 pb-8">
-        <img
-          src={ course.bannerImage? `http://localhost:7000/uploads/${course.bannerImage}` : "https://placehold.co/600x400"}
-          alt={course.title}
-          className="w-full h-60 object-cover"
-        />
-        <div className="p-6">
-          <h1 className="text-3xl font-bold">{course.title || "Untitled Course"}</h1>
-          <p className="text-gray-700 mt-2">{course.description || "No description provided."}</p>
-          <p className="text-sm text-gray-500 mt-4">Creator: {course.creator || "Unknown"}</p>
-          
-        </div>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 ml-4 hover:bg-blue-600 justify-self-end"
-          onClick={() => setModalOpen(true)}
-        >
-          Add Chapter
-        </button>
-      </div>
+    <div className="container mx-auto px-8 py-8">
+      {/* Course Banner */}
+      <BannerTitleDescription course={course} onSaveField={saveField} />
 
-      {/* Chapters */}
-      <div className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden grid-cols-1 border-2 border-slate-300 pb-8 col-span-full">
-        <h2 className="text-2xl font-semibold mb-4 ">Chapters</h2>
+      {/* Chapters Section */}
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-300 p-6 m-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-semibold">Chapters</h2>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            onClick={() => setModalOpen(true)}
+          >
+            Add Chapter
+          </button>
+        </div>
         {course.chapters && course.chapters.length > 0 ? (
           course.chapters.map((chapter) => (
-            <div key={chapter._id} className="p-4 bg-gray-100 rounded-lg mb-4">
-              <h3 className="text-xl font-bold">{chapter.title || "Untitled Chapter"}</h3>
-              <p className="text-gray-600">{chapter.description || "No description provided."}</p>
-              <button className="bg-green-500 text-white px-3 py-1 rounded mt-2 hover:bg-green-600">
-                Add Video
-              </button>
-            </div>
+            <Chapter
+              key={chapter._id}
+              courseId = {course._id}
+              chapter={chapter}
+              onSaveField={saveField}
+              refresh={refreshCourse}
+            />
           ))
         ) : (
           <p className="text-gray-500">No chapters added yet.</p>
@@ -108,21 +193,26 @@ const EditCourse = () => {
 
       {/* Add Chapter Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
-            <h2 className="text-2xl font-bold mb-4">Add New Chapter</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg w-1/3">
+            <h3 className="text-xl font-bold mb-4">Add Chapter</h3>
             <input
               type="text"
               placeholder="Chapter Title"
-              value={newChapterTitle}
-              onChange={(e) => setNewChapterTitle(e.target.value)}
-              className="w-full p-2 border rounded mb-4"
+              value={newChapter.title}
+              onChange={(e) =>
+                setNewChapter({ ...newChapter, title: e.target.value })
+              }
+              className="border border-gray-300 rounded px-4 py-2 w-full mb-4"
             />
             <textarea
               placeholder="Chapter Description"
-              value={newChapterDescription}
-              onChange={(e) => setNewChapterDescription(e.target.value)}
-              className="w-full p-2 border rounded h-28 mb-4"
+              value={newChapter.description}
+              onChange={(e) =>
+                setNewChapter({ ...newChapter, description: e.target.value })
+              }
+              className="border border-gray-300 rounded px-4 py-2 w-full mb-4"
+              rows="3"
             />
             <div className="flex justify-end">
               <button
@@ -132,13 +222,10 @@ const EditCourse = () => {
                 Cancel
               </button>
               <button
-                className={`px-4 py-2 rounded ${
-                  savingChapter ? "bg-blue-300" : "bg-blue-500 hover:bg-blue-600"
-                } text-white`}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 onClick={handleAddChapter}
-                disabled={savingChapter}
               >
-                {savingChapter ? "Saving..." : "Save"}
+                Save
               </button>
             </div>
           </div>
