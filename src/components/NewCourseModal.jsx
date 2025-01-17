@@ -2,13 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 
 
-const NewCourseModal = ({ isOpen, onClose, onSave }) => {
+const NewCourseModal = ({ isOpen, onClose, creator }) => {
   const [title, setTitle] = useState("");
   const [bannerPreview, setBannerPreview] = useState(null); // For previewing the image
   const [bannerFile, setBannerFile] = useState(null); // For sending to the backend
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
   const [error, setError] = useState("");
+  const email = creator;
 
   const handleBannerChange = (e) => {
     const file = e.target.files[0];
@@ -33,20 +34,21 @@ const NewCourseModal = ({ isOpen, onClose, onSave }) => {
     }
     setError(""); // Clear error
     const formData = new FormData();
-    formData.append("creator", title);
+    formData.append("creator", email);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("tags", JSON.stringify(tags)); // Convert tags array to JSON string
     formData.append("bannerImage", bannerFile); // Attach the banner file
     try {
       console.log("Form Data:", formData); 
+      
       // Use Axios to send the FormData
       const response = await axios.post("http://localhost:7000/api/courses", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Important for file uploads
         },
       }).then((res) => { 
-        console.log("Course created successfully:", response.data);
+        console.log("Course created successfully:", res.data);
 
         resetForm(); // Clear the form after successful submission
         onClose(); // Close the modal
