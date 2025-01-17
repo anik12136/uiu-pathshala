@@ -13,8 +13,11 @@ import {
   Users,
   Target,
 } from "lucide-react";
+import { FaRegBookmark } from "react-icons/fa"; // Importing the FaRegBookmark icon
 import { AuthContext } from "../../../providers/AuthProviders";
 import CreateContest from "./ContestPost";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Difficulty configuration for styling and icons
 const difficultyConfig = {
@@ -52,6 +55,35 @@ const deleteContest = async (id) => {
     await axios.delete(`http://localhost:7000/DeleteContest/${id}`);
   } catch (error) {
     console.error("Error deleting contest", error);
+  }
+};
+
+// Bookmark a contest
+const bookmarkContest = async (contestId, userEmail) => {
+  const bookmarkData = {
+    createBy: userEmail,
+    type: "contest", // type set to contest
+    contestId: contestId,
+  };
+
+  try {
+    const response = await fetch("http://localhost:7000/BookMark/addBookmark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookmarkData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      return data.message || "Bookmark added successfully!";
+    } else {
+      return data.message || "An error occurred.";
+    }
+  } catch (error) {
+    console.error("Error bookmarking contest:", error);
+    return "Error bookmarking contest.";
   }
 };
 
@@ -137,7 +169,7 @@ const AllContest = () => {
           <div
             key={_id}
             className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-            <div className="h-96">
+            <div className="relative h-96">
               <img
                 src={
                   banner ||
@@ -146,6 +178,19 @@ const AllContest = () => {
                 alt={title}
                 className="w-full h-full object-cover"
               />
+              {/* Bookmark Icon positioned on the top right */}
+              <button
+                onClick={async () => {
+                  if (user) {
+                    const message = await bookmarkContest(_id, user.email);
+                    toast.success(message);
+                  } else {
+                    toast.error("Please login to bookmark contests.");
+                  }
+                }}
+                className="absolute top-4 right-4 text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded-full transition-colors duration-200">
+                <FaRegBookmark className="h-6 w-6" />
+              </button>
             </div>
 
             <div className="p-6">
@@ -221,6 +266,8 @@ const AllContest = () => {
           </div>
         )
       )}
+      {/* ToastContainer */}
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };

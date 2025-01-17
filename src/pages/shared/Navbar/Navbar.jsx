@@ -70,8 +70,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link
               to="/"
-              className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text"
-            >
+              className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text">
               UIU Pathshala
             </Link>
           </div>
@@ -80,8 +79,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-8">
             <Link
               to="/dashboard"
-              className="text-gray-600 hover:text-orange-500"
-            >
+              className="text-gray-600 hover:text-orange-500">
               Dashboard
             </Link>
             <CommunityDropdown></CommunityDropdown>
@@ -99,9 +97,9 @@ const Navbar = () => {
               <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
             </button>
             {/* Bookmarks button */}
-            <button>
+            <Link to="/bookmark">
               <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
-            </button>
+            </Link>
             {/* Messaging */}
             <button className="mr-2" onClick={messagingHandler}>
               <SiMessenger className="text-2xl text-orange-500 inline hover:text-orange-500" />
@@ -118,12 +116,13 @@ const Navbar = () => {
             </button>
 
             <button className="size-8 cursor-pointer mr-2">
-              <Link to={"/user-profile"}><img src={defaultUserImage} /></Link>
+              <Link to={"/user-profile"}>
+                <img src={defaultUserImage} />
+              </Link>
             </button>
             <button
               onClick={toggleMenu}
-              className="text-gray-600 hover:text-gray-900 focus:outline-none"
-            >
+              className="text-gray-600 hover:text-gray-900 focus:outline-none">
               <Menu size={24} />
             </button>
           </div>
@@ -135,20 +134,17 @@ const Navbar = () => {
         ref={menuRef}
         className={`fixed top-0 right-0 h-full w-4/5 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
+        }`}>
         <div className="flex flex-col space-y-4 p-6">
           <button
             onClick={closeMenu}
-            className="self-end text-gray-600 hover:text-gray-900 focus:outline-none"
-          >
+            className="self-end text-gray-600 hover:text-gray-900 focus:outline-none">
             <X size={24} />
           </button>
           <Link
             to="/dashboard"
             className="text-gray-600 hover:text-gray-900 flex gap-4 "
-            onClick={closeMenu}
-          >
+            onClick={closeMenu}>
             <MdSpaceDashboard className="text-black font-extrabold text-2xl inline" />{" "}
             Dashboard
           </Link>
@@ -156,8 +152,7 @@ const Navbar = () => {
           <Link
             to="/library"
             className="text-gray-600 hover:text-gray-900 flex gap-4"
-            onClick={closeMenu}
-          >
+            onClick={closeMenu}>
             <LiaBookSolid className="text-black font-extrabold text-2xl inline" />{" "}
             Library
           </Link>
@@ -166,8 +161,7 @@ const Navbar = () => {
           <Link
             to="/explore"
             onClick={closeMenu}
-            className="text-gray-600 hover:text-orange-500 flex gap-4"
-          >
+            className="text-gray-600 hover:text-orange-500 flex gap-4">
             <MdOutlineExplore className="text-black font-extrabold text-2xl inline" />{" "}
             <span>Explore </span>
           </Link>
@@ -185,28 +179,25 @@ const Navbar = () => {
           <Link
             to="/tutor"
             className="text-gray-600 hover:text-gray-900 flex gap-4"
-            onClick={closeMenu}
-          >
+            onClick={closeMenu}>
             <LiaChalkboardTeacherSolid className="text-black font-extrabold text-2xl inline" />{" "}
             Tutor
           </Link>
           {user ? (
-                <button
-                  className="flex items-center w-full  py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={handleLogOut}
-                >
-                  <LogOut className="mr-3 h-5 w-5" />
-                  LogOut
-                </button>
-              ) : (
-                <button
-                  className="flex items-center w-full  py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={navigateToLogIn}
-                >
-                  <LogIn className="mr-3 h-5 w-5" />
-                  LogIn
-                </button>
-              )}
+            <button
+              className="flex items-center w-full  py-2 text-sm text-gray-700 hover:bg-gray-100"
+              onClick={handleLogOut}>
+              <LogOut className="mr-3 h-5 w-5" />
+              LogOut
+            </button>
+          ) : (
+            <button
+              className="flex items-center w-full  py-2 text-sm text-gray-700 hover:bg-gray-100"
+              onClick={navigateToLogIn}>
+              <LogIn className="mr-3 h-5 w-5" />
+              LogIn
+            </button>
+          )}
         </div>
       </div>
     </nav>
