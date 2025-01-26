@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useCourses = () => {
-  const [courses, setCourses] = useState([]);
+const useAllUser = () => {
+  const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/courses");
-        setCourses(response.data); // Update the courses state with fetched data
+        const response = await axios.get("http://localhost:7000/allUsers");
+        setAllUsers(response.data); // Update the allUser state with fetched data
       } catch (err) {
         setError(err.message || "An error occurred while fetching data.");
       } finally {
@@ -21,7 +21,7 @@ const useCourses = () => {
     fetchCourses();
   }, []);
 
-  return { courses, loading, error };
+  return { allUsers, loading, error };
 };
 
-export default useCourses;
+export default useAllUser;
