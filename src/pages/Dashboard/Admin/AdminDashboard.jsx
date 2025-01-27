@@ -4,6 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 const AdminDashboard = () => {
     const { user } = useContext(AuthContext)
+    
     return (
         <div className="flex flex-col lg:flex-row">
             {/* Sidebar */}
@@ -25,30 +26,6 @@ const AdminDashboard = () => {
                     <ul className="space-y-4">
                         <li>
                             <NavLink
-                                to="/dashboard/enrolledCourses"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "block bg-orange-600 p-2 rounded font-bold"
-                                        : "block hover:bg-orange-600 p-2 rounded"
-                                }
-                            >
-                                Courses
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/dashboard/myBooks"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "block bg-orange-600 p-2 rounded font-bold"
-                                        : "block hover:bg-orange-600 p-2 rounded"
-                                }
-                            >
-                                Books
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
                                 to="/dashboard/pdf"
                                 className={({ isActive }) =>
                                     isActive
@@ -56,55 +33,7 @@ const AdminDashboard = () => {
                                         : "block hover:bg-orange-600 p-2 rounded"
                                 }
                             >
-                                Pdf
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/dashboard/notes"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "block bg-orange-600 p-2 rounded font-bold"
-                                        : "block hover:bg-orange-600 p-2 rounded"
-                                }
-                            >
-                                Notes
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/dashboard/questions"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "block bg-orange-600 p-2 rounded font-bold"
-                                        : "block hover:bg-orange-600 p-2 rounded"
-                                }
-                            >
-                                Questions
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/dashboard/tutors"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "block bg-orange-600 p-2 rounded font-bold"
-                                        : "block hover:bg-orange-600 p-2 rounded"
-                                }
-                            >
-                                Tutors
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/dashboard/settings"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "block bg-orange-600 p-2 rounded font-bold"
-                                        : "block hover:bg-orange-600 p-2 rounded"
-                                }
-                            >
-                                Settings
+                                Manage classes
                             </NavLink>
                         </li>
                     </ul>
@@ -113,10 +42,12 @@ const AdminDashboard = () => {
 
             {/* Main Content */}
             <main className="w-full lg:w-3/4 bg-gray-100 p-4">
-                <Outlet />
+                <Outlet/>
             </main>
         </div>
     );
 };
 
 export default AdminDashboard;
+
+

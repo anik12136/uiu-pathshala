@@ -16,7 +16,7 @@ const Dashboard = () => {
     return <p className="text-red-500">Error: {error}</p>;
   }
 
-  if(dbUser?.role!=="admin"){
+  if(dbUser?.role=="admin"){
     return(
       <AdminDashboard></AdminDashboard>
     );
