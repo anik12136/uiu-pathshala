@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
-// import { fetchConversations } from '../../utils/api';
-import {AuthContext} from '../../providers/AuthProviders';
-
+import React, { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProviders';
 
 const MessageList = ({ conversations, setSelectedConversation }) => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="w-1/5 bg-orange-100 text-gray-400 hidden md:block">
-      <h1 className="mx-3 my-3 px-4 py-2 font-extrabold text-white text-xl rounded-xl bg-orange-700">Messages</h1>
+      <h1 className="mx-3 my-3 px-4 py-2 font-extrabold text-white text-xl rounded-xl bg-orange-700">
+        Messages
+      </h1>
       <ul className="p-4 space-y-4">
         {conversations.map((conversation) => (
           <li
