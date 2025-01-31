@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const ImageUploader = ({ className, getUploadedImageData }) => {
-  const [imageBinaryFile, setImageBinaryFile] = useState({});
+  const [imageBinaryFile, setImageBinaryFile] = useState([]);
   const [cloudImageData, setCloudImageData] = useState("");
   getUploadedImageData(imageBinaryFile, cloudImageData);
 
   const cloudinaryImageUploader = async () => {
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append("file", imageBinaryFile);
     formData.append("upload_preset", "yaminHossain99");
     formData.append("cloud_name", "daeufkvvp");
