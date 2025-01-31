@@ -1,11 +1,13 @@
-import React from 'react';
 
 const MyBooks = () => {
+
+    
     return (
         <div>
-            MyBooks
+            Books
         </div>
     );
 };
 
 export default MyBooks;
+
