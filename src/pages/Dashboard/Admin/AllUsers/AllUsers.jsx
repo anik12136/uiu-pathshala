@@ -1,5 +1,7 @@
 import React from 'react';
 import useAllUser from '../../../../Hooks/useAllUser';
+import UserDetailsModal from '../../../../components/UserDetailsModal';
+import { Link } from 'react-router-dom';
 
 const AllUsers = () => {
     const { allUsers, loading, error } = useAllUser();
@@ -7,7 +9,7 @@ const AllUsers = () => {
         <div className='p-4'>
             <div className='flex justify-between'>
                 <h2 className='font-bold text-black mb-5 '>All Users</h2>
-                <h2><input className='rounded-lg w-96 h-10 bg-white text-balance px-5 border-orange-400 border-2' type="text" placeholder='search...'/></h2>
+                <h2><input className='rounded-lg w-96 h-10 bg-white text-balance px-5 border-orange-400 border-2' type="text" placeholder='search...' /></h2>
             </div>
             <div>
                 <div className="overflow-x-auto">
@@ -15,7 +17,7 @@ const AllUsers = () => {
                         {/* head */}
                         <thead>
                             <tr className=' '>
-                               
+
                                 <th>SL</th>
                                 <th>User info</th>
                                 <th>Details</th>
@@ -25,10 +27,10 @@ const AllUsers = () => {
                         <tbody>
 
                             {allUsers?.map((user, index) => (
-                                <tr className=' '  key ={index}s>
+                                <tr className=' ' key={index} s>
                                     <th>
                                         <label>
-                                            <p>{index+1}</p>
+                                            <p>{index + 1}</p>
                                         </label>
                                     </th>
                                     <td>
@@ -47,13 +49,18 @@ const AllUsers = () => {
                                             </div>
                                         </div>
                                     </td>
-                                   
-                                    <td><button>Details..</button></td>
+
+                                    <td>
+                                        <button className="details">
+                                            <Link to={`user_details/${user.id}`}>Details...</Link>
+                                        </button>
+                                    </td>
+
                                     <td className=' text-center'>
-                                        <button className='border-2 px-2 py-1 rounded-full me-2' >Warning</button> 
+                                        <button className='border-2 px-2 py-1 rounded-full me-2' >Warning</button>
                                         <button className='border-2 px-2 py-1 rounded-full'>Delete</button>
                                     </td>
-                                    
+
                                 </tr>
                             ))}
 

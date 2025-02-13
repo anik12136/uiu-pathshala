@@ -19,7 +19,6 @@ const useUser = () => {
       try {
         console.log("Fetching data for:", user.email);
         const response = await axios.get(`http://localhost:7000/dbUser/${user.email}`);
-        console.log("API Response:", response.data);
         setDbUser(response.data);
       } catch (err) {
         console.error("Error fetching data:", err.message);

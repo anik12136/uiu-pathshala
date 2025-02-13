@@ -1,0 +1,4 @@
+const { user } = useContext(AuthContext); //for access loged in user from firebase
+const { dbUser, loading, error } = useUser(); //for access loged in user from database
+
+const { allUsers, loading, error } = useAllUser(); //for all users from database
