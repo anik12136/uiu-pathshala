@@ -21,7 +21,7 @@ import DashboardCourses from "../pages/Dashboard/DashboardCourses/DashboardCours
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import MyBooks from "../pages/Dashboard/MyBooks/MyBooks";
 import UnderConstruction from "../components/UnderConstruction";
-import ProtectedLogin from "./ProtectedRoutes/ProtectedLogin";
+// import ProtectedLogin from "./ProtectedRoutes/ProtectedLogin",
 import LiveSessions from "../pages/Tutor/LiveSessions";
 import Teaching from "../pages/Tutor/Teaching";
 import Courses from "../pages/Tutor/Courses";
@@ -183,17 +183,17 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <ProtectedLogin>
+          // <ProtectedLogin>
             <LoginPage />
-          </ProtectedLogin>
+          // </ProtectedLogin>
         ),
       },
       {
         path: "/signup",
         element: (
-          <ProtectedLogin>
+          // <ProtectedLogin>
             <SignupPage />
-          </ProtectedLogin>
+          // </ProtectedLogin>
         ),
       },
 

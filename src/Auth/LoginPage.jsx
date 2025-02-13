@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.png";
 // import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
@@ -9,16 +9,18 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const LoginPage = () => {
   // Context value
-  const {signIn} = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   //get the location
+  const location = useLocation();
+  console.log(location);
 
-  
+  const formLocation = location.state || "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  
+
   // Handle Email Change
   const handleEmailChange = (e) => setEmail(e.target.value);
 
@@ -36,12 +38,15 @@ const LoginPage = () => {
     e.preventDefault(); // Prevent the default form submission
 
     try {
-      await signIn(
-        email,
-        password
-      );
-      toast.success("Login successful! Welcome back.");
-      navigate("/");
+      await signIn(email, password).then((res) => {
+        console.log("InnerRes",res);
+        if (res) {
+          console.log(formLocation);
+          navigate(formLocation);
+          toast.success("Login successful! Welcome back.");
+        }
+      });
+
       // You can navigate the user to another page after login if needed
     } catch (error) {
       // Show error message based on Firebase authentication error codes

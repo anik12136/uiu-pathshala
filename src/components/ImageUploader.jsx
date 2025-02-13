@@ -7,7 +7,7 @@ const ImageUploader = ({ className, getUploadedImageData }) => {
   getUploadedImageData(imageBinaryFile, cloudImageData);
 
   const cloudinaryImageUploader = async () => {
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append("file", imageBinaryFile);
     formData.append("upload_preset", "yaminHossain99");
     formData.append("cloud_name", "daeufkvvp");
