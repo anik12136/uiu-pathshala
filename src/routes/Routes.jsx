@@ -28,7 +28,7 @@ import Courses from "../pages/Tutor/Courses";
 import EditCourse from "../pages/Tutor/EditCourse";
 import BookMark from "../pages/BookMark/BookMarkMainLayout";
 import UserDetailsModal from "../components/UserDetailsModal";
-import UserDetails from "../components/UserDetails";
+import UserDetails from "../pages/Dashboard/Admin/AllUsers/UserDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -184,7 +184,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: (
           // <ProtectedLogin>
-            <LoginPage />
+          <LoginPage />
           // </ProtectedLogin>
         ),
       },
@@ -192,7 +192,7 @@ const router = createBrowserRouter([
         path: "/signup",
         element: (
           // <ProtectedLogin>
-            <SignupPage />
+          <SignupPage />
           // </ProtectedLogin>
         ),
       },
@@ -242,8 +242,9 @@ const router = createBrowserRouter([
           },
           {
             path: "user_details/:id",
-            element: <UserDetails></UserDetails>
-          },
+            element: <UserDetails />,
+          }
+
         ],
       },
     ],
