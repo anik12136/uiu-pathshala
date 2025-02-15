@@ -1,5 +1,6 @@
 import React from 'react';
 import useAllUser from '../../../../Hooks/useAllUser';
+import { Link } from 'react-router-dom';
 
 const AllUsers = () => {
     const { allUsers, loading, error } = useAllUser();
@@ -7,7 +8,7 @@ const AllUsers = () => {
         <div className='p-4'>
             <div className='flex justify-between'>
                 <h2 className='font-bold text-black mb-5 '>All Users</h2>
-                <h2><input className='rounded-lg w-96 h-10 bg-white text-balance px-5 border-orange-400 border-2' type="text" placeholder='search...'/></h2>
+                <h2><input className='rounded-lg w-96 h-10 bg-white text-balance px-5 border-orange-400 border-2' type="text" placeholder='search...' /></h2>
             </div>
             <div>
                 <div className="overflow-x-auto">
@@ -15,29 +16,23 @@ const AllUsers = () => {
                         {/* head */}
                         <thead>
                             <tr className=' '>
-                               
+
                                 <th>SL</th>
                                 <th>User info</th>
                                 <th>Details</th>
-                                <th className='text-center'>Actions</th>
+                                
                             </tr>
                         </thead>
-                        <tbody>
 
+                        <tbody>
                             {allUsers?.map((user, index) => (
-                                <tr className=' '  key ={index}s>
-                                    <th>
-                                        <label>
-                                            <p>{index+1}</p>
-                                        </label>
-                                    </th>
+                                <tr key={user._id}>
+                                    <th>{index + 1}</th>
                                     <td>
                                         <div className="flex items-center gap-3">
                                             <div className="avatar">
                                                 <div className="mask mask-squircle h-12 w-12">
-                                                    <img
-                                                        src={user.photoURL}
-                                                        alt=" " />
+                                                    <img src={user.photoURL} alt="User Avatar" />
                                                 </div>
                                             </div>
                                             <div>
@@ -47,16 +42,13 @@ const AllUsers = () => {
                                             </div>
                                         </div>
                                     </td>
-                                   
-                                    <td><button>Details..</button></td>
-                                    <td className=' text-center'>
-                                        <button className='border-2 px-2 py-1 rounded-full me-2' >Warning</button> 
-                                        <button className='border-2 px-2 py-1 rounded-full'>Delete</button>
+                                    <td>
+                                        <button className="details border-2 rounded-full px-3 py-1">
+                                            <Link to={`/dashboard/user_details/${user._id}`}>Details... </Link>
+                                        </button>
                                     </td>
-                                    
                                 </tr>
                             ))}
-
                         </tbody>
                         {/* foot */}
 
