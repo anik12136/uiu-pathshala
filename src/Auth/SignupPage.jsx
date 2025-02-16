@@ -10,6 +10,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
+  const [studentID, setStudentID,] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,6 +21,7 @@ const SignupPage = () => {
 
   const isSignupDisabled =
     name.trim() === "" ||
+    studentID.trim() === "" ||
     email.trim() === "" ||
     password.trim() === "" ||
     confirmPassword.trim() === "" ||
@@ -47,12 +49,13 @@ const SignupPage = () => {
       // Store User Data in Database
       const userData = {
         name,
+        studentID,
         email,
-        photoURL,
+        photoURL: "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png",
         role: "user",
         rating:0,
         department:"",
-        studentID:""
+        
       };
 
       const response = await fetch(
@@ -69,6 +72,7 @@ const SignupPage = () => {
       if (response.ok) {
         toast.success("Account created successfully!");
         setName("");
+        setStudentID("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
@@ -109,17 +113,20 @@ const SignupPage = () => {
               />
             </div>
 
-            {/* Photo URL Input */}
-            {/* <div>
-              <label className="block text-gray-600 font-medium mb-1">Photo URL</label>
+           
+
+            {/* student Id Input */}
+            <div>
+              <label className="block text-gray-600 font-medium mb-1">Student ID</label>
               <input
-                type="text"
-                placeholder="Enter your photo URL"
+                type="number"
+                placeholder="Enter your Student ID"
                 className="w-full border rounded-lg px-4 py-2 text-gray-700 focus:ring-2 focus:ring-orange-500"
-                value={photoURL}
-                onChange={(e) => setPhotoURL(e.target.value)}
+                value={studentID}
+                onChange={(e) => setStudentID(e.target.value)}
+                required
               />
-            </div> */}
+            </div>
 
             {/* Email Input */}
             <div>
@@ -168,6 +175,7 @@ const SignupPage = () => {
                 required
               />
             </div>
+           
 
             {/* Submit Button */}
             <button
