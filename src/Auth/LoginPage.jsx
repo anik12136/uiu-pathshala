@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.png";
 // import { signInWithEmailAndPassword } from "firebase/auth";
@@ -9,17 +9,24 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const LoginPage = () => {
   // Context value
-  const { signIn } = useContext(AuthContext);
+  const { signIn,loading,user } = useContext(AuthContext);
+
   //get the location
   const location = useLocation();
   console.log(location);
 
-  const formLocation = location.state || "/";
+  const navigate = useNavigate();
+
+  const fromLocation = location.state || "/";
+  useEffect(()=>{
+    if(!loading && user){
+      navigate(location.state);
+    }
+  },[loading,location,user,navigate])
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
 
   // Handle Email Change
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -41,8 +48,8 @@ const LoginPage = () => {
       await signIn(email, password).then((res) => {
         console.log("InnerRes",res);
         if (res) {
-          console.log(formLocation);
-          navigate(formLocation);
+          console.log(fromLocation);
+          navigate(fromLocation);
           toast.success("Login successful! Welcome back.");
         }
       });

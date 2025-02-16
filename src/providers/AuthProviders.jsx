@@ -50,7 +50,8 @@ const AuthProviders = ({ children }) => {
   //Context shareable data
   const shareableData = {
     user,
-    // auth,
+    auth,
+    loading,
     createUser,
     signIn,
     logOut,
