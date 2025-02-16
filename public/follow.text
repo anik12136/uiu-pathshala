@@ -2,3 +2,11 @@ const { user } = useContext(AuthContext); //for access loged in user from fireba
 const { dbUser, loading, error } = useUser(); //for access loged in user from database
 
 const { allUsers, loading, error } = useAllUser(); //for all users from database
+
+
+for loading:
+import { Commet } from "react-loading-indicators";
+
+        <Commet color="#cc7731" size="large" text="" textColor="#NaNNaNNaN" />
+
+
