@@ -17,6 +17,7 @@ import { LiaBookSolid, LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { AuthContext } from "../../../providers/AuthProviders";
 import "./Header.css";
 import ProfileDropdownMenu from "../../../components/ProfileDropdown";
+import ActiveNavLink from "../../../components/ActiveNavLink/ActiveNavLink";
 
 const Navbar = () => {
   const { user,logOut } = useContext(AuthContext);
@@ -77,21 +78,21 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link
+            <ActiveNavLink
               to="/dashboard"
               className="text-gray-600 hover:text-orange-500">
               Dashboard
-            </Link>
+            </ActiveNavLink>
             <CommunityDropdown></CommunityDropdown>
-            <Link to="/library" className="text-gray-600 hover:text-orange-500">
+            <ActiveNavLink to="/library" className="text-gray-600 hover:text-orange-500">
               Library
-            </Link>
-            <Link to="/tutor" className="text-gray-600 hover:text-orange-500">
+            </ActiveNavLink>
+            <ActiveNavLink to="/tutor" className="text-gray-600 hover:text-orange-500">
               Tutor
-            </Link>
-            <Link to="/explore" className="text-gray-600 hover:text-orange-500">
+            </ActiveNavLink>
+            <ActiveNavLink to="/explore" className="text-gray-600 hover:text-orange-500">
               Explore
-            </Link>
+            </ActiveNavLink>
             {/* Notification button */}
             <button>
               <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500" />

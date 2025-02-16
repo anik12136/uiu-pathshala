@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Root from "../layouts/Root";
 import Home from "../pages/Home/Home";
 import LoginPage from "../Auth/LoginPage";
@@ -29,6 +29,10 @@ import EditCourse from "../pages/Tutor/EditCourse";
 import BookMark from "../pages/BookMark/BookMarkMainLayout";
 import UserDetailsModal from "../components/UserDetailsModal";
 import UserDetails from "../pages/Dashboard/Admin/AllUsers/UserDetails";
+import Books from "../pages/Books/Books";
+import Questions from "../pages/Questions/Questions";
+import Notes from "../pages/Notes/Notes";
+import Curriculums from "../pages/Curriculums/Curriculums";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +68,7 @@ const router = createBrowserRouter([
           </ProtectedRoutes>
         ),
       },
+      // Library Route
       {
         path: "/library",
         element: (
@@ -71,6 +76,28 @@ const router = createBrowserRouter([
             <Library />
           </ProtectedRoutes>
         ),
+        children:[
+          {
+            index:true,
+            element:<Navigate to="/library/books" replace/>,
+          },
+          {
+            path:"/library/books",
+            element:<Books></Books>
+          },
+          {
+            path:"/library/questions",
+            element:<Questions></Questions>
+          },
+          {
+            path:"/library/notes",
+            element:<Notes></Notes>
+          },
+          {
+            path:"/library/curriculums",
+            element:<Curriculums></Curriculums>
+          },
+        ]
       },
       {
         path: "/explore",
@@ -88,6 +115,7 @@ const router = createBrowserRouter([
           </ProtectedRoutes>
         ),
       },
+      // Tutor Route
       {
         path: "/tutor",
         element: (
