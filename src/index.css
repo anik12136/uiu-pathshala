@@ -6,3 +6,7 @@
   margin: 0px;
   padding: 0px;
 }
+*::selection{
+  color: white;
+  background-color: #F97316;
+}
