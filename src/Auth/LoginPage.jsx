@@ -20,9 +20,9 @@ const LoginPage = () => {
   const fromLocation = location.state || "/";
   useEffect(()=>{
     if(!loading && user){
-      navigate(location.state);
+      navigate(fromLocation);
     }
-  },[loading,location,user,navigate])
+  },[loading,fromLocation,user,navigate])
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,8 +49,8 @@ const LoginPage = () => {
         console.log("InnerRes",res);
         if (res) {
           console.log(fromLocation);
-          navigate(fromLocation);
           toast.success("Login successful! Welcome back.");
+          navigate(fromLocation);
         }
       });
 
