@@ -8,46 +8,54 @@ import {
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
 
-//auth creation
+// Auth creation
 const auth = getAuth(app);
-//A context is being created for sharing data to all other components
+
+// A context is being created for sharing data with other components
 export const AuthContext = createContext(null);
 
-// The components starts in here
+// The component starts here
 const AuthProviders = ({ children }) => {
-  // This state will capture logged in user data from firebase
+  // State to capture logged-in user data from Firebase
   const [user, setUser] = useState(null);
-  //Managing the loading state
-  const [loading,setLoading] =useState(true);
-  console.log(loading);
+  // Managing the loading state
+  const [loading, setLoading] = useState(true);
+  console.log("Loading State:", loading);
 
-  //Getting logged in user data from firebase
-  useEffect( ( ) =>{
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-        console.log('auth state change', currentUser);
-        setLoading(false);
-        setUser(currentUser); 
+  // Getting logged-in user data from Firebase
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log("Auth state change:", currentUser);
+      setUser(currentUser);
+      setLoading(false); // Loading ends when auth state check is complete
     });
-    return ( ) =>{
-        unsubscribe( );
-    }
-}, [ ])
 
+    return () => {
+      unsubscribe(); // Cleanup subscription on unmount
+    };
+  }, []);
 
-  // create users using email and password
+  // Create users using email and password
   const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-  //sign in using email and password
-  const signIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-  //sign out from the application
-  const logOut = () => {
-    return signOut(auth);
+    setLoading(true); // Set loading when user creation starts
+    return createUserWithEmailAndPassword(auth, email, password)
+      .finally(() => setLoading(false));
   };
 
-  //Context shareable data
+  // Sign in using email and password
+  const signIn = (email, password) => {
+    setLoading(true); // Set loading when sign-in starts
+    return signInWithEmailAndPassword(auth, email, password)
+      .finally(() => setLoading(false));
+  };
+
+  // Sign out from the application
+  const logOut = () => {
+    setLoading(true); // Set loading when logout starts
+    return signOut(auth).finally(() => setLoading(false));
+  };
+
+  // Context shareable data
   const shareableData = {
     user,
     auth,

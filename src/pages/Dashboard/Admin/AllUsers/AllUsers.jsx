@@ -7,7 +7,7 @@ const AllUsers = () => {
     return (
         <div className='p-4'>
             <div className='flex justify-between'>
-                <h2 className='font-bold text-black mb-5 '>All Users</h2>
+                <h2 className='font-bold text-black mb-5 '>All Users {`(`} <span>{allUsers.length}</span> {`)`}</h2>
                 <h2><input className='rounded-lg w-96 h-10 bg-white text-balance px-5 border-orange-400 border-2' type="text" placeholder='search...' /></h2>
             </div>
             <div>

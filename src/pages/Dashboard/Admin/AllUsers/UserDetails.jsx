@@ -18,7 +18,7 @@ const UserDetails = () => {
             .catch(error => console.error('Error fetching user:', error));
     }, [id]);
 
-    // ===========================[ MUTATION FUNCTIONS ]===========================
+    // =========================== MUTATION FUNCTIONS ===========================
 
     // Mutation: Issue warning
     const issueWarningMutation = useMutation({
@@ -54,7 +54,7 @@ const UserDetails = () => {
         },
     });
 
-    // ===========================[ EVENT HANDLERS ]===========================
+    // =========================== EVENT HANDLERS ===========================
 
     // Handle issuing warning
     const handleWarning = () => {
@@ -71,7 +71,7 @@ const UserDetails = () => {
             removeWarningMutation.mutate();
         }
     };
-    
+
 
     // Handle user deletion
     const handleDelete = () => {
@@ -90,7 +90,7 @@ const UserDetails = () => {
             .catch(error => console.error('Error deleting user:', error));
     };
 
-    // ===========================[ RENDER UI ]===========================
+    // =========================== RENDER UI ===========================
     if (!user) return <p>Loading...</p>;
 
     return (
