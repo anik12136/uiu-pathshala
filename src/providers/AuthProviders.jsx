@@ -17,11 +17,15 @@ export const AuthContext = createContext(null);
 const AuthProviders = ({ children }) => {
   // This state will capture logged in user data from firebase
   const [user, setUser] = useState(null);
+  //Managing the loading state
+  const [loading,setLoading] =useState(true);
+  console.log(loading);
 
   //Getting logged in user data from firebase
   useEffect( ( ) =>{
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
         console.log('auth state change', currentUser);
+        setLoading(false);
         setUser(currentUser); 
     });
     return ( ) =>{
