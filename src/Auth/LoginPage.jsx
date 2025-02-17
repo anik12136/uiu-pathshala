@@ -9,20 +9,20 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const LoginPage = () => {
   // Context value
-  const { signIn,loading,user } = useContext(AuthContext);
+  const { signIn, loading, user } = useContext(AuthContext);
 
   //get the location
   const location = useLocation();
-  console.log(location);
-
   const navigate = useNavigate();
+  // console.log(location);
 
   const fromLocation = location.state || "/";
-  useEffect(()=>{
-    if(!loading && user){
+  useEffect(() => {
+    if (!loading && user) {
+  
       navigate(fromLocation);
     }
-  },[loading,fromLocation,user,navigate])
+  }, [loading, fromLocation, user, navigate]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,11 +46,11 @@ const LoginPage = () => {
 
     try {
       await signIn(email, password).then((res) => {
-        console.log("InnerRes",res);
+        console.log("InnerRes", res);
         if (res) {
           console.log(fromLocation);
-          toast.success("Login successful! Welcome back.");
           navigate(fromLocation);
+          toast.success("Login successful! Welcome back.");
         }
       });
 

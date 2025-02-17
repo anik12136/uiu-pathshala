@@ -76,28 +76,44 @@ const router = createBrowserRouter([
             <Library />
           </ProtectedRoutes>
         ),
-        children:[
+        children: [
           {
-            index:true,
-            element:<Navigate to="/library/books" replace/>,
+            index: true,
+            element: <Navigate to="/library/books" replace />,
           },
           {
-            path:"/library/books",
-            element:<Books></Books>
+            path: "/library/books",
+            element: (
+              <ProtectedRoutes>
+                <Books></Books>
+              </ProtectedRoutes>
+            ),
           },
           {
-            path:"/library/questions",
-            element:<Questions></Questions>
+            path: "/library/questions",
+            element: (
+              <ProtectedRoutes>
+                <Questions></Questions>
+              </ProtectedRoutes>
+            ),
           },
           {
-            path:"/library/notes",
-            element:<Notes></Notes>
+            path: "/library/notes",
+            element: (
+              <ProtectedRoutes>
+                <Notes></Notes>
+              </ProtectedRoutes>
+            ),
           },
           {
-            path:"/library/curriculums",
-            element:<Curriculums></Curriculums>
+            path: "/library/curriculums",
+            element: (
+              <ProtectedRoutes>
+                <Curriculums></Curriculums>
+              </ProtectedRoutes>
+            ),
           },
-        ]
+        ],
       },
       {
         path: "/explore",
@@ -271,8 +287,7 @@ const router = createBrowserRouter([
           {
             path: "user_details/:id",
             element: <UserDetails />,
-          }
-
+          },
         ],
       },
     ],

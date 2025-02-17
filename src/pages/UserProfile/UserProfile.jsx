@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import UnderConstruction from "../../components/UnderConstruction";
 import { BiSolidPencil } from "react-icons/bi";
 import { FaFacebook, FaGithub, FaStar, FaYoutube } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import { IoPersonAddSharp } from "react-icons/io5";
+import { AuthContext } from "../../providers/AuthProviders";
 
 const UserProfile = () => {
+  const { user } = useContext(AuthContext);
+
   const interests = [
     "Data Science",
     "Machine Learning",
@@ -47,10 +51,17 @@ const UserProfile = () => {
           </div>
           {/* Child-3 */}
           <div className="ms-auto mt-4 lg:mt-8 ">
-            <button className="flex justify-center items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white p-2 lg:px-4 lg:py-2 rounded-lg shadow-md cursor-pointer ">
-              <BiSolidPencil className="text-lg lg:text-xl" />
-              <span className="hidden lg:inline">Edit profile</span>
-            </button>
+            {user ? (
+              <button className="flex justify-center items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white p-2 lg:px-4 lg:py-2 rounded-lg shadow-md cursor-pointer ">
+                <BiSolidPencil className="text-lg lg:text-xl" />
+                <span className="hidden lg:inline">Edit profile</span>
+              </button>
+            ) : (
+              <button className="flex justify-center items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white p-2 lg:px-4 lg:py-2 rounded-lg shadow-md cursor-pointer ">
+                <IoPersonAddSharp className="text-lg lg:text-xl" />
+                <span className="hidden lg:inline">Edit profile</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -58,7 +69,18 @@ const UserProfile = () => {
       <div className="mt-4 p-4 rounded-lg shadow-md border">
         <h1 className="font-semibold text-2xl text-gray-700 mb-4">About</h1>
         <p className="text-justify">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus vitae placeat fugit, amet accusamus distinctio maxime quia animi maiores sunt quos dignissimos aperiam sed aliquid modi consequatur ab itaque sequi in nulla deserunt. Recusandae, deserunt illum. Sunt nisi exercitationem ex iste numquam animi cumque facilis ducimus sint optio tempora harum, consectetur veritatis id, possimus dolorem suscipit! Delectus, quo ut necessitatibus, modi ex eligendi cupiditate quisquam vitae commodi est corporis deserunt consectetur, alias saepe adipisci dolore doloribus voluptate quia repellendus quasi consequatur. Eius ratione saepe pariatur quaerat vel nemo consequuntur. Rem repellat incidunt sint ipsum voluptate adipisci architecto dolores nisi voluptas.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus vitae
+          placeat fugit, amet accusamus distinctio maxime quia animi maiores
+          sunt quos dignissimos aperiam sed aliquid modi consequatur ab itaque
+          sequi in nulla deserunt. Recusandae, deserunt illum. Sunt nisi
+          exercitationem ex iste numquam animi cumque facilis ducimus sint optio
+          tempora harum, consectetur veritatis id, possimus dolorem suscipit!
+          Delectus, quo ut necessitatibus, modi ex eligendi cupiditate quisquam
+          vitae commodi est corporis deserunt consectetur, alias saepe adipisci
+          dolore doloribus voluptate quia repellendus quasi consequatur. Eius
+          ratione saepe pariatur quaerat vel nemo consequuntur. Rem repellat
+          incidunt sint ipsum voluptate adipisci architecto dolores nisi
+          voluptas.
         </p>
       </div>
       {/* =====================================Interest Section============================================== */}
@@ -128,10 +150,15 @@ const UserProfile = () => {
             alt=""
           />
           <div className="grow text-gray-700">
-            <h1 className="text-2xl font-semibold">Machine learnig for bigginers</h1>
+            <h1 className="text-2xl font-semibold">
+              Machine learnig for bigginers
+            </h1>
             <p className="text-gray-500 text-sm my-1">Duration: 4h</p>
             <p className="font-medium my-1">Yamin Hossain</p>
-            <p className="flex justify-start items-center gap-3"><FaStar className="text-yellow-500"/>(4/5)</p>
+            <p className="flex justify-start items-center gap-3">
+              <FaStar className="text-yellow-500" />
+              (4/5)
+            </p>
           </div>
         </div>
         {/* ---------------item-2------------------- */}
@@ -142,10 +169,15 @@ const UserProfile = () => {
             alt=""
           />
           <div className="grow text-gray-700">
-            <h1 className="text-2xl font-semibold">Machine learnig for bigginers</h1>
+            <h1 className="text-2xl font-semibold">
+              Machine learnig for bigginers
+            </h1>
             <p className="text-gray-500 text-sm my-1">Duration: 4h</p>
             <p className="font-medium my-1">Yamin Hossain</p>
-            <p className="flex justify-start items-center gap-3"><FaStar className="text-yellow-500"/>(4/5)</p>
+            <p className="flex justify-start items-center gap-3">
+              <FaStar className="text-yellow-500" />
+              (4/5)
+            </p>
           </div>
         </div>
         {/* ----------------item-3----------------------- */}
@@ -156,10 +188,15 @@ const UserProfile = () => {
             alt=""
           />
           <div className="grow text-gray-700">
-            <h1 className="text-2xl font-semibold">Machine learnig for bigginers</h1>
+            <h1 className="text-2xl font-semibold">
+              Machine learnig for bigginers
+            </h1>
             <p className="text-gray-500 text-sm my-1">Duration: 4h</p>
             <p className="font-medium my-1">Yamin Hossain</p>
-            <p className="flex justify-start items-center gap-3"><FaStar className="text-yellow-500"/>(4/5)</p>
+            <p className="flex justify-start items-center gap-3">
+              <FaStar className="text-yellow-500" />
+              (4/5)
+            </p>
           </div>
         </div>
       </div>
