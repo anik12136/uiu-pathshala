@@ -59,7 +59,7 @@ const UserProfile = () => {
             ) : (
               <button className="flex justify-center items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white p-2 lg:px-4 lg:py-2 rounded-lg shadow-md cursor-pointer ">
                 <IoPersonAddSharp className="text-lg lg:text-xl" />
-                <span className="hidden lg:inline">Edit profile</span>
+                <span className="hidden lg:inline">Add friend</span>
               </button>
             )}
           </div>
