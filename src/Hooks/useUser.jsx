@@ -17,7 +17,7 @@ const useUser = () => {
 
     const fetchUsers = async () => {
       try {
-        console.log("Fetching data for:", user.email);
+        // console.log("Fetching data for:", user.email);
         const response = await axios.get(`http://localhost:7000/dbUser/${user.email}`);
         setDbUser(response.data);
       } catch (err) {
@@ -32,7 +32,7 @@ const useUser = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log("Updated dbUser:", dbUser);
+    // console.log("Updated dbUser:", dbUser);
   }, [dbUser]);
 
   return { dbUser, loading, error };

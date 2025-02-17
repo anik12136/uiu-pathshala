@@ -33,6 +33,7 @@ import Books from "../pages/Books/Books";
 import Questions from "../pages/Questions/Questions";
 import Notes from "../pages/Notes/Notes";
 import Curriculums from "../pages/Curriculums/Curriculums";
+import DisplayLibraryContents from "../pages/DisplayLibraryContents/DisplayLibraryContents";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -86,6 +87,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoutes>
                 <Books></Books>
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "/library/books/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
               </ProtectedRoutes>
             ),
           },

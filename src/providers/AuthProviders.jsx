@@ -20,12 +20,12 @@ const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   // Managing the loading state
   const [loading, setLoading] = useState(true);
-  console.log("Loading State:", loading);
+  // console.log("Loading State:", loading);
 
   // Getting logged-in user data from Firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("Auth state change:", currentUser);
+      // console.log("Auth state change:", currentUser);
       setUser(currentUser);
       setLoading(false); // Loading ends when auth state check is complete
     });

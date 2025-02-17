@@ -38,7 +38,7 @@ const Navbar = () => {
     closeMenu();
   };
 
-  console.log(user);
+  // console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 

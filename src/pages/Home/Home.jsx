@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // Context value
   const {user} = useContext(AuthContext);
-  console.log("User data",user);
+  // console.log("User data",user);
   
   
   const [teachers, setTeachers] = useState([]);

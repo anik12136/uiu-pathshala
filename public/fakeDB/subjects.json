@@ -1,7 +1,38 @@
 [
-    {
-        "_id":1,
-        "course-code": "CSE3241",
-        "course-name": "Data Structure and Algorithms I"
-    }
+  {
+    "_id": 1,
+    "courseCode": "CSE3241",
+    "courseName": "Data Structure and Algorithms I",
+    "bannerImage": "https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "_id": 2,
+    "courseCode": "CSE3341",
+    "courseName": "Data Structure and Algorithms II",
+    "bannerImage": "https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "_id": 3,
+    "courseCode": "CSE3441",
+    "courseName": "Web Programming",
+    "bannerImage": "https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "_id": 4,
+    "courseCode": "CSE3541",
+    "courseName": "Machine Learning",
+    "bannerImage": "https://plus.unsplash.com/premium_photo-1661573007944-47dbec396806?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "_id": 5,
+    "courseCode": "CSE4511",
+    "courseName": "Bio Informatics",
+    "bannerImage": "https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "_id": 6,
+    "courseCode": "CSE4321",
+    "courseName": "Digital Image Processing",
+    "bannerImage": "https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
 ]
