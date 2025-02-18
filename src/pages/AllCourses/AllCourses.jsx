@@ -1,11 +1,9 @@
 import React from 'react';
-import CourseCard from '../../../components/CourseCard';
-import useCourses from '../../../Hooks/useCourses';
-import useUser from '../../../Hooks/useUser';
+import useCourses from '../../Hooks/useCourses';
+import CourseCard from '../../components/CourseCard';
 
-const DashboardCourses = () => {
-
-    const { courses, loading, error } = useCourses();      
+const AllCourses = () => {
+    const { courses, loading, error } = useCourses();
     
     if (loading) {
         return <p>Loading courses...</p>;
@@ -25,4 +23,4 @@ const DashboardCourses = () => {
     );
 };
 
-export default DashboardCourses;
+export default AllCourses;

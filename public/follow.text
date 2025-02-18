@@ -3,10 +3,9 @@ const { dbUser, loading, error } = useUser(); //for access loged in user from da
 
 const { allUsers, loading, error } = useAllUser(); //for all users from database
 
-
-for loading:
+--------for loading:-----------
 import { Commet } from "react-loading-indicators";
 
         <Commet color="#cc7731" size="large" text="" textColor="#NaNNaNNaN" />
-
+-------------------------------
 

@@ -10,7 +10,7 @@ const StudentDashboard = () => {
 
             <aside className="w-full lg:w-1/4 bg-orange-500 text-white p-4">
                 <div className="flex flex-col items-center mb-8">
-                    <h2>Admin Dashboard</h2>
+                    <h2>Student Dashboard</h2>
                     <img
                         src="https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
                         alt="Profile"
@@ -24,6 +24,18 @@ const StudentDashboard = () => {
                 {/* Vertical Navigation Links */}
                 <nav>
                     <ul className="space-y-4">
+                        <li>
+                            <NavLink
+                                to="/dashboard/home"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "block bg-orange-600 p-2 rounded font-bold"
+                                        : "block hover:bg-orange-600 p-2 rounded"
+                                }
+                            >
+                                Home
+                            </NavLink>
+                        </li>
                         <li>
                             <NavLink
                                 to="/dashboard/enrolledCourses"
@@ -50,7 +62,7 @@ const StudentDashboard = () => {
                         </li>
                         <li>
                             <NavLink
-                                to="/dashboard/pdf"
+                                to="/dashboard/myPdf"
                                 className={({ isActive }) =>
                                     isActive
                                         ? "block bg-orange-600 p-2 rounded font-bold"
@@ -86,6 +98,18 @@ const StudentDashboard = () => {
                         </li>
                         <li>
                             <NavLink
+                                to="/dashboard/myContest"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "block bg-orange-600 p-2 rounded font-bold"
+                                        : "block hover:bg-orange-600 p-2 rounded"
+                                }
+                            >
+                                Contest
+                            </NavLink>
+                        </li>
+                        {/* <li>
+                            <NavLink
                                 to="/dashboard/tutors"
                                 className={({ isActive }) =>
                                     isActive
@@ -95,8 +119,8 @@ const StudentDashboard = () => {
                             >
                                 Tutors
                             </NavLink>
-                        </li>
-                        <li>
+                        </li> */}
+                        {/* <li>
                             <NavLink
                                 to="/dashboard/settings"
                                 className={({ isActive }) =>
@@ -107,7 +131,7 @@ const StudentDashboard = () => {
                             >
                                 Settings
                             </NavLink>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </aside>

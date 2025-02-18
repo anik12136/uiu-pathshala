@@ -17,7 +17,7 @@ import ProgrammingCommunityTabs from "../components/ProgrammingCommunityLayout";
 import Question_Answer from "../pages/Programming  Community/MainLayout";
 import Contest from "../pages/Programming  Community/Contest/MainLayout";
 import ContestDetails from "../pages/Programming  Community/Contest/ContestDetails";
-import DashboardCourses from "../pages/Dashboard/DashboardCourses/DashboardCourses";
+// import DashboardCourses from "../pages/Dashboard/DashboardCourses/DashboardCourses";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import MyBooks from "../pages/Dashboard/MyBooks/MyBooks";
 import UnderConstruction from "../components/UnderConstruction";
@@ -34,6 +34,12 @@ import Questions from "../pages/Questions/Questions";
 import Notes from "../pages/Notes/Notes";
 import Curriculums from "../pages/Curriculums/Curriculums";
 import DisplayLibraryContents from "../pages/DisplayLibraryContents/DisplayLibraryContents";
+import AllCourses from "../pages/AllCourses/AllCourses";
+import MyContest from "../pages/Dashboard/StudentDashboard/Mycontest/Mycontest";
+import DashboardCourses from "../pages/Dashboard/StudentDashboard/DashboardCourses/DashboardCourses";
+import MyPdf from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdf";
+import MyPdfShow from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdfShow/MyPdfShow";
+import MyPdfUpload from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdfUpload/MyPdfUpload";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -266,6 +272,11 @@ const router = createBrowserRouter([
           },
           {
             // index: true,
+            path: "home",
+            element: <DashboardHome></DashboardHome>,
+          },
+          {
+            // index: true,
             path: "enrolledCourses",
             element: <DashboardCourses></DashboardCourses>,
           },
@@ -274,9 +285,17 @@ const router = createBrowserRouter([
             element: <MyBooks></MyBooks>,
           },
           {
-            path: "pdf",
-            element: <UnderConstruction></UnderConstruction>,
+            path: "myPdf",
+            element: <MyPdf></MyPdf>,
           },
+          // {
+          //   path: "myPdfShow",
+          //   element: <MyPdfShow></MyPdfShow>,
+          // },
+          // {
+          //   path: "myPdfUpload",
+          //   element: <MyPdfUpload></MyPdfUpload>,
+          // },
           {
             path: "notes",
             element: <UnderConstruction></UnderConstruction>,
@@ -284,6 +303,10 @@ const router = createBrowserRouter([
           {
             path: "questions",
             element: <UnderConstruction></UnderConstruction>,
+          },
+          {
+            path: "myContest",
+            element: <MyContest></MyContest>,
           },
           {
             path: "tutors",
@@ -299,6 +322,14 @@ const router = createBrowserRouter([
           },
         ],
       },
+
+      {
+        path: "/allCourses",
+        element: (
+          <AllCourses></AllCourses>
+        ),
+      },
+
     ],
   },
 ]);
