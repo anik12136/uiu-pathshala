@@ -18,9 +18,9 @@ const StudentDashboard = () => {
                     alt="Profile"
                     className="rounded-full mb-4 h-14"/>
                 }
-                <h2 className="text-lg font-semibold">{dbUser.name || user?.displayName || "Mr. X"}</h2>
+                <h2 className="text-lg font-semibold">{dbUser?.name || user?.displayName || "Mr. X"}</h2>
 
-                <p className="text-sm">{dbUser.email || user?.email}</p>
+                <p className="text-sm">{dbUser?.email || user?.email}</p>
             </div>
 
             {/* Vertical Navigation Links */}
