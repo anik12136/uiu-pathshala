@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import useNotifications from "../../../Hooks/useNotification";
+
+
 
 // Fetch posts function
 export const fetchPosts = async (setPosts, setError, setLoading) => {
@@ -16,13 +19,22 @@ export const fetchPosts = async (setPosts, setError, setLoading) => {
 };
 
 // Create post function
+
 export const createPost = async (postData) => {
     try {
-        const response = await axios.post("http://localhost:7000/CreateProgrammingPost", postData, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const response = await axios.post(
+            "http://localhost:7000/CreateProgrammingPost",
+            postData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        // Use the useNotifications hook to get refetchNotifications
+        const { refetchNotifications } = useNotifications();
+        await refetchNotifications(); // Refetch notifications after creating a post
 
         return response.data; // Return the response data for further handling
     } catch (err) {

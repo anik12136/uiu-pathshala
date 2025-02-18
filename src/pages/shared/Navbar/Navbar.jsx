@@ -18,7 +18,8 @@ import { AuthContext } from "../../../providers/AuthProviders";
 import "./Header.css";
 import ProfileDropdownMenu from "../../../components/ProfileDropdown";
 import ActiveNavLink from "../../../components/ActiveNavLink/ActiveNavLink";
-import Notification from "../../../components/Notification/Notification";
+import NotificationDropdown from "../../../components/Notification/NotificationDropdown";
+
 
 const Navbar = () => {
   const { user,logOut } = useContext(AuthContext);
@@ -43,7 +44,7 @@ const Navbar = () => {
 
 
 
- const notificationCount = 8;
+ 
 
 
 
@@ -112,8 +113,7 @@ const Navbar = () => {
               Explore
             </ActiveNavLink>
             {/* Notification button */}
-            <Notification notificationCount={notificationCount} />
-
+            <NotificationDropdown></NotificationDropdown>
             {/* Bookmarks button */}
             <Link to="/bookmark">
               <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
