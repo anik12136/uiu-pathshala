@@ -1,7 +1,17 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const NewCourseCard = ({ course, onEdit, onDelete }) => {
-  const isPublished = course.published;
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString(); // Converts to a human-readable format
+  };
+
+  if(course.status =="private"){
+    var isPublished = false;
+  }else{
+    var isPublished = true;
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-pointer overflow-hidden border-2 border-slate-300">
@@ -16,7 +26,7 @@ const NewCourseCard = ({ course, onEdit, onDelete }) => {
       <div className="p-4 flex flex-col bg-[#ff6c26] text-white h-48">
         <h3 className="font-semibold text-lg h-20">{course.title}</h3>
         <p className="text-sm mt-1">Chapters: {course.chapters.length ===0? "none":course.chapters.length }</p>
-        <p className="text-xs text-neutral-300 mt-1">Created: {course?.publishedOn || " Unpublished"}</p>
+        <p className="text-xs text-neutral-300 mt-1">Created: {course.publishedOn? formatDate(course.publishedOn) : " Unpublished"}</p>
 
         {/* Bottom Row */}
         <div className="flex justify-between items-center mt-4">
@@ -44,7 +54,7 @@ const NewCourseCard = ({ course, onEdit, onDelete }) => {
               isPublished ? "bg-green-500" : "bg-red-500"
             }`}
           >
-            {isPublished ? "Published" : "Private"}
+            {course.status}
           </span>
         </div>
       </div>
