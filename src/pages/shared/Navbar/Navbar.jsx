@@ -18,6 +18,7 @@ import { AuthContext } from "../../../providers/AuthProviders";
 import "./Header.css";
 import ProfileDropdownMenu from "../../../components/ProfileDropdown";
 import ActiveNavLink from "../../../components/ActiveNavLink/ActiveNavLink";
+import Notification from "../../../components/Notification/Notification";
 
 const Navbar = () => {
   const { user,logOut } = useContext(AuthContext);
@@ -37,6 +38,17 @@ const Navbar = () => {
     navigate("/login");
     closeMenu();
   };
+
+
+
+
+
+ const notificationCount = 8;
+
+
+
+
+
 
   // console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -84,19 +96,24 @@ const Navbar = () => {
               Dashboard
             </ActiveNavLink>
             <CommunityDropdown></CommunityDropdown>
-            <ActiveNavLink to="/library" className="text-gray-600 hover:text-orange-500">
+            <ActiveNavLink
+              to="/library"
+              className="text-gray-600 hover:text-orange-500">
               Library
             </ActiveNavLink>
-            <ActiveNavLink to="/tutor" className="text-gray-600 hover:text-orange-500">
+            <ActiveNavLink
+              to="/tutor"
+              className="text-gray-600 hover:text-orange-500">
               Tutor
             </ActiveNavLink>
-            <ActiveNavLink to="/explore" className="text-gray-600 hover:text-orange-500">
+            <ActiveNavLink
+              to="/explore"
+              className="text-gray-600 hover:text-orange-500">
               Explore
             </ActiveNavLink>
             {/* Notification button */}
-            <button>
-              <IoIosNotificationsOutline className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
-            </button>
+            <Notification notificationCount={notificationCount} />
+
             {/* Bookmarks button */}
             <Link to="/bookmark">
               <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
