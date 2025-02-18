@@ -89,10 +89,9 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
 
 
           {/* Tags Section */}
-          {course.tags && course.tags.trim() && (
+          {course.tags && (
             <div className="mt-2 flex flex-wrap gap-2">
               {course.tags
-                .split(",")
                 .map((tag) => tag.trim())
                 .filter((tag) => tag) // Ensure no empty tags are rendered
                 .map((tag, index) => (
