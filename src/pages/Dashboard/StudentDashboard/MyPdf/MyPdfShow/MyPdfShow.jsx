@@ -1,9 +1,10 @@
 import React from 'react';
+import PdfList from '../PdfList/PdfList';
 
 const MyPdfShow = () => {
     return (
         <div>
-            all my pdf
+            <PdfList></PdfList>
         </div>
     );
 };

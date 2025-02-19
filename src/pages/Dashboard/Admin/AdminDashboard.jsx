@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useUser from "../../../Hooks/useUser";
 import { AuthContext } from "../../../providers/AuthProviders";
+import { Commet } from "react-loading-indicators";
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext); // Get logged-in user from context
   const { dbUser, loading, error } = useUser(); // Get database user info
 
-  if (loading) return <div>Loading user data...</div>;
+  if (loading) return <Commet color="#cc7731" size="large" text="" textColor="#NaNNaNNaN" />;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -37,13 +38,13 @@ const AdminDashboard = () => {
           <ul className="space-y-4">
             <li>
               <NavLink
-                to="/dashboard/pdf"
+                to="/dashboard"
                 className={({ isActive }) =>
                   isActive
                     ? "block bg-orange-600 p-2 rounded font-bold"
                     : "block hover:bg-orange-600 p-2 rounded"
                 }>
-                Manage classes
+                Manage users
               </NavLink>
             </li>
           </ul>
