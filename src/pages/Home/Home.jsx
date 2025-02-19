@@ -20,7 +20,7 @@ const Home = () => {
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
     // fetch("../../../public/fakeDB/top-rated-tutors.json")
-    fetch("http://localhost:7000/courses")
+    fetch("https://server-uiu-pathshala.vercel.app/courses")
       .then((res) => res.json())
       .then((data) => setTeachers(data));
   }, []);

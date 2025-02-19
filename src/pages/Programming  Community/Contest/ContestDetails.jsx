@@ -44,7 +44,7 @@ const ContestDetails = () => {
     const fetchContest = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7000/GetContest/${id}`
+          `https://server-uiu-pathshala.vercel.app/GetContest/${id}`
         );
         setContest(response.data[0]); // API returns array with single contest
         setLoading(false);

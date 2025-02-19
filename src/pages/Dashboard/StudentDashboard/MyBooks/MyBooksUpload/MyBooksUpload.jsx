@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../../../providers/AuthProviders';
 
-const MyPdfUpload = () => {
+const MyBooksUpload = () => {
     const { user } = useContext(AuthContext);
     const email = user?.email; // Get user email from AuthContext
-    const pdf = "pdf";
+    const pdf = "bookPdf"; // Get user email from AuthContext
 
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
@@ -116,4 +116,5 @@ const MyPdfUpload = () => {
     );
 }
 
-export default MyPdfUpload;
+export default MyBooksUpload;
+

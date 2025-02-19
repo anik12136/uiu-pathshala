@@ -45,7 +45,7 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
         <img
           src={
             course.bannerImage
-              ? `http://localhost:7000/uploads/${course.bannerImage}`
+              ? `https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`
               : "https://placehold.co/800x400"
           }
           alt={course.title || "Untitled Course"}

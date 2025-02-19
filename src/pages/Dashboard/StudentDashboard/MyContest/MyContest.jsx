@@ -19,7 +19,7 @@ const MyContest = () => {
         const fetchUsers = async () => {
             try {
                 // console.log("Fetching data for:", user.email);
-                const response = await axios.get(`http://localhost:7000/myContest/${user.email}`);
+                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/myContest/${user.email}`);
                 setBookMarks(response.data);
             } catch (err) {
                 console.error("Error fetching data:", err.message);

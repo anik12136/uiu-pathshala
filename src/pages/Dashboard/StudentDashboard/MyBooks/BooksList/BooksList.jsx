@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../../../providers/AuthProviders';
 
-const PdfList = () => {
+const BooksList = () => {
     const { user } = useContext(AuthContext);
     const email = user?.email;
-    const pdf = "pdf";
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -13,7 +12,8 @@ const PdfList = () => {
         const fetchFiles = async () => {
             try {
                 if (!email) return;
-                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/upload/files?email=${email}`);
+                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/upload/files?email=${email}&${pdf}`);
+                // const response = await axios.get(`http://localhost:7000/api/upload/books?email=${email}`);
                 setFiles(response.data);
             } catch (error) {
                 console.error('Error fetching files:', error);
@@ -55,4 +55,5 @@ const PdfList = () => {
     );
 };
 
-export default PdfList;
+export default BooksList;
+

@@ -107,7 +107,7 @@ const Chapter = ({ chapter, courseId, onSaveField, onDeleteChapter, onDeleteVide
               <video
                 controls
                 className="md:w-1/3 w-full rounded mb-4 md:mb-0 md:mr-4"
-                src={`http://localhost:7000/uploads/${video.filename}`}
+                src={`https://server-uiu-pathshala.vercel.app/uploads/${video.filename}`}
               />
               {/* Video Details */}
               <div className="flex-1 self-start">
