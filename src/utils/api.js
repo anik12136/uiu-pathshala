@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://server-uiu-pathshala.vercel.app/chat"; // Replace with your backend URL
+const API_BASE_URL = "http://localhost:7000/chat"; // Replace with your backend URL
  
 // Helper function to handle API requests
 const handleApiError = (error) => {

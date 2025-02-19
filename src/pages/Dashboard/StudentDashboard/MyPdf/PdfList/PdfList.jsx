@@ -13,7 +13,7 @@ const PdfList = () => {
         const fetchFiles = async () => {
             try {
                 if (!email) return;
-                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/upload/files?email=${email}`);
+                const response = await axios.get(`http://localhost:7000/api/upload/files?email=${email}`);
                 setFiles(response.data);
             } catch (error) {
                 console.error('Error fetching files:', error);

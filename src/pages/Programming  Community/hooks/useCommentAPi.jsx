@@ -8,7 +8,7 @@ export const useComments = (postId) => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        `https://server-uiu-pathshala.vercel.app/GetProgrammingComments/${postId}`
+        `http://localhost:7000/GetProgrammingComments/${postId}`
       );
       setComments(response.data);
     } catch (err) {
@@ -21,7 +21,7 @@ export const useComments = (postId) => {
 
     try {
       const response = await axios.post(
-        "https://server-uiu-pathshala.vercel.app/CreateProgrammingComment",
+        "http://localhost:7000/CreateProgrammingComment",
         { postId, author, text }
       );
 
@@ -38,7 +38,7 @@ export const useComments = (postId) => {
     console.log("Voting for commentId:", commentId); // Log commentId to ensure correctness
 
     const response = await axios.put(
-      `https://server-uiu-pathshala.vercel.app/VoteProgrammingComment/${commentId}`,
+      `http://localhost:7000/VoteProgrammingComment/${commentId}`,
       { type, author }
     );
 
@@ -64,7 +64,7 @@ export const useComments = (postId) => {
   const deleteComment = async (commentId) => {
     try {
       await axios.delete(
-        `https://server-uiu-pathshala.vercel.app/DeleteProgrammingComment/${commentId}`
+        `http://localhost:7000/DeleteProgrammingComment/${commentId}`
       );
       setComments((prevComments) =>
         prevComments.filter((comment) => comment._id !== commentId)
@@ -77,7 +77,7 @@ export const useComments = (postId) => {
   const updateComment = async (commentId, text) => {
     try {
       const response = await axios.put(
-        `https://server-uiu-pathshala.vercel.app/UpdateProgrammingComment/${commentId}`,
+        `http://localhost:7000/UpdateProgrammingComment/${commentId}`,
         { text }
       );
 

@@ -32,7 +32,7 @@ const BookMark = () => {
   const fetchBookmarks = async () => {
     try {
       const response = await axios.get(
-        `https://server-uiu-pathshala.vercel.app/BookMark/getAllBookMark/${user.email}`
+        `http://localhost:7000/BookMark/getAllBookMark/${user.email}`
         );
         
       setBookmarks(response.data);
@@ -50,7 +50,7 @@ const BookMark = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://server-uiu-pathshala.vercel.app/BookMark/deleteSingleBookMark/${id}`
+        `http://localhost:7000/BookMark/deleteSingleBookMark/${id}`
       );
       fetchBookmarks();
     } catch (error) {

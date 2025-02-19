@@ -35,7 +35,7 @@ const MyPdfUpload = () => {
         try {
             // Initiating file upload with progress tracking
             const response = await axios.post(
-                'https://server-uiu-pathshala.vercel.app/api/upload',
+                'http://localhost:7000/api/upload',
                 // 'http://localhost:7000/api/upload',
                 formData,
                 {

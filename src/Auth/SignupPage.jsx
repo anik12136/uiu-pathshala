@@ -59,7 +59,7 @@ const SignupPage = () => {
       };
 
       const response = await fetch(
-        "https://server-uiu-pathshala.vercel.app/users",
+        "http://localhost:7000/users",
         {
           method: "POST",
           headers: {

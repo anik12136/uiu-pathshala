@@ -9,7 +9,7 @@ const useAllUser = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("https://server-uiu-pathshala.vercel.app/allUsers");
+        const response = await axios.get("http://localhost:7000/allUsers");
         setAllUsers(response.data); // Update the allUser state with fetched data
       } catch (err) {
         setError(err.message || "An error occurred while fetching data.");

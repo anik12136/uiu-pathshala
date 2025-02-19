@@ -26,7 +26,7 @@ const VideoUploadModal = ({ courseId, chapterId, onClose }) => {
     try {
       setIsUploading(true);
       const response = await axios.post(
-        `https://server-uiu-pathshala.vercel.app/api/courses/${courseId}/chapters/${chapterId}/videos`,
+        `http://localhost:7000/api/courses/${courseId}/chapters/${chapterId}/videos`,
         formData,
         {
           headers: {
