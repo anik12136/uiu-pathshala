@@ -11,7 +11,7 @@ const useCourses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/courses");
+        const response = await axios.get("https://server-uiu-pathshala.vercel.app/courses");
         setCourses(response.data); // Update the courses state with fetched data
       } catch (err) {
         setError(err.message || "An error occurred while fetching data.");
@@ -26,7 +26,7 @@ const useCourses = () => {
   const addCourse = async (newCourseData) => {
     try {
       const response = await axios.post(
-        "http://localhost:7000/courses",
+        "https://server-uiu-pathshala.vercel.app/courses",
         newCourseData
       );
       if (response.data.success) {

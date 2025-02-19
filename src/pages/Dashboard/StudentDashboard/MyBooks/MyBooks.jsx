@@ -1,9 +1,10 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import MyPdfShow from './MyPdfShow/MyPdfShow';
-import MyPdfUpload from './MyPdfUpload/MyPdfUpload';
+import MyBooksShow from './MyBooksShow/MyBooksShow';
+import MyBooksUpload from './MyBooksUpload/MyBooksUpload';
 
-const MyPdf = () => {
+
+const MyBooks = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl">
             <Tabs className="w-full">
@@ -17,14 +18,14 @@ const MyPdf = () => {
                 </TabList>
 
                 <TabPanel className="space-y-6">
-                    <MyPdfShow />
+                    <MyBooksShow />
                 </TabPanel>
                 <TabPanel className="space-y-6">
-                    <MyPdfUpload />
+                    <MyBooksUpload />
                 </TabPanel>
             </Tabs>
         </div>
     );
 };
 
-export default MyPdf;
+export default MyBooks;

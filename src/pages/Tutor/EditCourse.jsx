@@ -21,7 +21,7 @@ const EditCourse = () => {
   const fetchCourseDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:7000/api/courses/${courseId}`
+        `https://server-uiu-pathshala.vercel.app/api/courses/${courseId}`
       );
       console.log("Course details:", response.data);
       setCourse(response.data);
@@ -57,13 +57,13 @@ const EditCourse = () => {
       // Construct API URL based on entity type
       switch (entityType) {
         case "course":
-          apiUrl = `http://localhost:7000/api/courses/${ids.courseId}/${field}`;
+          apiUrl = `https://server-uiu-pathshala.vercel.app/api/courses/${ids.courseId}/${field}`;
           break;
         case "chapter":
-          apiUrl = `http://localhost:7000/api/courses/${ids.courseId}/chapters/${ids.chapterId}/${field}`;
+          apiUrl = `https://server-uiu-pathshala.vercel.app/api/courses/${ids.courseId}/chapters/${ids.chapterId}/${field}`;
           break;
         case "video":
-          apiUrl = `http://localhost:7000/api/courses/${ids.courseId}/videos/${ids.videoId}/${field}`;
+          apiUrl = `https://server-uiu-pathshala.vercel.app/api/courses/${ids.courseId}/videos/${ids.videoId}/${field}`;
           break;
         default:
           throw new Error("Invalid entity type");
@@ -107,7 +107,7 @@ const EditCourse = () => {
 
     try {
       await axios.post(
-        `http://localhost:7000/api/courses/${courseId}/chapters`,
+        `https://server-uiu-pathshala.vercel.app/api/courses/${courseId}/chapters`,
         newChapter
       );
       setNewChapter({ title: "", description: "" });
@@ -132,7 +132,7 @@ const EditCourse = () => {
     try {
       setUploading(true);
       await axios.post(
-        `http://localhost:7000/api/courses/${courseId}/chapters/${chapterId}/videos`,
+        `https://server-uiu-pathshala.vercel.app/api/courses/${courseId}/chapters/${chapterId}/videos`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

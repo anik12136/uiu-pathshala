@@ -68,7 +68,7 @@ const CreateContest = ({ setContests }) => {
     try {
       const finalData = { ...formData, author };
       const response = await axios.post(
-        "http://localhost:7000/createContest",
+        "https://server-uiu-pathshala.vercel.app/createContest",
         finalData
       );
 

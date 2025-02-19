@@ -52,7 +52,7 @@ const CreateCourse = () => {
     };
 console.log(courseData);
     try {
-      const response = await fetch("http://localhost:7000/courseCollection", {
+      const response = await fetch("https://server-uiu-pathshala.vercel.app/courseCollection", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

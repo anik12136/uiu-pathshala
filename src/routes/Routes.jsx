@@ -19,7 +19,6 @@ import Contest from "../pages/Programming  Community/Contest/MainLayout";
 import ContestDetails from "../pages/Programming  Community/Contest/ContestDetails";
 // import DashboardCourses from "../pages/Dashboard/DashboardCourses/DashboardCourses";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
-import MyBooks from "../pages/Dashboard/MyBooks/MyBooks";
 import UnderConstruction from "../components/UnderConstruction";
 // import ProtectedLogin from "./ProtectedRoutes/ProtectedLogin",
 import LiveSessions from "../pages/Tutor/LiveSessions";
@@ -38,8 +37,8 @@ import AllCourses from "../pages/AllCourses/AllCourses";
 import MyContest from "../pages/Dashboard/StudentDashboard/Mycontest/Mycontest";
 import DashboardCourses from "../pages/Dashboard/StudentDashboard/DashboardCourses/DashboardCourses";
 import MyPdf from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdf";
-import MyPdfShow from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdfShow/MyPdfShow";
-import MyPdfUpload from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdfUpload/MyPdfUpload";
+import MyBooks from "../pages/Dashboard/StudentDashboard/MyBooks/MyBooks";
+
 const router = createBrowserRouter([
   {
     path: "/",
