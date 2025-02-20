@@ -16,9 +16,9 @@ const StudentDashboard = () => {
         <div className="flex h-screen">
             {/* Sidebar */}
             <aside
-                className={`fixed lg:relative top-0 left-0 h-screen w-64 lg:w-1/4 p-6 z-10 transition-transform duration-300 
+                className={`fixed lg:relative lg:top-0 left-0 h-screen w-64 lg:w-1/4 p-6 z-10 transition-transform duration-300 
         ${sidebarOpen ? "translate-x-0" : "-translate-x-64"} lg:translate-x-0 
-        bg-orange-500 lg:bg-white text-white lg:text-black shadow-lg`}
+        bg-orange-400 lg:bg-white text-white lg:text-black shadow-lg`}
             >
                 {/* Close Button (Mobile View) */}
                 <button
@@ -64,7 +64,7 @@ const StudentDashboard = () => {
                                     to={item.to}
                                     className={({ isActive }) =>
                                         `flex items-center gap-2 p-3 rounded-lg transition-all duration-200 
-                             ${isActive ? "bg-orange-700 font-bold" : "hover:bg-orange-600"}`
+                             ${isActive ? "bg-orange-300 font-bold" : "hover:bg-orange-600"}`
                                     }
                                 >
                                     {item.icon} {item.label}

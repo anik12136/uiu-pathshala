@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAllUser from "../../../../Hooks/useAllUser";
+import { Commet } from "react-loading-indicators";
 
 const AllUsers = () => {
   const { allUsers, loading, error } = useAllUser();
@@ -20,7 +21,7 @@ const AllUsers = () => {
   }, [searchQuery, allUsers]);
 
   if (loading) {
-    return <div className="text-center py-10 text-xl font-semibold text-gray-700">Loading...</div>;
+    return <div className="flex justify-center items-center"><Commet color="#cc7731" size="large" text="" textColor="#NaNNaNNaN" /></div>;
   }
 
   if (error) {
