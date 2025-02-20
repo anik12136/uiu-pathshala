@@ -42,7 +42,14 @@ const DashboardCourses = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 bg-gray-100">
       {bookMarks.map((bookmark) => (
-        <BookMarkCourseCard key={bookmark._id} courseId={bookmark.courseId} />
+        <BookMarkCourseCard
+          key={bookmark._id}
+          courseId={bookmark.courseId}
+          bookmarkId={bookmark._id} 
+          onDelete={(deletedId) =>
+            setBookMarks(bookMarks.filter((b) => b._id !== deletedId))
+          }
+        />
       ))}
     </div>
   );

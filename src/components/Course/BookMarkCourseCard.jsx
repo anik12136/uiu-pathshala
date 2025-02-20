@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FaBook, FaVideo, FaTag } from "react-icons/fa";
+import { FaBook, FaVideo, FaTag, FaTrash } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import useCourses from "../../Hooks/useCourses";
 
-const BookMarkCourseCard = ({ courseId }) => {
+const BookMarkCourseCard = ({ courseId, bookmarkId, onDelete }) => {
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { deleteBookmark } = useCourses(); // Hook for deleting bookmarks
 
   useEffect(() => {
     if (!courseId) {
@@ -31,6 +35,19 @@ const BookMarkCourseCard = ({ courseId }) => {
     fetchCourse();
   }, [courseId]);
 
+  const handleDeleteBookmark = async () => {
+    if (!bookmarkId) return;
+
+    try {
+      await deleteBookmark(bookmarkId);
+      toast.success("Bookmark deleted successfully!");
+      if (onDelete) onDelete(bookmarkId); // Remove from UI
+    } catch (error) {
+      console.error("Error deleting bookmark:", error);
+      toast.error("Failed to delete bookmark.");
+    }
+  };
+
   if (loading) return <p className="text-center text-lg">Loading course...</p>;
   if (error) return <p className="text-center text-red-500">Error: {error}</p>;
   if (!course)
@@ -47,7 +64,14 @@ const BookMarkCourseCard = ({ courseId }) => {
     : 0;
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden w-80 border border-gray-200">
+    <div className="bg-white shadow-md rounded-lg overflow-hidden w-80 border border-gray-200 relative">
+      {/* Delete Button (Top Right) */}
+      <button
+        onClick={handleDeleteBookmark}
+        className="absolute top-3 right-3 text-red-500 hover:text-red-700 bg-white p-2 rounded-full shadow-md transition-transform transform hover:scale-110">
+        <FaTrash />
+      </button>
+
       {/* Course Banner */}
       <img
         src={`http://localhost:7000/uploads/${course.bannerImage}`}
@@ -90,13 +114,16 @@ const BookMarkCourseCard = ({ courseId }) => {
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t bg-gray-50">
+      <div className="p-4 border-t bg-gray-50 flex justify-center">
         <Link
           to={`/course/${course._id}`}
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full text-center block">
+          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-center w-full text-lg font-medium">
           View Course
         </Link>
       </div>
+
+      {/* Toast Notifications */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

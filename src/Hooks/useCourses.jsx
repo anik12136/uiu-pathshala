@@ -3,6 +3,7 @@ import axios from "axios";
 import useNotifications from "./useNotification"; // Import for notifications
 
 const API_BASE_URL = "http://localhost:7000/api/courses"; // Base API URL
+const BOOKMARK_BASE_URL = "http://localhost:7000/BookMark"; // Bookmark API Base URL
 
 const useCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -53,7 +54,36 @@ const useCourses = () => {
     }
   };
 
-  return { courses, SingleCourse, loading, error, addCourse, getCourseById };
+  // Delete a single bookmark
+  const deleteBookmark = async (bookmarkId) => {
+    try {
+      const response = await axios.delete(
+        `${BOOKMARK_BASE_URL}/deleteSingleBookMark/${bookmarkId}`
+      );
+      if (response.data.success) {
+        // Successfully deleted bookmark
+        console.log("Bookmark deleted successfully!");
+        // Optionally, you can also update your state here if needed
+        // For example, removing it from the courses list or updating the bookmarks UI
+        // You can add a function to refetch or update the state after deletion if necessary
+      } else {
+        console.error("Error deleting bookmark:", response.data.message);
+      }
+    } catch (err) {
+      console.error("Error deleting bookmark:", err.message);
+      setError(err.message || "An error occurred while deleting the bookmark.");
+    }
+  };
+
+  return {
+    courses,
+    SingleCourse,
+    loading,
+    error,
+    addCourse,
+    getCourseById,
+    deleteBookmark, // Expose the deleteBookmark function to the components that need it
+  };
 };
 
 export default useCourses;
