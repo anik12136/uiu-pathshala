@@ -16,7 +16,7 @@ const CourseCard = ({ course }) => {
 
     try {
       const response = await fetch(
-        "https://server-uiu-pathshala.vercel.app/BookMark/addBookmark",
+        "http://localhost:7000/BookMark/addBookmark",
         {
           method: "POST",
           headers: {

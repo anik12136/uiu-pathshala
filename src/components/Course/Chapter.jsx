@@ -57,7 +57,7 @@ const Chapter = ({ chapter, courseId, onSaveField, onDeleteChapter, onDeleteVide
   return (
     <div className="p-6 bg-orange-100 shadow-md rounded-lg mb-6">
       {/* Chapter Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 py-6 border-b-2 border-blue-900">
         <div className="flex items-center space-x-2">
           <h2 className="text-xl font-bold">{chapter.title}</h2>
           <button
@@ -107,7 +107,7 @@ const Chapter = ({ chapter, courseId, onSaveField, onDeleteChapter, onDeleteVide
               <video
                 controls
                 className="md:w-1/3 w-full rounded mb-4 md:mb-0 md:mr-4"
-                src={`https://server-uiu-pathshala.vercel.app/uploads/${video.filename}`}
+                src={`http://localhost:7000/uploads/${video.filename}`}
               />
               {/* Video Details */}
               <div className="flex-1 self-start">

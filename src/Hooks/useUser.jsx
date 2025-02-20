@@ -20,7 +20,7 @@ const useUser = () => {
         console.log("Fetching user for email:", user.email);
 
         const response = await axios.get(
-          `https://server-uiu-pathshala.vercel.app/dbUser/${user.email}`
+          `http://localhost:7000/dbUser/${user.email}`
         );
 
         console.log("API Response:", response.data);

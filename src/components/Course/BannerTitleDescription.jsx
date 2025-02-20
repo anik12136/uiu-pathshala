@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditModal from "./EditModal"; // Assuming EditModal is reusable for editing fields
 import { FaEdit } from "react-icons/fa";
+import "./BannerTitle.css";
 
 const BannerTitleDescription = ({ course, onSaveField }) => {
   const [editingField, setEditingField] = useState(null);
@@ -74,21 +75,6 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
 
 
           {/* Tags Section */}
-          {/* {course.tags && course.tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {course?.tags?.map((tag, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full border border-blue-300"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )} */}
-
-
-          {/* Tags Section */}
           {course.tags && (
             <div className="mt-2 flex flex-wrap gap-2">
               {course.tags
@@ -105,6 +91,8 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
             </div>
           )}
 
+
+          
           {/* Description Section */}
           <div className="mt-4 flex items-center">
             <p className="text-gray-700">
@@ -120,6 +108,21 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
               </span>
             </button>
           </div>
+
+          {/* status section */}
+          <div className="mt-4 flex items-center">
+            {course.status}
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={course.status === "public"}
+                disabled={course.status === "private"}
+                readOnly
+              />
+              <span className="slider round"></span>
+            </label>
+          </div>
+          
         </div>
       </div>
 

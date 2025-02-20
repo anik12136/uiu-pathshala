@@ -17,7 +17,7 @@ const useNotifications = () => {
 
     try {
       const response = await axios.get(
-        `https://server-uiu-pathshala.vercel.app/NotificationsRoutes/getNotifications/${dbUser._id}`
+        `http://localhost:7000/NotificationsRoutes/getNotifications/${dbUser._id}`
       );
       if (response.data) {
         setNotifications(response.data.notifications || []); // Update notifications state
@@ -39,7 +39,7 @@ const useNotifications = () => {
 
     try {
       const response = await axios.post(
-        `https://server-uiu-pathshala.vercel.app/NotificationsRoutes/markAsRead`,
+        `http://localhost:7000/NotificationsRoutes/markAsRead`,
         { userId: dbUser._id, notificationId }
       );
 
@@ -61,7 +61,7 @@ const useNotifications = () => {
 
     try {
       const response = await axios.post(
-        `https://server-uiu-pathshala.vercel.app/NotificationsRoutes/markAsRead`,
+        `http://localhost:7000/NotificationsRoutes/markAsRead`,
         { userId: dbUser._id }
       );
 

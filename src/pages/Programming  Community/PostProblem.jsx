@@ -35,7 +35,7 @@ const { user } = useContext(AuthContext);
 
     try {
       const response = await fetch(
-        "https://server-uiu-pathshala.vercel.app/CreateProgrammingPost",
+        "http://localhost:7000/CreateProgrammingPost",
         {
           method: "POST",
           headers: {

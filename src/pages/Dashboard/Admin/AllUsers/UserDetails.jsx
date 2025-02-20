@@ -13,7 +13,7 @@ const UserDetails = () => {
     console.log(user);
     // Fetch user data on mount
     useEffect(() => {
-        fetch(`https://server-uiu-pathshala.vercel.app/users/${id}`)
+        fetch(`http://localhost:7000/users/${id}`)
             .then(res => res.json())
             .then(data => setUser(data))
             .catch(error => console.error('Error fetching user:', error));
@@ -24,7 +24,7 @@ const UserDetails = () => {
     // Mutation: Issue warning
     const issueWarningMutation = useMutation({
         mutationFn: async () => {
-            const response = await axios.put(`https://server-uiu-pathshala.vercel.app/users/${id}`, { warning: 'warning' });
+            const response = await axios.put(`http://localhost:7000/users/${id}`, { warning: 'warning' });
             return response.data;
         },
         onSuccess: () => {
@@ -41,7 +41,7 @@ const UserDetails = () => {
     // Mutation: Remove warning
     const removeWarningMutation = useMutation({
         mutationFn: async () => {
-            const response = await axios.put(`https://server-uiu-pathshala.vercel.app/users/${id}`, { warning: 'none' });
+            const response = await axios.put(`http://localhost:7000/users/${id}`, { warning: 'none' });
             return response.data;
         },
         onSuccess: () => {
@@ -79,7 +79,7 @@ const UserDetails = () => {
         const confirmDelete = window.confirm('Are you sure you want to delete this user?');
         if (!confirmDelete) return;
 
-        fetch(`https://server-uiu-pathshala.vercel.app/users/${id}`, { method: 'DELETE' })
+        fetch(`http://localhost:7000/users/${id}`, { method: 'DELETE' })
             .then(res => {
                 if (res.ok) {
                     alert('User deleted successfully');
@@ -153,7 +153,7 @@ export default UserDetails;
 //     const confirmWarning = window.confirm(`Are you sure you want to issue a warning to ${user?.name}?`);
 //     if (!confirmWarning) return;
 
-//     fetch(`https://server-uiu-pathshala.vercel.app/users/${id}`, {
+//     fetch(`http://localhost:7000/users/${id}`, {
 //         method: 'PUT',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify({ warning: 'warning' })

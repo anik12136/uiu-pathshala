@@ -7,7 +7,9 @@ import useNotifications from "../../../Hooks/useNotification";
 // Fetch posts function
 export const fetchPosts = async (setPosts, setError, setLoading) => {
     try {
-        const response = await axios.get("https://server-uiu-pathshala.vercel.app/GetProgrammingPost");
+        const response = await axios.get(
+          "http://localhost:7000/GetProgrammingPost"
+        );
         setPosts(response.data);
         setError(null);
     } catch (err) {
@@ -23,13 +25,13 @@ export const fetchPosts = async (setPosts, setError, setLoading) => {
 export const createPost = async (postData) => {
     try {
         const response = await axios.post(
-            "https://server-uiu-pathshala.vercel.app/CreateProgrammingPost",
-            postData,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
+          "http://localhost:7000/CreateProgrammingPost",
+          postData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
 
         // Use the useNotifications hook to get refetchNotifications
@@ -55,7 +57,9 @@ export const usePosts = () => {
 
     const deletePost = async (postId) => {
         try {
-            await axios.delete(`https://server-uiu-pathshala.vercel.app/DeleteProgrammingPost/${postId}`);
+            await axios.delete(
+              `http://localhost:7000/DeleteProgrammingPost/${postId}`
+            );
             setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
         } catch (err) {
             console.error("Error deleting post:", err);
@@ -66,13 +70,13 @@ export const usePosts = () => {
     const updatePost = async (postId, updatedData) => {
         try {
             const response = await axios.put(
-                `https://server-uiu-pathshala.vercel.app/UpdateProgrammingPost/${postId}`,
-                updatedData, // Pass the updatedData directly as the payload
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
+              `http://localhost:7000/UpdateProgrammingPost/${postId}`,
+              updatedData, // Pass the updatedData directly as the payload
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
             );
 
             // After successful update, update the posts state with the new data

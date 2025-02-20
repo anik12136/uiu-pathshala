@@ -8,7 +8,7 @@ const EditCourse = ({ courseId }) => {
 
   useEffect(() => {
     // Fetch course data
-    fetch(`https://server-uiu-pathshala.vercel.app/api/courses/${courseId}`)
+    fetch(`http://localhost:7000/api/courses/${courseId}`)
       .then((response) => response.json())
       .then((data) => {
         setCourse(data);
@@ -21,7 +21,7 @@ const EditCourse = ({ courseId }) => {
     setCourse((prev) => ({ ...prev, [field]: value }));
 
     // Send API request
-    fetch(`https://server-uiu-pathshala.vercel.app/api/courses/${courseId}`, {
+    fetch(`http://localhost:7000/api/courses/${courseId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ [field]: value }),

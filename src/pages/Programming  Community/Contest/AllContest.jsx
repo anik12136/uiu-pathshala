@@ -41,7 +41,7 @@ const difficultyConfig = {
 // Fetch contests from the backend
 export const fetchContests = async () => {
   try {
-    const response = await axios.get("https://server-uiu-pathshala.vercel.app/GetContest");
+    const response = await axios.get("http://localhost:7000/GetContest");
     return response.data;
   } catch (error) {
     console.error("Error fetching contests", error);
@@ -52,7 +52,7 @@ export const fetchContests = async () => {
 // Delete a contest by its ID
 const deleteContest = async (id) => {
   try {
-    await axios.delete(`https://server-uiu-pathshala.vercel.app/DeleteContest/${id}`);
+    await axios.delete(`http://localhost:7000/DeleteContest/${id}`);
   } catch (error) {
     console.error("Error deleting contest", error);
   }
@@ -67,7 +67,7 @@ const bookmarkContest = async (contestId, userEmail) => {
   };
 
   try {
-    const response = await fetch("https://server-uiu-pathshala.vercel.app/BookMark/addBookmark", {
+    const response = await fetch("http://localhost:7000/BookMark/addBookmark", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
