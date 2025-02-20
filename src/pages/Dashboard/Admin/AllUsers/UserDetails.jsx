@@ -109,7 +109,7 @@ const UserDetails = () => {
             <div className="space-y-2 text-gray-700">
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Student ID:</strong> {user.studentID}</p>
-                <p><strong>Department:</strong> {user.department}</p>
+                <p><strong>Department:</strong> {user.department || "N/A"}</p>
                 <p><strong>Rating:</strong> {user.rating} / 5</p>
                 <p><strong>Warning Status:</strong> <span className={user.warning === 'warning' ? "text-red-500" : "text-green-500"}>{user.warning === 'warning' ? 'Warning Issued' : 'No Warnings'}</span></p>
             </div>

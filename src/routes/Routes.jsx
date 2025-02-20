@@ -26,7 +26,6 @@ import Teaching from "../pages/Tutor/Teaching";
 import Courses from "../pages/Tutor/Courses";
 import EditCourse from "../pages/Tutor/EditCourse";
 import BookMark from "../pages/BookMark/BookMarkMainLayout";
-import UserDetailsModal from "../components/UserDetailsModal";
 import UserDetails from "../pages/Dashboard/Admin/AllUsers/UserDetails";
 import Books from "../pages/Books/Books";
 import Questions from "../pages/Questions/Questions";
@@ -38,6 +37,8 @@ import MyContest from "../pages/Dashboard/StudentDashboard/Mycontest/Mycontest";
 import DashboardCourses from "../pages/Dashboard/StudentDashboard/DashboardCourses/DashboardCourses";
 import MyPdf from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdf";
 import MyBooks from "../pages/Dashboard/StudentDashboard/MyBooks/MyBooks";
+import MyNotes from "../pages/Dashboard/StudentDashboard/MyNotes/MyNotes";
+import MyQuestions from "../pages/Dashboard/StudentDashboard/MyQuestions/MyQuestions";
 
 const router = createBrowserRouter([
   {
@@ -287,34 +288,27 @@ const router = createBrowserRouter([
             path: "myPdf",
             element: <MyPdf></MyPdf>,
           },
-          // {
-          //   path: "myPdfShow",
-          //   element: <MyPdfShow></MyPdfShow>,
-          // },
-          // {
-          //   path: "myPdfUpload",
-          //   element: <MyPdfUpload></MyPdfUpload>,
-          // },
+         
           {
-            path: "notes",
-            element: <UnderConstruction></UnderConstruction>,
+            path: "myNotes",
+            element: <MyNotes></MyNotes>,
           },
           {
-            path: "questions",
-            element: <UnderConstruction></UnderConstruction>,
+            path: "myQuestions",
+            element: <MyQuestions></MyQuestions>,
           },
           {
             path: "myContest",
             element: <MyContest></MyContest>,
           },
-          {
-            path: "tutors",
-            element: <UnderConstruction></UnderConstruction>,
-          },
-          {
-            path: "settings",
-            element: <UnderConstruction></UnderConstruction>,
-          },
+          // {
+          //   path: "tutors",
+          //   element: <UnderConstruction></UnderConstruction>,
+          // },
+          // {
+          //   path: "settings",
+          //   element: <UnderConstruction></UnderConstruction>,
+          // },
           {
             path: "user_details/:id",
             element: <UserDetails />,

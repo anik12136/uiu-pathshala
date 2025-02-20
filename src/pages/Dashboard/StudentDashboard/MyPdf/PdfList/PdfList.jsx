@@ -5,7 +5,6 @@ import { AuthContext } from '../../../../../providers/AuthProviders';
 const PdfList = () => {
     const { user } = useContext(AuthContext);
     const email = user?.email;
-    const pdf = "pdf";
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
 

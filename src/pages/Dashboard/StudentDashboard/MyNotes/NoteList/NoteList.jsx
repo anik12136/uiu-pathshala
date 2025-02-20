@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../../../providers/AuthProviders';
 
-const BooksList = () => {
+const NoteList = () => {
     const { user } = useContext(AuthContext);
     const email = user?.email;
     const [files, setFiles] = useState([]);
@@ -12,7 +12,7 @@ const BooksList = () => {
         const fetchFiles = async () => {
             try {
                 if (!email) return;
-                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/upload/books?email=${email}`);
+                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/upload/notes?email=${email}`);
                 setFiles(response.data);
             } catch (error) {
                 console.error('Error fetching files:', error);
@@ -25,8 +25,8 @@ const BooksList = () => {
 
     return (
         <div className="max-w-6xl mx-auto p-6">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">📚 My Uploaded Books</h2>
-            
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">📝 My Uploaded Notes</h2>
+
             {loading ? (
                 <div className="flex justify-center items-center py-6">
                     <div className="animate-spin border-4 border-gray-300 border-t-blue-500 rounded-full w-10 h-10"></div>
@@ -34,25 +34,25 @@ const BooksList = () => {
             ) : files.length > 0 ? (
                 <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3">
                     {files.map((file) => (
-                        <div key={file._id} className="bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden transition transform hover:-translate-y-1 hover:shadow-xl">
+                        <div key={file._id} className="bg-white border border-gray-200 shadow-md rounded-lg overflow-hidden transform transition duration-300 hover:-translate-y-1 hover:shadow-lg">
                             <div className="h-40 bg-gray-100 flex items-center justify-center">
                                 <span className="text-6xl text-gray-400">📄</span>
                             </div>
                             <div className="p-4">
-                                <h3 className="text-lg font-semibold text-gray-900 truncate">{file.filename || "Untitled Book"}</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 truncate">{file.filename || "Untitled Note"}</h3>
                                 <p className="text-sm text-gray-500 mb-2">Uploaded: {new Date(file.uploadDate).toLocaleString()}</p>
                                 <a href={file.cloudinaryUrl} target="_blank" rel="noopener noreferrer" className="block text-center px-4 py-2 mt-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-                                    View PDF
+                                    View Note
                                 </a>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <p className="text-gray-500 text-center">No books uploaded yet.</p>
+                <p className="text-gray-500 text-center">No notes uploaded yet.</p>
             )}
         </div>
     );
 };
 
-export default BooksList;
+export default NoteList;
