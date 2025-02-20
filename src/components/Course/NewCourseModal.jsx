@@ -131,7 +131,7 @@ const NewCourseModal = ({ isOpen, onClose, creator }) => {
           {/* Tags */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Tags (comma-separated)
+              Tags (space separated)
             </label>
             <input
               type="text"

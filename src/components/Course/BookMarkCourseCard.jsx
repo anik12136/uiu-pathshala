@@ -1,44 +1,57 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import { FaRegBookmark, FaBook, FaVideo, FaTag } from "react-icons/fa";
-import { AuthContext } from "../providers/AuthProviders";
+import { FaBook, FaVideo, FaTag, FaTrash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useCourses from "../../Hooks/useCourses";
 
-const CourseCard = ({ course }) => {
-  const { user } = useContext(AuthContext);
+const BookMarkCourseCard = ({ courseId, bookmarkId, onDelete }) => {
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { deleteBookmark } = useCourses(); // Hook for deleting bookmarks
 
-  const handleBookmark = async () => {
-    const bookmarkData = {
-      createBy: user.email,
-      type: "course",
-      courseId: course._id,
+  useEffect(() => {
+    if (!courseId) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchCourse = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:7000/api/courses/${courseId}`
+        );
+        setCourse(response.data);
+      } catch (err) {
+        console.error("Error fetching course:", err.message);
+        setError(err.message || "An error occurred while fetching the course.");
+      } finally {
+        setLoading(false);
+      }
     };
 
+    fetchCourse();
+  }, [courseId]);
+
+  const handleDeleteBookmark = async () => {
+    if (!bookmarkId) return;
+
     try {
-      const response = await fetch(
-        "http://localhost:7000/BookMark/addBookmark",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bookmarkData),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success(data.message || "Bookmark added successfully!");
-      } else {
-        toast.info(data.message || "An error occurred.");
-      }
+      await deleteBookmark(bookmarkId);
+      toast.success("Bookmark deleted successfully!");
+      if (onDelete) onDelete(bookmarkId); // Remove from UI
     } catch (error) {
-      console.error("Error adding bookmark:", error);
-      toast.error("Error adding bookmark.");
+      console.error("Error deleting bookmark:", error);
+      toast.error("Failed to delete bookmark.");
     }
   };
+
+  if (loading) return <p className="text-center text-lg">Loading course...</p>;
+  if (error) return <p className="text-center text-red-500">Error: {error}</p>;
+  if (!course)
+    return <p className="text-center text-gray-600">Course not found.</p>;
 
   // Count chapters & videos
   const chapterCount = course.chapters ? course.chapters.length : 0;
@@ -52,12 +65,11 @@ const CourseCard = ({ course }) => {
 
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden w-80 border border-gray-200 relative">
-      {/* Bookmark Button */}
+      {/* Delete Button (Top Right) */}
       <button
-        onClick={handleBookmark}
-        className="absolute top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white rounded-full p-2 shadow-lg transition-all duration-300"
-        aria-label="Bookmark Course">
-        <FaRegBookmark className="text-xl" />
+        onClick={handleDeleteBookmark}
+        className="absolute top-3 right-3 text-red-500 hover:text-red-700 bg-white p-2 rounded-full shadow-md transition-transform transform hover:scale-110">
+        <FaTrash />
       </button>
 
       {/* Course Banner */}
@@ -102,18 +114,18 @@ const CourseCard = ({ course }) => {
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t bg-gray-50">
+      <div className="p-4 border-t bg-gray-50 flex justify-center">
         <Link
           to={`/course/${course._id}`}
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full text-center block">
+          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-center w-full text-lg font-medium">
           View Course
         </Link>
       </div>
 
       {/* Toast Notifications */}
-      <ToastContainer position="top-right" autoClose={5000} />
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
 
-export default CourseCard;
+export default BookMarkCourseCard;
