@@ -7,6 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 const CourseCard = ({ course }) => {
   const { user } = useContext(AuthContext);
 
+  console.log(course.courseId);
+
+
+
+
+
+
+
+  
+  
   const handleBookmark = async () => {
     const bookmarkData = {
       createBy: user.email,
@@ -38,6 +48,7 @@ const CourseCard = ({ course }) => {
       toast.error("Error adding bookmark.");
     }
   };
+
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden w-80 relative">
