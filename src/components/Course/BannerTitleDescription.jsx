@@ -192,8 +192,8 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
           <div className="modal">
             <p>Do you want to change the status of this course?</p>
             <div className="modal-buttons">
-              <button onClick={handleCancel}>Cancel</button>
-              <button onClick={handleConfirm}>Confirm</button>
+              <button onClick={handleCancel} className="bg-orange-400 text-white text-sm font-medium rounded-full border">Cancel</button>
+              <button onClick={handleConfirm} className="bg-red-800 text-white text-sm font-medium rounded-full border">Confirm</button>
             </div>
           </div>
         </div>
