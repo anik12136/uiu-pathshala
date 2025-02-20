@@ -36,8 +36,9 @@ const Courses = () => {
   };
 
   const fetchCourses = async () => {
+    
     try {
-      const response = await axios.get("http://localhost:7000/api/courses");
+      const response = await axios.get(`http://localhost:7000/api/courses/user/${userContext.user.email}`);
       setCourses(response.data); // Assuming API returns an array of courses
       setLoading(false);
       

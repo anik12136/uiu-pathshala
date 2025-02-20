@@ -1,11 +1,15 @@
 import { useState } from "react";
 import EditModal from "./EditModal"; // Assuming EditModal is reusable for editing fields
 import { FaEdit } from "react-icons/fa";
+import axios from "axios";
 import "./BannerTitle.css";
 
 const BannerTitleDescription = ({ course, onSaveField }) => {
   const [editingField, setEditingField] = useState(null);
   const [initialValue, setInitialValue] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [newStatus, setNewStatus] = useState(course.status);
+
 
   const handleEdit = (field) => {
     setEditingField(field);
@@ -36,6 +40,43 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
     return <div className="text-yellow-500 text-lg">{stars}</div>;
   };
 
+  // Function to handle the switch click event.
+  const handleSwitchClick = (e) => {
+    // Prevent the default toggle behavior since we need confirmation first.
+    e.preventDefault();
+    // Calculate the new status (toggle the status).
+    const toggledStatus = course.status === "public" ? "private" : "public";
+    setNewStatus(toggledStatus);
+    // Show the confirmation modal.
+    setShowConfirm(true);
+  };
+
+  // Function to handle canceling the action.
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
+
+  // Function to handle confirming the action.
+  const handleConfirm = async () => {
+    console.log(course._id);
+    try {
+      // Call your API endpoint, for example using fetch.
+    
+      const response = await axios.put(`http://localhost:7000/api/courses/${course._id}/status`, {
+        "status": newStatus,
+      });
+
+      if (!response.status === 200) {
+        throw new Error("Failed to update course status");
+      }
+      // On success, refresh the page.
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating course status:", error);
+      alert("Failed to update course status. Please try again.");
+    }
+  };
+
 
 
   return (
@@ -45,7 +86,7 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
         <img
           src={
             course.bannerImage
-              ? `https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`
+              ? `http://localhost:7000/uploads/${course.bannerImage}`
               : "https://placehold.co/800x400"
           }
           alt={course.title || "Untitled Course"}
@@ -110,13 +151,22 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
           </div>
 
           {/* status section */}
-          <div className="mt-4 flex items-center">
-            {course.status}
+          <div className="mt-4 flex items-center ">
+            {
+              course.status === "private" ? <div className="px-3 py-2 bg-red-500 text-white text-sm font-medium rounded-full border  border-red-800 mr-3">
+              {course.status}
+            </div> : <div className="px-3 py-2 bg-blue-300 text-green text-sm font-medium rounded-full border  border-blue-800 mr-3">
+              {course.status}
+            </div>
+            }
+            
+            
             <label className="switch">
               <input
                 type="checkbox"
                 checked={course.status === "public"}
-                disabled={course.status === "private"}
+                // Remove disabled/readOnly so user can click, then intercept via onClick.
+                onClick={handleSwitchClick}
                 readOnly
               />
               <span className="slider round"></span>
@@ -134,6 +184,19 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
           onSave={handleSave}
           onClose={updateCourse}
         />
+      )}
+
+      {/* Confirmation Modal */}
+      {showConfirm && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <p>Do you want to change the status of this course?</p>
+            <div className="modal-buttons">
+              <button onClick={handleCancel}>Cancel</button>
+              <button onClick={handleConfirm}>Confirm</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
