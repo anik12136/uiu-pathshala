@@ -39,6 +39,7 @@ import MyPdf from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdf";
 import MyBooks from "../pages/Dashboard/StudentDashboard/MyBooks/MyBooks";
 import MyNotes from "../pages/Dashboard/StudentDashboard/MyNotes/MyNotes";
 import MyQuestions from "../pages/Dashboard/StudentDashboard/MyQuestions/MyQuestions";
+import SingleCourse from "../components/Course/SingleCourse";
 
 const router = createBrowserRouter([
   {
@@ -288,7 +289,7 @@ const router = createBrowserRouter([
             path: "myPdf",
             element: <MyPdf></MyPdf>,
           },
-         
+
           {
             path: "myNotes",
             element: <MyNotes></MyNotes>,
@@ -318,11 +319,12 @@ const router = createBrowserRouter([
 
       {
         path: "/allCourses",
-        element: (
-          <AllCourses></AllCourses>
-        ),
+        element: <AllCourses></AllCourses>,
       },
-
+      {
+        path: "/course/:id", // Dynamic route for single course
+        element: <SingleCourse />,
+      },
     ],
   },
 ]);

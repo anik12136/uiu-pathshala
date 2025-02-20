@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { FaRegBookmark } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaRegBookmark, FaBook, FaVideo, FaTag } from "react-icons/fa";
 import { AuthContext } from "../providers/AuthProviders";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,16 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 const CourseCard = ({ course }) => {
   const { user } = useContext(AuthContext);
 
-  console.log(course.courseId);
-
-
-
-
-
-
-
-  
-  
   const handleBookmark = async () => {
     const bookmarkData = {
       createBy: user.email,
@@ -49,43 +40,77 @@ const CourseCard = ({ course }) => {
     }
   };
 
+  // Count chapters & videos
+  const chapterCount = course.chapters ? course.chapters.length : 0;
+  const videoCount = course.chapters
+    ? course.chapters.reduce(
+        (total, chapter) =>
+          total + (chapter.videos ? chapter.videos.length : 0),
+        0
+      )
+    : 0;
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-80 relative">
-      {/* Bookmark Icon */}
+    <div className="bg-white shadow-md rounded-lg overflow-hidden w-80 border border-gray-200 relative">
+      {/* Bookmark Button */}
       <button
         onClick={handleBookmark}
-        className="absolute top-4 right-4 text-gray-800 text-xl"
+        className="absolute top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white rounded-full p-2 shadow-lg transition-all duration-300"
         aria-label="Bookmark Course">
-        <FaRegBookmark />
+        <FaRegBookmark className="text-xl" />
       </button>
 
       {/* Course Banner */}
       <img
-        src={course.banner}
+        src={`http://localhost:7000/uploads/${course.bannerImage}`}
         alt={course.title}
         className="w-full h-40 object-cover"
       />
 
       {/* Course Details */}
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">
           {course.title}
         </h2>
-        <p className="text-sm text-gray-600 mb-4">{course.description}</p>
-        <p className="text-sm font-medium text-gray-800">
-          Instructor: <span className="text-blue-600">{course.instructor}</span>
-        </p>
+        <p className="text-sm text-gray-600">{course.description}</p>
+
+        {/* Course Stats */}
+        <div className="flex items-center justify-between text-gray-700 text-sm mt-4">
+          <div className="flex items-center gap-1">
+            <FaBook className="text-blue-500" />
+            <span>{chapterCount} Chapters</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <FaVideo className="text-red-500" />
+            <span>{videoCount} Videos</span>
+          </div>
+        </div>
+
+        {/* Tags */}
+        {course.tags && course.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {course.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                <FaTag className="text-gray-500" />
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Footer */}
       <div className="p-4 border-t bg-gray-50">
-        <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full">
+        <Link
+          to={`/course/${course._id}`}
+          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full text-center block">
           View Course
-        </button>
+        </Link>
       </div>
 
-      {/* ToastContainer */}
+      {/* Toast Notifications */}
       <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
