@@ -34,6 +34,7 @@ import Questions from "../pages/Questions/Questions";
 import Notes from "../pages/Notes/Notes";
 import Curriculums from "../pages/Curriculums/Curriculums";
 import DisplayLibraryContents from "../pages/DisplayLibraryContents/DisplayLibraryContents";
+import Test2 from "../Laboratory/Test2";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,8 +50,8 @@ const router = createBrowserRouter([
       },
       // This route is for test purpose
       {
-        path: "/test",
-        element: <Test></Test>,
+        path: "/test2",
+        element: <Test2></Test2>,
       },
 
       {
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: "/library/questions/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
+              </ProtectedRoutes>
+            ),
+          },
+          {
             path: "/library/notes",
             element: (
               <ProtectedRoutes>
@@ -115,10 +124,26 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: "/library/notes/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
+              </ProtectedRoutes>
+            ),
+          },
+          {
             path: "/library/curriculums",
             element: (
               <ProtectedRoutes>
                 <Curriculums></Curriculums>
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "/library/curriculums/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
               </ProtectedRoutes>
             ),
           },
