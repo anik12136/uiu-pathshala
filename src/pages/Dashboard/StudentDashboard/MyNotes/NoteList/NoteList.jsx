@@ -23,6 +23,23 @@ const NoteList = () => {
         fetchFiles();
     }, [email]);
 
+    // Handle deletion
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this file?");
+        if (!confirmDelete) return;
+    
+        try {
+            const response = await axios.delete(`http://localhost:7000/api/upload/${id}`);
+            if (response.status === 200) {
+                setFiles(files.filter((file) => file._id !== id)); // Update UI after deletion
+                alert("File deleted successfully");
+            }
+        } catch (error) {
+            console.error("Error deleting file:", error);
+            alert("Failed to delete file");
+        }
+    };
+
     return (
         <div className="max-w-6xl mx-auto p-6">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">📝 My Uploaded Notes</h2>
@@ -44,6 +61,13 @@ const NoteList = () => {
                                 <a href={file.cloudinaryUrl} target="_blank" rel="noopener noreferrer" className="block text-center px-4 py-2 mt-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
                                     View Note
                                 </a>
+                                {/* Delete Button */}
+                                <button 
+                                    onClick={() => handleDelete(file._id)} 
+                                    className="block w-full text-center px-4 py-2 mt-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                                >
+                                    Delete
+                                </button>
                             </div>
                         </div>
                     ))}
