@@ -5,6 +5,7 @@ import useUser from "../../../Hooks/useUser";
 import { Commet } from "react-loading-indicators";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa";
+import { GrAnnounce } from "react-icons/gr";
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext); // Get logged-in user from context
@@ -53,6 +54,7 @@ const AdminDashboard = () => {
         {/* Navigation Links */}
         <nav className="mt-4">
           <ul className="space-y-3">
+            
             <li>
               <NavLink
                 to="/dashboard"
@@ -62,6 +64,18 @@ const AdminDashboard = () => {
                 }
               >
                 <FaUserShield /> Manage Users
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/dashboard/adminAnnouncements"
+                className={({ isActive }) =>
+                  `flex items-center gap-2 p-3 rounded-lg transition-all duration-200 
+                  ${isActive ? "bg-orange-100 font-bold" : "hover:bg-orange-600"}`
+                }
+              >
+                <GrAnnounce />Announcements
               </NavLink>
             </li>
           </ul>

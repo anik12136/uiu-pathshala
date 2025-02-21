@@ -33,8 +33,8 @@ const BookMark = () => {
     try {
       const response = await axios.get(
         `http://localhost:7000/BookMark/getAllBookMark/${user.email}`
-        );
-        
+      );
+
       setBookmarks(response.data);
       setLoading(false);
     } catch (error) {
@@ -142,11 +142,10 @@ const BookMark = () => {
       {/* Tab Buttons */}
       <div className="flex justify-center border-b mb-8">
         <button
-          className={`px-6 py-3 mr-4 font-medium text-lg transition-all duration-200 ${
-            activeTab === "course"
-              ? "border-b-2 border-blue-500 text-blue-500"
-              : "text-gray-500 hover:text-blue-400"
-          }`}
+          className={`px-6 py-3 mr-4 font-medium text-lg transition-all duration-200 ${activeTab === "course"
+            ? "border-b-2 border-blue-500 text-blue-500"
+            : "text-gray-500 hover:text-blue-400"
+            }`}
           onClick={() => setActiveTab("course")}>
           <div className="flex items-center">
             <Book className="mr-2" size={20} />
@@ -154,11 +153,10 @@ const BookMark = () => {
           </div>
         </button>
         <button
-          className={`px-6 py-3 font-medium text-lg transition-all duration-200 ${
-            activeTab === "contest"
-              ? "border-b-2 border-blue-500 text-blue-500"
-              : "text-gray-500 hover:text-blue-400"
-          }`}
+          className={`px-6 py-3 font-medium text-lg transition-all duration-200 ${activeTab === "contest"
+            ? "border-b-2 border-blue-500 text-blue-500"
+            : "text-gray-500 hover:text-blue-400"
+            }`}
           onClick={() => setActiveTab("contest")}>
           <div className="flex items-center">
             <Trophy className="mr-2" size={20} />
@@ -169,7 +167,7 @@ const BookMark = () => {
 
       {/* Bookmarks Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredBookmarks.map((bookmark) => (
+        {filteredBookmarks?.map((bookmark) => (
           <div
             key={bookmark._id}
             className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300">
@@ -200,15 +198,15 @@ const BookMark = () => {
                   {bookmark.CourseDetails.tags && (
                     <div className="flex items-center flex-wrap gap-2">
                       <Tag size={16} className="text-gray-600" />
-                      {bookmark.CourseDetails.tags
-                        .split(",")
-                        .map((tag, index) => (
+                      {typeof bookmark?.CourseDetails?.tags === "string" &&
+                        bookmark.CourseDetails.tags.split(",").map((tag, index) => (
                           <span
                             key={index}
                             className="bg-blue-50 text-blue-600 px-2 py-1 rounded-full text-sm">
                             {tag.trim()}
                           </span>
                         ))}
+
                     </div>
                   )}
                   <div className="flex items-center text-gray-600">
@@ -254,8 +252,8 @@ const BookMark = () => {
                           {status.status === "ended"
                             ? "Ended"
                             : `${status.label}: ${formatTimeLeft(
-                                status.timeLeft
-                              )}`}
+                              status.timeLeft
+                            )}`}
                         </span>
                       </div>
                     );

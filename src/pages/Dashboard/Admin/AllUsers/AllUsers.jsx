@@ -29,7 +29,7 @@ const AllUsers = () => {
   }
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg">
+    <div className="p-6  shadow-lg rounded-lg">
       {/* Header with Search */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">
@@ -48,8 +48,8 @@ const AllUsers = () => {
       <div className="overflow-x-auto rounded-lg border border-gray-200">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-orange-500 text-white text-left">
-              <th className="p-4 font-medium">SL</th>
+            <tr className="bg-gradient-to-r from-purple-500 to-orange-600 text-white text-left">
+              <th className="p-4 font-medium"></th>
               <th className="p-4 font-medium">User Info</th>
               <th className="p-4 font-medium">Details</th>
             </tr>
@@ -76,7 +76,7 @@ const AllUsers = () => {
                   <td className="p-4">
                     <Link
                       to={`/dashboard/user_details/${user._id}`}
-                      className="px-5 py-2 text-white bg-orange-500 rounded-full hover:bg-orange-600 transition shadow-md"
+                      className="px-5 py-2 text-black rounded-full hover:bg-orange-600 transition shadow-md"
                     >
                       View Details
                     </Link>

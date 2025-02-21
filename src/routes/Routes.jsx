@@ -40,6 +40,7 @@ import MyBooks from "../pages/Dashboard/StudentDashboard/MyBooks/MyBooks";
 import MyNotes from "../pages/Dashboard/StudentDashboard/MyNotes/MyNotes";
 import MyQuestions from "../pages/Dashboard/StudentDashboard/MyQuestions/MyQuestions";
 import SingleCourse from "../components/Course/SingleCourse";
+import Announcements from "../pages/Dashboard/Admin/Announcements/Announcements";
 
 const router = createBrowserRouter([
   {
@@ -301,6 +302,10 @@ const router = createBrowserRouter([
           {
             path: "myContest",
             element: <MyContest></MyContest>,
+          },
+          {
+            path: "adminAnnouncements",
+            element: <Announcements></Announcements>,
           },
           // {
           //   path: "tutors",
