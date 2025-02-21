@@ -6,7 +6,7 @@ const useUser = () => {
   const [dbUser, setDbUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext); // Get logged-in user from context
 
   useEffect(() => {
     if (!user?.email) {
@@ -15,25 +15,31 @@ const useUser = () => {
       return;
     }
 
-    const fetchUsers = async () => {
+    const fetchUser = async () => {
       try {
-        // console.log("Fetching data for:", user.email);
-        const response = await axios.get(`http://localhost:7000/dbUser/${user.email}`);
-        setDbUser(response.data);
+        console.log("Fetching user for email:", user.email);
+
+        const response = await axios.get(
+          `http://localhost:7000/dbUser/${user.email}`
+        );
+
+        console.log("API Response:", response.data);
+
+        if (response.data) {
+          setDbUser(response.data); // Set fetched user data
+        } else {
+          setError("User not found in database.");
+        }
       } catch (err) {
-        console.error("Error fetching data:", err.message);
-        setError(err.message || "An error occurred while fetching data.");
+        console.error("Error fetching user:", err.message);
+        setError(err.message || "An error occurred while fetching user data.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
-  }, [user]);
-
-  useEffect(() => {
-    // console.log("Updated dbUser:", dbUser);
-  }, [dbUser]);
+    fetchUser();
+  }, [user]); // Runs when the user changes
 
   return { dbUser, loading, error };
 };

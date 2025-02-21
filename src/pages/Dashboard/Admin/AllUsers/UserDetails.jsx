@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { Commet } from 'react-loading-indicators';
 
 const UserDetails = () => {
     const { id } = useParams();
@@ -91,19 +92,32 @@ const UserDetails = () => {
     };
 
     // =========================== RENDER UI ===========================
-    if (!user) return <p>Loading...</p>;
+    if (!user) return <Commet color="#cc7731" size="large" text="" textColor="#NaNNaNNaN" />;
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">User Details</h2>
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>ID:</strong> {user.id}</p>
+        <div className="p-6 bg-white shadow-md rounded-lg h-screen">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">User Details</h2>
 
-            <div className='mt-4'>
+            <div className="flex items-center space-x-4 mb-4">
+                <img src={user.photoURL} alt="Profile" className="w-16 h-16 rounded-full border" />
+                <div className="text-gray-700">
+                    <p className="text-lg font-semibold">{user.name}</p>
+                    <p className="text-sm text-gray-500">{user.role}</p>
+                </div>
+            </div>
+
+            <div className="space-y-2 text-gray-700">
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Student ID:</strong> {user.studentID}</p>
+                <p><strong>Department:</strong> {user.department || "N/A"}</p>
+                <p><strong>Rating:</strong> {user.rating} / 5</p>
+                <p><strong>Warning Status:</strong> <span className={user.warning === 'warning' ? "text-red-500" : "text-green-500"}>{user.warning === 'warning' ? 'Warning Issued' : 'No Warnings'}</span></p>
+            </div>
+
+            <div className='mt-6 flex space-x-3'>
                 {user?.warning === 'warning' ? (
                     <button
-                        className='border-2 px-2 py-1 rounded-full me-2 bg-green-500 text-white'
+                        className='px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition disabled:opacity-50'
                         onClick={handleRemoveWarning}
                         disabled={removeWarningMutation.isLoading}
                     >
@@ -111,7 +125,7 @@ const UserDetails = () => {
                     </button>
                 ) : (
                     <button
-                        className='border-2 px-2 py-1 rounded-full me-2 bg-yellow-500 text-white'
+                        className='px-4 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition disabled:opacity-50'
                         onClick={handleWarning}
                         disabled={issueWarningMutation.isLoading}
                     >
@@ -120,7 +134,7 @@ const UserDetails = () => {
                 )}
 
                 <button
-                    className='border-2 px-2 py-1 rounded-full bg-red-600 text-white'
+                    className='px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition'
                     onClick={handleDelete}
                 >
                     Delete
@@ -134,17 +148,17 @@ export default UserDetails;
 
 
 
-    // Warning to user
-    // const handleWarning = () => {
-    //     const confirmWarning = window.confirm(`Are you sure you want to issue a warning to ${user?.name}?`);
-    //     if (!confirmWarning) return;
+// Warning to user
+// const handleWarning = () => {
+//     const confirmWarning = window.confirm(`Are you sure you want to issue a warning to ${user?.name}?`);
+//     if (!confirmWarning) return;
 
-    //     fetch(`http://localhost:7000/users/${id}`, {
-    //         method: 'PUT',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ warning: 'warning' })
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => alert(`Warning issued to ${user?.name}`))
-    //         .catch(error => console.error('Error issuing warning:', error));
-    // };
+//     fetch(`http://localhost:7000/users/${id}`, {
+//         method: 'PUT',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ warning: 'warning' })
+//     })
+//         .then(res => res.json())
+//         .then(data => alert(`Warning issued to ${user?.name}`))
+//         .catch(error => console.error('Error issuing warning:', error));
+// };

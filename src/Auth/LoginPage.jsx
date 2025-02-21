@@ -1,25 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.png";
-// import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Ensure you include the toast CSS
-// import auth from "../utils/firebase.config";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../providers/AuthProviders";
 
 const LoginPage = () => {
-  // Context value
   const { signIn, loading, user } = useContext(AuthContext);
-
-  //get the location
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location);
-
   const fromLocation = location.state || "/";
+
   useEffect(() => {
     if (!loading && user) {
-  
       navigate(fromLocation);
     }
   }, [loading, fromLocation, user, navigate]);
@@ -27,36 +20,49 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-  // Handle Email Change
-  const handleEmailChange = (e) => setEmail(e.target.value);
+  // Handle Email Change & Validation
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (!/\S+@\S+\.\S+/.test(value)) {
+      setEmailError("Invalid email format");
+    } else {
+      setEmailError("");
+    }
+  };
 
-  // Handle Password Change
-  const handlePasswordChange = (e) => setPassword(e.target.value);
+  // Handle Password Change & Validation
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    if (value.length < 6) {
+      setPasswordError("Password must be at least 6 characters");
+    } else {
+      setPasswordError("");
+    }
+  };
 
   // Toggle Password Visibility
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  // Check if Login Button Should Be Enabled
-  const isLoginDisabled = email.trim() === "" || password.trim() === "";
+  // Disable Login Button if Inputs Are Invalid
+  const isLoginDisabled =
+    email.trim() === "" || password.trim() === "" || emailError || passwordError;
 
   // Handle Form Submission
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
-
+    e.preventDefault();
     try {
       await signIn(email, password).then((res) => {
-        console.log("InnerRes", res);
         if (res) {
-          console.log(fromLocation);
           navigate(fromLocation);
           toast.success("Login successful! Welcome back.");
         }
       });
-
-      // You can navigate the user to another page after login if needed
     } catch (error) {
-      // Show error message based on Firebase authentication error codes
       if (error.code === "auth/user-not-found") {
         toast.error("User not found. Please check your email or sign up.");
       } else if (error.code === "auth/wrong-password") {
@@ -70,55 +76,45 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#ffddbb] flex flex-col items-center justify-center p-4">
-      <ToastContainer></ToastContainer>
-      {/* Header Section */}
-      <h1 className="text-4xl font-bold text-black mb-6">UIU Pathshala</h1>
-
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-800 to-orange-400 p-4">
+      <ToastContainer />
+      
       {/* Login Container */}
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex flex-col md:flex-row">
+      <div className="bg-white bg-gradient-to-br from-orange-500 to-orange-200 rounded-2xl shadow-lg w-full max-w-4xl flex flex-col md:flex-row">
+        
         {/* Left Side Image */}
-        <div className="flex-1 hidden md:flex items-center justify-center">
-          <img src={loginImage} alt="Login" className="max-w-full h-auto p-4" />
+        <div className="flex-1 hidden md:flex items-center justify-center  from-orange-800 to-orange-400 rounded-l-2xl">
+          <img src={loginImage} alt="Login" className="max-w-xs md:max-w-sm" />
         </div>
 
         {/* Right Side Form */}
-        <div className="flex-1 p-6 md:p-12">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Login</h2>
-          <form className="space-y-4" onSubmit={handleFormSubmit}>
+        <div className="flex-1 p-8 md:p-12">
+          <h2 className="text-3xl font-bold text-white mb-4 text-center">Welcome Back</h2>
+          <p className="text-gray-600 text-center mb-6">Login to your account</p>
+          
+          <form className="space-y-5" onSubmit={handleFormSubmit}>
             {/* Email Input */}
             <div>
-              <label
-                className="block text-gray-600 font-medium mb-1"
-                htmlFor="email"
-              >
-                Email
-              </label>
+              <label className="block text-gray-700 font-medium mb-1">Email</label>
               <input
                 type="email"
-                id="email"
                 placeholder="Enter your email"
-                className="w-full border rounded-lg px-4 py-2 text-gray-700 focus:ring-2 focus:ring-orange-500"
+                className={`w-full border ${emailError ? "border-red-500" : "border-gray-300"} rounded-lg px-4 py-2 text-gray-700 focus:ring-2 focus:ring-orange-500`}
                 value={email}
                 onChange={handleEmailChange}
                 required
               />
+              {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
             </div>
 
             {/* Password Input */}
             <div>
-              <label
-                className="block text-gray-600 font-medium mb-1"
-                htmlFor="password"
-              >
-                Password
-              </label>
+              <label className="block text-gray-700 font-medium mb-1">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  id="password"
                   placeholder="Enter your password"
-                  className="w-full border rounded-lg px-4 py-2 text-gray-700 focus:ring-2 focus:ring-orange-500"
+                  className={`w-full border ${passwordError ? "border-red-500" : "border-gray-300"} rounded-lg px-4 py-2 text-gray-700 focus:ring-2 focus:ring-orange-500`}
                   value={password}
                   onChange={handlePasswordChange}
                   required
@@ -131,6 +127,7 @@ const LoginPage = () => {
                   {showPassword ? "🙈" : "👁️"}
                 </button>
               </div>
+              {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
             </div>
 
             {/* Submit Button */}
@@ -139,7 +136,7 @@ const LoginPage = () => {
               className={`w-full font-bold py-2 px-4 rounded-lg transition duration-200 ${
                 isLoginDisabled
                   ? "bg-orange-200 text-gray-700 cursor-not-allowed"
-                  : "bg-[#f68c1e] text-white hover:bg-orange-600"
+                  : "bg-orange-500 text-white hover:bg-orange-600"
               }`}
               disabled={isLoginDisabled}
             >

@@ -13,10 +13,10 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   // Context value
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   // console.log("User data",user);
-  
-  
+
+
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
     // fetch("../../../public/fakeDB/top-rated-tutors.json")
@@ -51,13 +51,16 @@ const Home = () => {
           {teachers.slice(0, 4).map((course) => (
             <RecentlyUploaded
               key={course.id}
-              course={course}></RecentlyUploaded>
+              course={course}>
+            </RecentlyUploaded>
           ))}
         </div>
         {/* View all recently uploaded courses */}
-        <button className="cursor-pointer rounded-lg border w-36 p-3 flex justify-center items-center gap-2 border-orange-300 mt-2">
-          View All <FaArrowRight />
-        </button>
+        <Link to={"allCourses"}>
+          <button className="cursor-pointer rounded-lg border w-36 p-3 flex justify-center items-center gap-2 border-orange-300 mt-2">
+            View All <FaArrowRight />
+          </button>
+        </Link>
       </section>
       {/* Programming Community */}
       <section className=" max-w-7xl mx-auto rounded-lg h-auto lg:h-96 my-5 px-6 py-6 lg:py-0 bg-[#ddfeae] flex flex-col lg:flex-row justify-between items-center">

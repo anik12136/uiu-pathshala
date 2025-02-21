@@ -37,7 +37,7 @@ const NewCourseModal = ({ isOpen, onClose, creator }) => {
     formData.append("creator", email);
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("tags", JSON.stringify(tags)); // Convert tags array to JSON string
+    formData.append("tags", tags); // Convert tags array to JSON string
     formData.append("bannerImage", bannerFile); // Attach the banner file
     try {
       console.log("Form Data:", formData); 
@@ -131,7 +131,7 @@ const NewCourseModal = ({ isOpen, onClose, creator }) => {
           {/* Tags */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Tags (comma-separated)
+              Tags (space separated)
             </label>
             <input
               type="text"

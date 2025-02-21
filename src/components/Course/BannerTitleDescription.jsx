@@ -1,10 +1,15 @@
 import { useState } from "react";
 import EditModal from "./EditModal"; // Assuming EditModal is reusable for editing fields
 import { FaEdit } from "react-icons/fa";
+import axios from "axios";
+import "./BannerTitle.css";
 
 const BannerTitleDescription = ({ course, onSaveField }) => {
   const [editingField, setEditingField] = useState(null);
   const [initialValue, setInitialValue] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [newStatus, setNewStatus] = useState(course.status);
+
 
   const handleEdit = (field) => {
     setEditingField(field);
@@ -33,6 +38,43 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
       stars.push(<span key={i}>{i <= rating ? "★" : "☆"}</span>);
     }
     return <div className="text-yellow-500 text-lg">{stars}</div>;
+  };
+
+  // Function to handle the switch click event.
+  const handleSwitchClick = (e) => {
+    // Prevent the default toggle behavior since we need confirmation first.
+    e.preventDefault();
+    // Calculate the new status (toggle the status).
+    const toggledStatus = course.status === "public" ? "private" : "public";
+    setNewStatus(toggledStatus);
+    // Show the confirmation modal.
+    setShowConfirm(true);
+  };
+
+  // Function to handle canceling the action.
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
+
+  // Function to handle confirming the action.
+  const handleConfirm = async () => {
+    console.log(course._id);
+    try {
+      // Call your API endpoint, for example using fetch.
+    
+      const response = await axios.put(`http://localhost:7000/api/courses/${course._id}/status`, {
+        "status": newStatus,
+      });
+
+      if (!response.status === 200) {
+        throw new Error("Failed to update course status");
+      }
+      // On success, refresh the page.
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating course status:", error);
+      alert("Failed to update course status. Please try again.");
+    }
   };
 
 
@@ -74,25 +116,9 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
 
 
           {/* Tags Section */}
-          {/* {course.tags && course.tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {course?.tags?.map((tag, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full border border-blue-300"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )} */}
-
-
-          {/* Tags Section */}
-          {course.tags && course.tags.trim() && (
+          {course.tags && (
             <div className="mt-2 flex flex-wrap gap-2">
               {course.tags
-                .split(",")
                 .map((tag) => tag.trim())
                 .filter((tag) => tag) // Ensure no empty tags are rendered
                 .map((tag, index) => (
@@ -106,6 +132,8 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
             </div>
           )}
 
+
+          
           {/* Description Section */}
           <div className="mt-4 flex items-center">
             <p className="text-gray-700">
@@ -121,6 +149,30 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
               </span>
             </button>
           </div>
+
+          {/* status section */}
+          <div className="mt-4 flex items-center ">
+            {
+              course.status === "private" ? <div className="px-3 py-2 bg-red-500 text-white text-sm font-medium rounded-full border  border-red-800 mr-3">
+              {course.status}
+            </div> : <div className="px-3 py-2 bg-blue-300 text-green text-sm font-medium rounded-full border  border-blue-800 mr-3">
+              {course.status}
+            </div>
+            }
+            
+            
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={course.status === "public"}
+                // Remove disabled/readOnly so user can click, then intercept via onClick.
+                onClick={handleSwitchClick}
+                readOnly
+              />
+              <span className="slider round"></span>
+            </label>
+          </div>
+          
         </div>
       </div>
 
@@ -132,6 +184,19 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
           onSave={handleSave}
           onClose={updateCourse}
         />
+      )}
+
+      {/* Confirmation Modal */}
+      {showConfirm && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <p>Do you want to change the status of this course?</p>
+            <div className="modal-buttons">
+              <button onClick={handleCancel} className="bg-orange-400 text-white text-sm font-medium rounded-full border">Cancel</button>
+              <button onClick={handleConfirm} className="bg-red-800 text-white text-sm font-medium rounded-full border">Confirm</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

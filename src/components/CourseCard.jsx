@@ -11,7 +11,7 @@ const CourseCard = ({ course }) => {
     const bookmarkData = {
       createBy: user.email,
       type: "course",
-      courseId: course.id,
+      courseId: course._id,
     };
 
     try {

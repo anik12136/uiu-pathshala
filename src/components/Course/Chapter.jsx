@@ -57,7 +57,7 @@ const Chapter = ({ chapter, courseId, onSaveField, onDeleteChapter, onDeleteVide
   return (
     <div className="p-6 bg-orange-100 shadow-md rounded-lg mb-6">
       {/* Chapter Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 py-6 border-b-2 border-blue-900">
         <div className="flex items-center space-x-2">
           <h2 className="text-xl font-bold">{chapter.title}</h2>
           <button

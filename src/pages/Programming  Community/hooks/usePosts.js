@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import useNotifications from "../../../Hooks/useNotification";
+
+
 
 // Fetch posts function
 export const fetchPosts = async (setPosts, setError, setLoading) => {
     try {
-        const response = await axios.get("http://localhost:7000/GetProgrammingPost");
+        const response = await axios.get(
+          "http://localhost:7000/GetProgrammingPost"
+        );
         setPosts(response.data);
         setError(null);
     } catch (err) {
@@ -16,13 +21,22 @@ export const fetchPosts = async (setPosts, setError, setLoading) => {
 };
 
 // Create post function
+
 export const createPost = async (postData) => {
     try {
-        const response = await axios.post("http://localhost:7000/CreateProgrammingPost", postData, {
+        const response = await axios.post(
+          "http://localhost:7000/CreateProgrammingPost",
+          postData,
+          {
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
-        });
+          }
+        );
+
+        // Use the useNotifications hook to get refetchNotifications
+        const { refetchNotifications } = useNotifications();
+        await refetchNotifications(); // Refetch notifications after creating a post
 
         return response.data; // Return the response data for further handling
     } catch (err) {
@@ -43,7 +57,9 @@ export const usePosts = () => {
 
     const deletePost = async (postId) => {
         try {
-            await axios.delete(`http://localhost:7000/DeleteProgrammingPost/${postId}`);
+            await axios.delete(
+              `http://localhost:7000/DeleteProgrammingPost/${postId}`
+            );
             setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
         } catch (err) {
             console.error("Error deleting post:", err);
@@ -54,13 +70,13 @@ export const usePosts = () => {
     const updatePost = async (postId, updatedData) => {
         try {
             const response = await axios.put(
-                `http://localhost:7000/UpdateProgrammingPost/${postId}`,
-                updatedData, // Pass the updatedData directly as the payload
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
+              `http://localhost:7000/UpdateProgrammingPost/${postId}`,
+              updatedData, // Pass the updatedData directly as the payload
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
             );
 
             // After successful update, update the posts state with the new data

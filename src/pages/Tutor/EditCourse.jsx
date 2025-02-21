@@ -23,7 +23,7 @@ const EditCourse = () => {
       const response = await axios.get(
         `http://localhost:7000/api/courses/${courseId}`
       );
-      console.log("Course details:", response.data);
+      
       setCourse(response.data);
     } catch (error) {
       console.error("Error loading course details:", error);
