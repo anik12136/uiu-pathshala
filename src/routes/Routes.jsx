@@ -41,6 +41,7 @@ import MyNotes from "../pages/Dashboard/StudentDashboard/MyNotes/MyNotes";
 import MyQuestions from "../pages/Dashboard/StudentDashboard/MyQuestions/MyQuestions";
 import SingleCourse from "../components/Course/SingleCourse";
 import Announcements from "../pages/Dashboard/Admin/Announcements/Announcements";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -329,6 +330,10 @@ const router = createBrowserRouter([
       {
         path: "/course/:id", // Dynamic route for single course
         element: <SingleCourse />,
+      },
+      {
+        path: "/contactUs", 
+        element: <ContactUs></ContactUs>,
       },
     ],
   },
