@@ -10,30 +10,32 @@ import departmentalImage from "../../assets/images/departments.webp";
 import libraryImage from "../../assets/images/library.webp";
 import { AuthContext } from "../../providers/AuthProviders";
 import { Link } from "react-router-dom";
+import useCourses from "../../Hooks/useCourses";
+
 
 const Home = () => {
   // Context value
   const { user } = useContext(AuthContext);
   // console.log("User data",user);
+  const { courses, loading, error } = useCourses();
 
-
-  const [teachers, setTeachers] = useState([]);
-  useEffect(() => {
-    // fetch("../../../public/fakeDB/top-rated-tutors.json")
-    fetch("http://localhost:7000/courses")
-      .then((res) => res.json())
-      .then((data) => setTeachers(data));
-  }, []);
+  // const [courses, setCourses] = useState([]);
+  // useEffect(() => {
+  //   // fetch("../../../public/fakeDB/top-rated-tutors.json")
+  //   fetch("http://localhost:7000/courses")
+  //     .then((res) => res.json())
+  //     .then((data) => setCourses(data));
+  // }, []);
 
   return (
     <main className="mt-16">
       {/* Banner Section */}
       <Banner />
       {/* Your Favorite Teacher */}
-      <section className="max-w-7xl mx-auto my-4 rounded-lg">
+      {/* <section className="max-w-7xl mx-auto my-4 rounded-lg">
         <h1 className="text-gray-600 text-4xl py-6">Your Favorite Teachers</h1>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-5">
-          {teachers.map((teacher) => (
+          {courses.map((teacher) => (
             <FavoriteTeachers
               key={teacher.id}
               teacher={teacher}></FavoriteTeachers>
@@ -43,21 +45,22 @@ const Home = () => {
             <MdArrowForwardIos className="text-2xl" />
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Recently Uploaded */}
       <section className="max-w-7xl mx-auto my-6 rounded-lg ">
         <h1 className="text-gray-600 text-4xl py-6">Recently Uploaded</h1>
         <div className="grid gird-cols-1 lg:grid-cols-4 place-content-center lg:place-content-start gap-3 px-2 lg:px-0">
-          {teachers.slice(0, 4).map((course) => (
+          {courses.slice(0, 4).map((course) => (
             <RecentlyUploaded
-              key={course.id}
+              key={course._id}
               course={course}>
             </RecentlyUploaded>
           ))}
+       
         </div>
         {/* View all recently uploaded courses */}
         <Link to={"allCourses"}>
-          <button className="cursor-pointer rounded-lg border w-36 p-3 flex justify-center items-center gap-2 border-orange-300 mt-2">
+          <button className="cursor-pointer rounded-lg border w-36 p-3 flex justify-center items-center gap-2 border-orange-300 mt-2 hover:bg-orange-500">
             View All <FaArrowRight />
           </button>
         </Link>

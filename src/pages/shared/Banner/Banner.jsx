@@ -3,7 +3,7 @@ import "./Banner.css"
 
 const Banner = () => {
   return (
-    <section className="pathshala-banner-bg py-20">
+    <section className="pathshala-banner-bg py-28">
       <h1 className="text-center text-5xl font-medium text-white">BEST HELPING HAND </h1>
       <h1 className="text-center text-5xl font-medium  mt-2 text-white">
         FOR UIU STUDENTS
@@ -14,7 +14,7 @@ const Banner = () => {
         will change our craft. We identify new approaches to building healthy,
         productive software engineering teams.{" "}
       </p>
-      <div className="mx-4 lg:mx-auto mt-4 max-w-lg flex">
+      {/* <div className="mx-4 lg:mx-auto mt-4 max-w-lg flex">
         <label htmlFor="search" className="grow">
           <input
             className="border border-slate-500 w-full h-12 rounded-l-lg px-5  block  focus:outline-none"
@@ -25,7 +25,7 @@ const Banner = () => {
         <button className="h-12 bg-[#FF6701] text-white px-3 rounded-r-lg">
           Search <IoIosSearch className="text-2xl inline"/>
         </button>
-      </div>
+      </div> */}
     </section>
   );
 };
