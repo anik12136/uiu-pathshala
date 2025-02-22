@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { FaFilePdf } from "react-icons/fa";
 import Modal from "../../../components/Modal/Modal";
-import {
-  IoIosAddCircleOutline,
-  IoIosCloseCircleOutline,
-  IoMdClose,
-} from "react-icons/io";
+import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import { TbPdf } from "react-icons/tb";
 import { IoSearch } from "react-icons/io5";
 import axios from "axios";
 
 const BooksData = ({ subject }) => {
+  // console.log(subject);
   //Modal Controls
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //   console.log(subject);
+  // Loading all books based on the book name from database
   const [books, setBooks] = useState([]);
-  // console.log(books);
-  useEffect(() => {
-    fetch("../../../../public/fakeDB/Books.json")
+  console.log(books);
+  const booksLoader = () => {
+    fetch(`http://localhost:7000/books?courseName=${subject.courseName}`)
       .then((res) => res.json())
       .then((data) => setBooks(data));
-  }, []);
+  };
 
-  // const [file, setFile] = useState("");
-  // console.log(file);
+  useEffect(() => {
+    booksLoader();
+  }, []);
 
   const bookFormDataHandler = (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append("courseName", e.target.courseName.value);
     formData.append("courseCode", e.target.courseCode.value);
@@ -37,8 +34,12 @@ const BooksData = ({ subject }) => {
     formData.append("file", e.target.bookPDF.files[0]);
     axios
       .post("http://localhost:7000/books", formData)
-      .then((data) => console.log(data))
+      .then((data) => console.log(data.data))
       .catch((e) => console.log(e.message));
+  };
+  // view the pdf
+  const showPdf = (filename) => {
+    window.open(`http://localhost:7000/uploads/${filename}`, "_blank", "noreferrer");
   };
 
   return (
@@ -106,7 +107,7 @@ const BooksData = ({ subject }) => {
                 type="text"
                 name="edition"
                 className="w-full border rounded-lg p-2 my-2 focus:outline-none"
-                placeholder="e.g, 7th edition"
+                placeholder="e.g, 7th"
                 required
               />
               <label className="text-sm text-gray-700 ms-1">
@@ -117,9 +118,6 @@ const BooksData = ({ subject }) => {
                 type="file"
                 name="bookPDF"
                 accept="application/pdf"
-                // onChange={(e) => {
-                //   setFile(e.target.files[0]);
-                // }}
                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#ff6c26] file:text-white hover:file:bg-orange-600"
                 required
               />
@@ -141,8 +139,8 @@ const BooksData = ({ subject }) => {
           </div>
         </div>
       </Modal>
-
       {/* =====================================Modal Ends Here =========================== */}
+
       <div>
         <button
           className="border flex justify-center items-center gap-3 rounded-lg p-2 lg:p-4 bg-slate-200"
@@ -151,23 +149,32 @@ const BooksData = ({ subject }) => {
           <IoIosAddCircleOutline className="text-xl lg:text-2xl" /> New Book
         </button>
       </div>
-
-      {books.map((book) => (
-        <div
-          key={book.id}
-          className="flex gap-5 justify-between p-4 border cursor-pointer my-3 rounded-lg"
-          onClick={() => {
-            window.open(book.pdfURL, "_blank", "noreferrer");
-          }}
-        >
-          <div className="flex gap-2">
-            <TbPdf className="text-xl bg-red-400 rounded-sm" />
-            <p>{book.pdfName}</p>
-          </div>
-          <p>{book.author}</p>
-          <div className="flex-grow"></div>
-        </div>
-      ))}
+      <table className="table-auto w-full my-2 lg:my-4">
+        <tbody>
+          <tr className="border-b border-gray-300">
+            <th></th>
+            <th className="text-start py-2">Book</th>
+            <th className="text-start py-2">Authors</th>
+            <th className="text-start py-2">Edition</th>
+            <th className="text-start py-2">Course Name</th>
+          </tr>
+          {books.map((book) => (
+            <tr
+              key={book._id}
+              className="border-b border-gray-300 cursor-pointer hover:bg-orange-100"
+              onClick={() => showPdf(book.filename)}
+            >
+              <td className="py-3 ps-2">
+                <TbPdf className="bg-red-400 rounded-sm text-xl" />
+              </td>
+              <td className="text-wrap py-3">{book.bookName}</td>
+              <td className="text-wrap py-3">{book.authorsName}</td>
+              <td className="text-wrap py-3">{book.edition}</td>
+              <td className="text-wrap py-3">{book.courseName}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

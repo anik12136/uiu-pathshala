@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import BooksData from "./BooksData/BooksData";
 
 const DisplayLibraryContents = () => {
   // For displaying contents based on individual route
   const location = useLocation();
+
   console.log(location.state);
   const { routeName, subject } = location?.state;
   return (

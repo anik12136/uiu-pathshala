@@ -23,6 +23,23 @@ const PdfList = () => {
         fetchFiles();
     }, [email]);
 
+    // Handle deletion
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this file?");
+        if (!confirmDelete) return;
+    
+        try {
+            const response = await axios.delete(`http://localhost:7000/api/upload/${id}`);
+            if (response.status === 200) {
+                setFiles(files.filter((file) => file._id !== id)); // Update UI after deletion
+                alert("File deleted successfully");
+            }
+        } catch (error) {
+            console.error("Error deleting file:", error);
+            alert("Failed to delete file");
+        }
+    };
+
     return (
         <div className="max-w-3xl mx-auto p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">My Uploaded Files</h2>
@@ -44,6 +61,13 @@ const PdfList = () => {
                             <a href={file.cloudinaryUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-100">
                                 View File
                             </a>
+                            {/* Delete Button */}
+                            <button 
+                                    onClick={() => handleDelete(file._id)} 
+                                    className="block w-20 text-center px-4 py-2 mt-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                                >
+                                    Delete
+                                </button>
                         </div>
                     ))}
                 </div>
