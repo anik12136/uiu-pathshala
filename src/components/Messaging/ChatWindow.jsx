@@ -1,27 +1,33 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
+import { AuthContext } from "../../providers/AuthProviders";
+import { ConversationsContext } from "../../providers/ConversationsContext";
+import axios from "axios";
 
-const ChatWindow = ({ conversation, currentUserEmail, socket }) => {
-  const [messages, setMessages] = useState(conversation?.messages || []);
+
+const ChatWindow = ({ username, conversationId, currentUserEmail, socket }) => {
+  // Derive the conversation directly from the context
+  const { conversations, addMessage } = useContext(ConversationsContext);
+  const conversation = conversations.find((conv) => conv._id === conversationId);
+  // Directly use the messages from the conversation
+  const messages = conversation?.messages || [];
+  
   const [newMessage, setNewMessage] = useState("");
 
-  useEffect(() => {
-    // Listen for new messages
-    if (socket) {
-      socket.on('new-message', (message) => {
-        if (message.sender === conversation.id) {
-          setMessages((prev) => [...prev, message]);
-        }
-      });
-    }
+  // Determine recipient based on currentUserEmail
+  const recipient = conversation?.participants.find((p) => p.email !== currentUserEmail);
+  const recipientEmail = recipient?.email;
 
-    // Cleanup listener
-    return () => {
-      if (socket) {
-        socket.off('new-message');
-      }
-    };
-  }, [socket, conversation]);
+
+  const saveMessage = async (msg) => {
+    try {
+      const response = await axios.post(`http://localhost:7000/chat/message`, msg);
+      console.log("Message saved:", response.data);
+    } catch (err) {
+      console.error("Error saving message:", err);
+    }
+  };
+
 
   useEffect(() => {
     // Scroll to bottom when messages change
@@ -30,23 +36,33 @@ const ChatWindow = ({ conversation, currentUserEmail, socket }) => {
   }, [messages]);
 
   const sendMessage = () => {
-    if (newMessage.trim() && socket) {
+    if (newMessage.trim() && socket && conversation) {
       const newMsg = {
-        sender: currentUserEmail,
-        content: newMessage,
-        timestamp: new Date().toISOString(),
+        message: newMessage,
+        timestamp: new Date(),
+        senderEmail: currentUserEmail,
+        senderName: username,
       };
 
       // Emit the message to the server
-      socket.emit('send-message', {
-        recipient: conversation.id, // Recipient's email
+      socket.emit("send-message", {
+        conversationId: conversation._id,
+        recipient: recipientEmail, // Recipient's email
+        content: newMessage,
+        timestamp: new Date(),
+        sender: currentUserEmail,
+        senderName: username,
+      });
+
+      // Save the message to the context
+      addMessage(conversation._id, newMsg);
+      saveMessage({
+        recipient: recipientEmail, 
         content: newMessage,
         timestamp: new Date(),
         sender: currentUserEmail,
       });
-
-      // Update local state
-      setMessages((prev) => [...prev, newMsg]);
+      // Save the message to the database
       setNewMessage("");
     }
   };
@@ -63,12 +79,17 @@ const ChatWindow = ({ conversation, currentUserEmail, socket }) => {
           <div
             key={index}
             className={`max-w-xs px-4 py-2 rounded-lg ${
-              msg.sender === currentUserEmail ? "bg-blue-300 ml-auto text-white" : "bg-green-400 text-gray-800"
+              msg.senderEmail === currentUserEmail
+                ? "bg-blue-300 ml-auto text-white"
+                : "bg-green-400 text-gray-800"
             }`}
           >
-            {msg.content}
+            {msg.message}
             <p className="text-xs text-gray-500 mt-1">
-              {msg.sender} • {formatTimestamp(msg.timestamp)}
+              {msg.senderEmail === currentUserEmail
+                ? "(you) • "
+                : msg.senderName + " • "}
+              {formatTimestamp(msg.timestamp)}
             </p>
           </div>
         ))}

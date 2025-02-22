@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 
-const MessageList = ({ conversations, setSelectedConversation }) => {
+const MessageList = ({ conversations, setSelectedConversation, username }) => {
   const { user } = useContext(AuthContext);
 
   return (
     <div className="w-1/5 bg-orange-100 text-gray-400 hidden md:block">
-      <h1 className="mx-3 my-3 px-4 py-2 font-extrabold text-white text-xl rounded-xl bg-orange-700">
-        Messages
+      <h1 className="mx-3 my-3 px-4 py-2 font-bold text-white text-l rounded-xl bg-orange-700">
+        Your Messages {username}
       </h1>
       <ul className="p-4 space-y-4">
         {conversations.map((conversation) => (
@@ -16,12 +16,13 @@ const MessageList = ({ conversations, setSelectedConversation }) => {
             className={`flex items-center cursor-pointer p-2 rounded ${
               conversation.unseen ? "font-bold text-orange-600" : ""
             } hover:bg-gray-300`}
-            onClick={() => setSelectedConversation(conversation)}
+            onClick={() => setSelectedConversation(conversation.id)}
           >
-            {conversation.name}
-            {conversation.online && (
-              <span className="w-3 h-3 ml-2 bg-green-500 rounded-full mr-2"></span>
-            )}
+            <span className={`w-3 h-3 mr-2 rounded-full ${conversation.online ? "bg-green-500" : ""}`}></span>
+            <div className="flex flex-col flex-grow">
+              <span>{conversation.name}</span>
+              <span className="text-xs text-gray-600">{conversation.email}</span>
+            </div>
           </li>
         ))}
       </ul>
