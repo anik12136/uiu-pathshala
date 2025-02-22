@@ -56,7 +56,7 @@ const Footer = () => {
       {/* item-3 */}
       <div className="flex flex-col justify-center items-center">
         <p className="font-semibold text-3xl">Any Suggestion?</p>
-        <Link to={"/contactUs"}><p className="border mt-2 py-4 px-10 rounded-full">Contact Us</p></Link>
+        <Link to={"/contactUs"}><p className="border mt-2 py-4 px-10 rounded-full hover:bg-orange-500">Contact Us</p></Link>
       </div>
     </footer>
   );
