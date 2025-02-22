@@ -6,7 +6,7 @@ import useLibraryContentsData from "../../Hooks/useLibraryContentsData";
 
 const Books = () => {
   const subjects = useLibraryContentsData();
-  //   console.log("subjects-----------", subjects);
+    // console.log("subjects-----------", subjects);
   return (
     <div>
       <h1 className="text-2xl text-center font-bold">Books</h1>
@@ -19,11 +19,12 @@ const Books = () => {
           className="border ps-10 pr-4 py-2 w-full lg:w-1/4 rounded-full focus:outline-none"
         />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
         {subjects.map((subject) => (
           <LibraryContents
             key={subject._id}
             subject={subject}
+            routeName={"books"}
           ></LibraryContents>
         ))}
       </div>

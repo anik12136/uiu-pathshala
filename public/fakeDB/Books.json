@@ -1,0 +1,26 @@
+[
+    {
+        "id": "C101",
+        "title": "Introduction to Web Development",
+        "author": "Yamin Hossain",
+        "courseCode": "CSE3214",
+        "pdfName": "What is React",
+        "pdfURL":"https://res.cloudinary.com/daeufkvvp/image/upload/v1739805653/vdxl7lujpogxyjbulaxp.pdf"
+      },
+      {
+        "id": "C102",
+        "title": "DataStructure and Algorithm I",
+        "author": "Yamin Hossain",
+        "courseCode": "CSE3214",
+        "pdfName": "What is React",
+        "pdfURL":"https://res.cloudinary.com/daeufkvvp/image/upload/v1739805653/vdxl7lujpogxyjbulaxp.pdf"
+      },
+      {
+        "id": "C103",
+        "title": "DataStructure and Algorithm I",
+        "author": "Yamin Hossain",
+        "courseCode": "CSE3214",
+        "pdfName": "What is React",
+        "pdfURL":"https://res.cloudinary.com/daeufkvvp/image/upload/v1739805653/vdxl7lujpogxyjbulaxp.pdf"
+      }
+]

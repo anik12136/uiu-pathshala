@@ -39,6 +39,7 @@ import MyPdf from "../pages/Dashboard/StudentDashboard/MyPdf/MyPdf";
 import MyBooks from "../pages/Dashboard/StudentDashboard/MyBooks/MyBooks";
 import MyNotes from "../pages/Dashboard/StudentDashboard/MyNotes/MyNotes";
 import MyQuestions from "../pages/Dashboard/StudentDashboard/MyQuestions/MyQuestions";
+import Test2 from "../Laboratory/Test2";
 import SingleCourse from "../components/Course/SingleCourse";
 import Announcements from "../pages/Dashboard/Admin/Announcements/Announcements";
 import ContactUs from "../pages/ContactUs/ContactUs";
@@ -58,8 +59,8 @@ const router = createBrowserRouter([
       },
       // This route is for test purpose
       {
-        path: "/test",
-        element: <Test></Test>,
+        path: "/test2",
+        element: <Test2></Test2>,
       },
 
       {
@@ -116,6 +117,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: "/library/questions/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
+              </ProtectedRoutes>
+            ),
+          },
+          {
             path: "/library/notes",
             element: (
               <ProtectedRoutes>
@@ -124,10 +133,26 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: "/library/notes/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
+              </ProtectedRoutes>
+            ),
+          },
+          {
             path: "/library/curriculums",
             element: (
               <ProtectedRoutes>
                 <Curriculums></Curriculums>
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "/library/curriculums/:subject",
+            element: (
+              <ProtectedRoutes>
+                <DisplayLibraryContents></DisplayLibraryContents>
               </ProtectedRoutes>
             ),
           },
