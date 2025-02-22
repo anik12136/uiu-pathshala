@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { BiSolidPencil } from "react-icons/bi";
 import {
   FaFacebook,
@@ -50,7 +50,16 @@ const ContributionCard = ({ image, title, duration, author, rating }) => (
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
-  const { dbUser } = useUser();
+  const { dbUser, updateUserProfile } = useUser();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updatedUser, setUpdatedUser] = useState({
+    name: dbUser?.name || "",
+    department: dbUser?.department || "",
+    photoURL: dbUser?.photoURL || "",
+    studentID: dbUser?.studentID || "",
+    email: user.email
+  });
 
   const interests = [
     "Data Science",
@@ -66,6 +75,21 @@ const UserProfile = () => {
   const userEmail = dbUser?.email || "Not Set";
   const userStudentID = dbUser?.studentID || "Student ID Not Set";
   const userPhotoURL = dbUser?.photoURL || "https://via.placeholder.com/150";
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleUpdate = async () => {
+    const result = await updateUserProfile(updatedUser);
+    if (result.success) {
+      alert("Profile updated successfully");
+      setIsModalOpen(false);
+    } else {
+      alert(result.message);
+    }
+  };
 
   return (
     <div className="max-w-7xl w-full mx-auto space-y-4">
@@ -93,19 +117,10 @@ const UserProfile = () => {
               </h1>
 
               <button
-                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg shadow-md transition-colors"
-                aria-label={user ? "Edit profile" : "Add friend"}>
-                {user ? (
-                  <>
-                    <BiSolidPencil className="text-lg lg:text-xl" />
-                    <span className="hidden lg:inline">Edit profile</span>
-                  </>
-                ) : (
-                  <>
-                    <IoPersonAddSharp className="text-lg lg:text-xl" />
-                    <span className="hidden lg:inline">Add friend</span>
-                  </>
-                )}
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg shadow-md transition-colors">
+                <BiSolidPencil className="text-lg lg:text-xl" />
+                <span className="hidden lg:inline">Edit profile</span>
               </button>
             </div>
 
@@ -126,12 +141,26 @@ const UserProfile = () => {
       <section className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="font-semibold text-2xl text-gray-700 mb-4">About</h2>
         <p className="text-gray-600 text-justify">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus vitae
-          placeat fugit, amet accusamus distinctio maxime quia animi maiores
-          sunt quos dignissimos aperiam sed aliquid modi consequatur ab itaque
-          sequi in nulla deserunt. Recusandae, deserunt illum. Sunt nisi
-          exercitationem ex iste numquam animi cumque facilis ducimus sint optio
-          tempora harum, consectetur veritatis id, possimus dolorem suscipit!
+          Hi there! I'm a passionate developer who thrives on solving complex
+          problems through innovative coding solutions. With a keen interest in
+          technologies like JavaScript, React, and Node.js, I enjoy building
+          scalable applications that make a real impact. Whether it's a web app,
+          mobile solution, or backend infrastructure, I'm always up for the
+          challenge.
+        </p>
+        <p className="text-gray-600 text-justify mt-4">
+          Beyond coding, I love diving into topics like AI, machine learning,
+          and data science. I believe these fields have the potential to reshape
+          the way we interact with the world around us, and I'm excited to be
+          part of that change. When I'm not working, you can find me exploring
+          new places, learning photography, or catching up on the latest tech
+          news.
+        </p>
+        <p className="text-gray-600 text-justify mt-4">
+          If you're interested in collaborating on projects, sharing knowledge,
+          or just having a good conversation about tech, feel free to reach out!
+          I'm always open to new opportunities and ideas that can help me grow
+          and make meaningful contributions.
         </p>
       </section>
 
@@ -189,6 +218,61 @@ const UserProfile = () => {
           rating="4"
         />
       </section>
+
+      {/* Modal for Editing Profile */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-2xl font-semibold mb-4">Edit Profile</h2>
+            <div className="space-y-4">
+              <input
+                type="text"
+                name="name"
+                value={updatedUser.name}
+                onChange={handleChange}
+                placeholder="Name"
+                className="w-full px-3 py-2 border rounded-md"
+              />
+              <input
+                type="text"
+                name="department"
+                value={updatedUser.department}
+                onChange={handleChange}
+                placeholder="Department"
+                className="w-full px-3 py-2 border rounded-md"
+              />
+              <input
+                type="text"
+                name="photoURL"
+                value={updatedUser.photoURL}
+                onChange={handleChange}
+                placeholder="Photo URL"
+                className="w-full px-3 py-2 border rounded-md"
+              />
+              <input
+                type="text"
+                name="studentID"
+                value={updatedUser.studentID}
+                onChange={handleChange}
+                placeholder="Student ID"
+                className="w-full px-3 py-2 border rounded-md"
+              />
+            </div>
+            <div className="mt-4 flex justify-end gap-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md">
+                Cancel
+              </button>
+              <button
+                onClick={handleUpdate}
+                className="px-4 py-2 bg-orange-500 text-white rounded-md">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
