@@ -34,12 +34,19 @@ const BooksData = ({ subject }) => {
     formData.append("file", e.target.bookPDF.files[0]);
     axios
       .post("http://localhost:7000/books", formData)
-      .then((data) => console.log(data.data))
+      .then((data) => {
+        console.log(data.data);
+        booksLoader();
+      })
       .catch((e) => console.log(e.message));
   };
   // view the pdf
   const showPdf = (filename) => {
-    window.open(`http://localhost:7000/uploads/${filename}`, "_blank", "noreferrer");
+    window.open(
+      `http://localhost:7000/uploads/${filename}`,
+      "_blank",
+      "noreferrer"
+    );
   };
 
   return (
@@ -122,12 +129,12 @@ const BooksData = ({ subject }) => {
                 required
               />
               <div className="flex justify-end mt-6 space-x-4">
-                <button
+                {/* <button
                   type="cancel"
                   className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
                 >
                   Cancel
-                </button>
+                </button> */}
                 <button
                   className="px-4 py-2 bg-[#ff6c26] text-white rounded-lg hover:bg-orange-600"
                   type="submit"
