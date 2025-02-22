@@ -1,70 +1,50 @@
-import { useState, useEffect, useContext } from 'react';
-import { io } from 'socket.io-client';
+import { useState, useContext } from 'react';
 import MessageList from '../../components/Messaging/MessageList';
 import ChatWindow from '../../components/Messaging/ChatWindow';
 import { AuthContext } from "../../providers/AuthProviders";
+import { ConversationsContext } from '../../providers/ConversationsContext';
 import './Messaging.css';
 
 const Messaging = () => {
-  const  {user}  = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const currentUserEmail = user?.email;
-
-  const [onlineUsers, setOnlineUsers] = useState([]); // List of online users
+  
+  // Get conversations and the derived online/offline users from the ConversationsContext
+  const { conversations, otherUsers, socket } = useContext(ConversationsContext);
+  
   const [selectedConversation, setSelectedConversation] = useState(null);
-  const [socket, setSocket] = useState(null);
 
-  useEffect(() => {
-    // Initialize Socket.IO connection
-    const newSocket = io("http://localhost:8000"); // Replace with your backend URL
-    setSocket(newSocket);
 
-    // Emit user online event
-    if (currentUserEmail) {
-      
-      newSocket.emit('user-online', currentUserEmail);
-    }
-
-    newSocket.on('connect', () => {
-      console.log('Connected to server');
-      console.log(currentUserEmail);
-    });
-
-    newSocket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
-    });
-
-    // Listen for online users updates
-    newSocket.on('online-users', (users) => {
-      setOnlineUsers(users.filter((email) => email !== currentUserEmail));
-    });
-
-    // Cleanup on unmount
-    return () => {
-      newSocket.disconnect();
+  // Here we assume you want a list of conversation summaries.
+  const conversationList = conversations.map(conv => {
+    // Determine the "other" participant from this conversation.
+    const otherParticipant = conv.participants.find(p => p.email !== currentUserEmail);
+    return {
+      id: conv._id,
+      name: otherParticipant.name,
+      email: otherParticipant.email,
+      unseen: conv.participants.find(p => p.email === currentUserEmail)?.read === false,
+      online: otherUsers.online.some(user => user.email === otherParticipant.email),
+      messages: conv.messages,
     };
-  }, [currentUserEmail]);
-
-  // Format online users into the required conversation structure
-  const conversations = onlineUsers.map((email) => ({
-    id: email, // Use email as the unique ID
-    name: email, // Use email as the display name
-    unseen: false, // No unread messages initially
-    online: true, // All users in this list are online
-    messages: [], // No messages initially
-  }));
+  });
 
   return (
     <div className="flex messaging">
       {/* Message List */}
       <MessageList
-        conversations={conversations}
+        conversations={conversationList}
         setSelectedConversation={setSelectedConversation}
+        username={conversations[0]?.participants.find(p => p.email == currentUserEmail).name} 
       />
 
       {/* Chat Window */}
       {selectedConversation ? (
         <ChatWindow
-          conversation={selectedConversation}
+          
+          //find the user's username
+          username={conversations[0]?.participants.find(p => p.email == currentUserEmail).name}          
+          conversationId={selectedConversation}
           currentUserEmail={currentUserEmail}
           socket={socket}
         />

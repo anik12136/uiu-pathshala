@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { toast, Toaster } from "react-hot-toast";
 import useUser from "../../Hooks/useUser";
+import { Commet } from "react-loading-indicators";
 
 const ContactUs = () => {
 
@@ -34,70 +35,83 @@ const ContactUs = () => {
             });
     };
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-            <Toaster position="top-right" />
-
-            <div className="bg-white shadow-lg rounded-xl p-8 max-w-lg w-full">
-                <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
-                    Contact Us
-                </h2>
-
-                <form ref={form} onSubmit={sendEmail} className="space-y-4">
-                    <div className="hidden">
-                        <label className="block text-gray-700">Student ID</label>
-                        <input
-                            type="text"
-                            name="user_studentID"
-                            value={dbUser.studentID}
-                            required
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-gray-700">Name</label>
-                        <input
-                            type="text"
-                            name="user_name"
-                            value={dbUser.name}
-                            required
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-gray-700">Email</label>
-                        <input
-                            type="email"
-                            name="user_email"
-                            value={dbUser.email}
-                            required
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-gray-700">Message</label>
-                        <textarea
-                            name="message"
-                            required
-                            rows="4"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className={`w-full bg-blue-500 text-white py-2 rounded-lg font-semibold transition-all ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
-                            }`}
-                    >
-                        {loading ? "Sending..." : "Send Message"}
-                    </button>
-                </form>
+    if (!dbUser) {
+        return (
+            <div className="flex justify-center h-screen">
+                <Commet color="#cc7731" size="large" text="" textColor="#NaNNaNNaN" />
             </div>
-        </div>
-    );
+        );
+    }
+    else {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+                <Toaster position="top-right" />
+
+                <div className="bg-white shadow-lg rounded-xl p-8 max-w-lg w-full">
+                    <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
+                        Contact Us
+                       
+                    </h2>
+                    <p className="text-center mb-2"><span className="">Feel free send us message</span></p>
+                    <p className="text-center mb-5">To: <span className="text-blue-400">uiupathshala@gmail.com</span></p>
+
+                    <form ref={form} onSubmit={sendEmail} className="space-y-4">
+                        <div className="hidden">
+                            <label className="block text-gray-700">Student ID</label>
+                            <input
+                                type="text"
+                                name="user_studentID"
+                                value={dbUser?.studentID}
+                                required
+                                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-gray-700">Your Name</label>
+                            <input
+                                type="text"
+                                name="user_name"
+                                value={dbUser?.name}
+                                required
+                                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-700">Your Email</label>
+                            <input
+                                type="email"
+                                name="user_email"
+                                value={dbUser?.email}
+                                required
+                                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-700">Message</label>
+                            <textarea
+                                name="message"
+                                required
+                                rows="4"
+                                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className={`w-full bg-blue-500 text-white py-2 rounded-lg font-semibold transition-all ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+                                }`}
+                        >
+                            {loading ? "Sending..." : "Send Message"}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+
 };
 
 export default ContactUs;

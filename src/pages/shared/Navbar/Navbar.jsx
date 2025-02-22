@@ -19,10 +19,15 @@ import "./Header.css";
 import ProfileDropdownMenu from "../../../components/ProfileDropdown";
 import ActiveNavLink from "../../../components/ActiveNavLink/ActiveNavLink";
 import NotificationDropdown from "../../../components/Notification/NotificationDropdown";
-
+import { ConversationsContext } from "../../../providers/ConversationsContext"; 
 
 const Navbar = () => {
   const { user,logOut } = useContext(AuthContext);
+
+
+  const { unreadCount } = useContext(ConversationsContext);
+
+
   const navigate = useNavigate();
   const messagingHandler = () => {
     navigate("/messaging");
@@ -119,9 +124,16 @@ const Navbar = () => {
               <CiBookmark className="text-black font-extrabold text-2xl inline hover:text-orange-500" />
             </Link>
             {/* Messaging */}
-            <button className="mr-2" onClick={messagingHandler}>
-              <SiMessenger className="text-2xl text-orange-500 inline hover:text-orange-500" />
-            </button>
+            <div className="relative">
+              <button className="mr-2" onClick={messagingHandler}>
+                <SiMessenger className="text-2xl text-orange-500 inline hover:text-orange-500" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
+            </div>
             {/* user profile dropdown section */}
             <ProfileDropdownMenu></ProfileDropdownMenu>
           </div>
