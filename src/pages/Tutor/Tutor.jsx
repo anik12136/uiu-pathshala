@@ -14,14 +14,7 @@ const Tutor = () => {
         >
           Courses
         </NavLink>
-        <NavLink
-          to="/tutor/live-sessions"
-          className={({ isActive }) =>
-            `px-4 py-2 ${isActive ? "text-blue-500 border-b-2 border-blue-500" : ""}`
-          }
-        >
-          Live Sessions
-        </NavLink>
+      
         <NavLink
           to="/tutor/teaching"
           className={({ isActive }) =>

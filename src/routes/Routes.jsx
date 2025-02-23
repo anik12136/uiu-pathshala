@@ -192,14 +192,6 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "live-sessions",
-            element: (
-              <ProtectedRoutes>
-                <LiveSessions />
-              </ProtectedRoutes>
-            ),
-          },
-          {
             path: "teaching",
             element: (
               <ProtectedRoutes>

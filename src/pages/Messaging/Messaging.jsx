@@ -35,7 +35,6 @@ const Messaging = () => {
       <MessageList
         conversations={conversationList}
         setSelectedConversation={setSelectedConversation}
-        username={conversations[0]?.participants.find(p => p.email == currentUserEmail).name} 
       />
 
       {/* Chat Window */}

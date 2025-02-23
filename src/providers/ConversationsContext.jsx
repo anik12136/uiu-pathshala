@@ -95,16 +95,28 @@ export const ConversationsProvider = ({ children }) => {
     if (!socket) return;
 
     socket.on('new-message', (message) => {
+      // refreshConversations();
+      console.log(message);
+      
       // Find the conversation and update the messages
       const newConversations = conversations.map((conv) => {
         if (conv._id === message.conversationId) {
+          
+          conv.participants[0].read = false; // set read to false for the other participant
+          conv.participants[1].read = false; 
+          const {conversationId, ...msg}  = message; // remove conversationId from message and store it in conversationId
+
+          
+
           return {
             ...conv,
-            messages: [...conv.messages, message],
+            messages: [...conv.messages, msg],
           };
         }
         return conv;
       });
+
+      
 
       setConversations(newConversations);
     });
@@ -124,6 +136,16 @@ export const ConversationsProvider = ({ children }) => {
     );
   };
 
+  const refreshConversations = async () => {
+    if (userEmail) {
+      try {
+        const res = await axios.get(`http://localhost:7000/chat/conversations/${userEmail}`);
+        setConversations(res.data);
+      } catch (err) {
+        console.error('Error refreshing conversations', err);
+      }
+    }
+  };
 
   // In ConversationsContext provider, before the return:
   const unreadCount = conversations.reduce((count, conv) => {
@@ -136,7 +158,7 @@ export const ConversationsProvider = ({ children }) => {
 
 
   return (
-    <ConversationsContext.Provider value={{ conversations, otherUsers, socket, addMessage, unreadCount  }}>
+    <ConversationsContext.Provider value={{ conversations, otherUsers, socket, addMessage, unreadCount, refreshConversations  }}>
       {children}
     </ConversationsContext.Provider>
   );

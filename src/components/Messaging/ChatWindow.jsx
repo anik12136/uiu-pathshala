@@ -7,7 +7,7 @@ import axios from "axios";
 
 const ChatWindow = ({ username, conversationId, currentUserEmail, socket }) => {
   // Derive the conversation directly from the context
-  const { conversations, addMessage } = useContext(ConversationsContext);
+  const { conversations, addMessage, refreshConversations } = useContext(ConversationsContext);
   const conversation = conversations.find((conv) => conv._id === conversationId);
   // Directly use the messages from the conversation
   const messages = conversation?.messages || [];
@@ -67,6 +67,20 @@ const ChatWindow = ({ username, conversationId, currentUserEmail, socket }) => {
     }
   };
 
+  const markConversationAsRead = async () => {
+    try {
+      // Replace with your actual endpoint URL
+      await axios.patch("http://localhost:7000/chat/markRead", {
+        "conversationId": conversationId,
+        "receiver": currentUserEmail,
+      }).then((res) => {
+        refreshConversations(); // Refresh the conversations list
+      })
+    } catch (error) {
+      console.error("Error marking conversation as read:", error);
+    }
+  };
+
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
@@ -103,6 +117,7 @@ const ChatWindow = ({ username, conversationId, currentUserEmail, socket }) => {
           onChange={(e) => setNewMessage(e.target.value)}
           className="flex-1 px-4 py-2 rounded bg-white text-black focus:outline-none"
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          onFocus={markConversationAsRead} // <-- triggers API call on focus
         />
         <button
           onClick={sendMessage}
