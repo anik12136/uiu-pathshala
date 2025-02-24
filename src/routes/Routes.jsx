@@ -43,6 +43,7 @@ import Test2 from "../Laboratory/Test2";
 import SingleCourse from "../components/Course/SingleCourse";
 import Announcements from "../pages/Dashboard/Admin/Announcements/Announcements";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import TrackDetail from "../pages/Tutor/TrackDetail";
 
 const router = createBrowserRouter([
   {
@@ -196,6 +197,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoutes>
                 <Teaching />
+              </ProtectedRoutes>
+            ),
+          },
+          {
+            path: "edit-track/:trackId",
+            element: (
+              <ProtectedRoutes>
+                <TrackDetail />
               </ProtectedRoutes>
             ),
           },
