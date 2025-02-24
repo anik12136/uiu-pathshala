@@ -69,7 +69,11 @@ const AllUsers = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-700">{user.name}</div>
-                      <div className="text-sm text-gray-500">{user?.studentID || "ID: 0111000000"}</div>
+                      {
+                        user?.role == "admin" ? <></>
+                          : <div className="text-sm text-gray-500">{user?.studentID || "ID: 0000000000"}</div>
+
+                      }
                       <div className="text-sm text-gray-500">{user.email}</div>
                     </div>
                   </td>
@@ -81,8 +85,7 @@ const AllUsers = () => {
                       View Details
                     </Link>
                   </td>
-                </tr>
-              ))
+                </tr>))
             ) : (
               <tr>
                 <td colSpan="3" className="p-6 text-center text-gray-500">

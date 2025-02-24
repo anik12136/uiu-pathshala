@@ -16,6 +16,9 @@ const DisplayLibraryContents = () => {
       </h1>
 
       {routeName === "books" && <BooksData subject={subject}></BooksData>}
+      {routeName === "notes" && <BooksData subject={subject}></BooksData>}
+      {routeName === "questions" && <BooksData subject={subject}></BooksData>}
+      {routeName === "Curriculums" && <BooksData subject={subject}></BooksData>}
     </div>
   );
 };

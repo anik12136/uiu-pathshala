@@ -58,12 +58,14 @@ const UserDetails = () => {
     // =========================== EVENT HANDLERS ===========================
 
     // Handle issuing warning
+
     const handleWarning = () => {
         const confirmWarning = window.confirm(`Are you sure you want to issue a warning to ${user?.name}?`);
         if (confirmWarning) {
             issueWarningMutation.mutate();
         }
-    };
+    }
+
 
     // Handle removing warning
     const handleRemoveWarning = () => {
@@ -108,38 +110,49 @@ const UserDetails = () => {
 
             <div className="space-y-2 text-gray-700">
                 <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Student ID:</strong> {user.studentID}</p>
-                <p><strong>Department:</strong> {user.department || "N/A"}</p>
+                {
+                    user?.role == "admin" ?
+                    <></> :
+                    <p><strong>Student ID:</strong> {user.studentID}</p>
+                }
+                
+                <p><strong>Department:</strong> {user.department || "Not set"}</p>
                 <p><strong>Rating:</strong> {user.rating} / 5</p>
                 <p><strong>Warning Status:</strong> <span className={user.warning === 'warning' ? "text-red-500" : "text-green-500"}>{user.warning === 'warning' ? 'Warning Issued' : 'No Warnings'}</span></p>
             </div>
 
-            <div className='mt-6 flex space-x-3'>
-                {user?.warning === 'warning' ? (
-                    <button
-                        className='px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition disabled:opacity-50'
-                        onClick={handleRemoveWarning}
-                        disabled={removeWarningMutation.isLoading}
-                    >
-                        {removeWarningMutation.isLoading ? 'Removing...' : 'Remove Warning'}
-                    </button>
-                ) : (
-                    <button
-                        className='px-4 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition disabled:opacity-50'
-                        onClick={handleWarning}
-                        disabled={issueWarningMutation.isLoading}
-                    >
-                        {issueWarningMutation.isLoading ? 'Issuing...' : 'Issue Warning'}
-                    </button>
-                )}
+            {
+                user?.role == "admin" ?
+                <></> :
+                    <div className='mt-6 flex space-x-3'>
+                        {user?.warning === 'warning' ? (
+                            <button
+                                className='px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition disabled:opacity-50'
+                                onClick={handleRemoveWarning}
+                                disabled={removeWarningMutation.isLoading}
+                            >
+                                {removeWarningMutation.isLoading ? 'Removing...' : 'Remove Warning'}
+                            </button>
+                        ) : (
+                            <button
+                                className='px-4 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition disabled:opacity-50'
+                                onClick={handleWarning}
+                                disabled={issueWarningMutation.isLoading}
+                            >
+                                {issueWarningMutation.isLoading ? 'Issuing...' : 'Issue Warning'}
+                            </button>
+                        )}
 
-                <button
-                    className='px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition'
-                    onClick={handleDelete}
-                >
-                    Delete
-                </button>
-            </div>
+                        <button
+                            className='px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition'
+                            onClick={handleDelete}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                   
+
+            }
         </div>
     );
 };

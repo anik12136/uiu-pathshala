@@ -16,14 +16,14 @@ const LoginPage = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const validateEmail = (email) => {
-    const regex = /\S+@\S+\.\S+/;
-    setEmailError(regex.test(email) ? "" : "Invalid email format");
-  };
+  // const validateEmail = (email) => {
+  //   const regex = /\S+@\S+\.\S+/;
+  //   setEmailError(regex.test(email) ? "" : "Invalid email format");
+  // };
 
-  const validatePassword = (password) => {
-    setPasswordError(password.length >= 6 ? "" : "Password must be at least 6 characters");
-  };
+  // const validatePassword = (password) => {
+  //   setPasswordError(password.length >= 6 ? "" : "Password must be at least 6 characters");
+  // };
 
   const isLoginDisabled = !email || !password || emailError || passwordError;
 
@@ -62,7 +62,7 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  validateEmail(e.target.value);
+                  // validateEmail(e.target.value);
                 }}
                 required
               />
@@ -76,7 +76,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
-                  validatePassword(e.target.value);
+                  // validatePassword(e.target.value);
                 }}
                 required
               />
