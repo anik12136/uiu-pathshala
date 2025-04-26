@@ -17,7 +17,7 @@ const CourseCard = ({ course }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:7000/BookMark/addBookmark",
+        "https://server-uiu-pathshala.vercel.app/BookMark/addBookmark",
         {
           method: "POST",
           headers: {
@@ -62,7 +62,7 @@ const CourseCard = ({ course }) => {
 
       {/* Course Banner */}
       <img
-        src={`http://localhost:7000/uploads/${course.bannerImage}`}
+        src={`https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`}
         alt={course.title}
         className="w-full h-40 object-cover"
       />

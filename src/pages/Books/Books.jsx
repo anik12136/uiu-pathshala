@@ -27,7 +27,7 @@ const Books = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:7000/BookMark/addBookmark",
+        "https://server-uiu-pathshala.vercel.app/BookMark/addBookmark",
         {
           method: "POST",
           headers: {

@@ -21,7 +21,7 @@ const BookMarkCourseCard = ({ courseId, bookmarkId, onDelete }) => {
     const fetchCourse = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7000/api/courses/${courseId}`
+          `https://server-uiu-pathshala.vercel.app/api/courses/${courseId}`
         );
         setCourse(response.data);
       } catch (err) {
@@ -74,7 +74,7 @@ const BookMarkCourseCard = ({ courseId, bookmarkId, onDelete }) => {
 
       {/* Course Banner */}
       <img
-        src={`http://localhost:7000/uploads/${course.bannerImage}`}
+        src={`https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`}
         alt={course.title}
         className="w-full h-40 object-cover"
       />

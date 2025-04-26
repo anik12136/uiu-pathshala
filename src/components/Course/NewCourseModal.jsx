@@ -43,7 +43,7 @@ const NewCourseModal = ({ isOpen, onClose, creator }) => {
       console.log("Form Data:", formData); 
       
       // Use Axios to send the FormData
-      const response = await axios.post("http://localhost:7000/api/courses", formData, {
+      const response = await axios.post("https://server-uiu-pathshala.vercel.app/api/courses", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Important for file uploads
         },

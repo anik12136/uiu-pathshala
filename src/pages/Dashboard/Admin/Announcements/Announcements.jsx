@@ -9,7 +9,7 @@ const Announcements = () => {
     const [editingId, setEditingId] = useState(null);
 
     // Backend API base URL
-    const API_URL = "http://localhost:7000/announcements";
+    const API_URL = "https://server-uiu-pathshala.vercel.app/announcements";
 
     // Fetch announcements from backend
     const fetchAnnouncements = async () => {

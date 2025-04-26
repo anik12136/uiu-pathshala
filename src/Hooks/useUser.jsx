@@ -23,7 +23,7 @@ const useUser = () => {
 
       // API call to fetch user data by email
       const response = await axios.get(
-        `http://localhost:7000/dbUser/${user?.email}`
+        `https://server-uiu-pathshala.vercel.app/dbUser/${user?.email}`
       );
 
       console.log("API Response:", response.data);
@@ -50,7 +50,7 @@ const useUser = () => {
   const updateUserProfile = async (updatedUser) => {
     try {
       const response = await axios.patch(
-        "http://localhost:7000/dbUser/users", // API endpoint to update user profile
+        "https://server-uiu-pathshala.vercel.app/dbUser/users", // API endpoint to update user profile
         updatedUser
       );
 

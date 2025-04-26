@@ -21,7 +21,7 @@ const TrackDetail = () => {
     const fetchTrack = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:7000/track/tracks/${trackId}`
+          `https://server-uiu-pathshala.vercel.app/track/tracks/${trackId}`
         );
         setTrack(res.data);
       } catch (error) {
@@ -42,7 +42,7 @@ const TrackDetail = () => {
       formData.append("file", file);
 
       const res = await axios.post(
-        `http://localhost:7000/track/tracks/${trackId}/entries`,
+        `https://server-uiu-pathshala.vercel.app/track/tracks/${trackId}/entries`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -50,7 +50,7 @@ const TrackDetail = () => {
       );
       // Refresh the track data after adding entry
       const updated = await axios.get(
-        `http://localhost:7000/track/tracks/${trackId}`
+        `https://server-uiu-pathshala.vercel.app/track/tracks/${trackId}`
       );
       setTrack(updated.data);
       setShowModal(false);
@@ -103,7 +103,7 @@ const TrackDetail = () => {
               <p className="font-bold text-orange-600">{entry.title}</p>
               <p className="text-gray-700">{entry.description}</p>
               <a
-                href={`http://localhost:7000/uploads/${entry.filename}`}
+                href={`https://server-uiu-pathshala.vercel.app/uploads/${entry.filename}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"

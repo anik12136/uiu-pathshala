@@ -26,7 +26,7 @@ const SingleCourse = () => {
     const fetchCourse = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7000/api/courses/${id}`
+          `https://server-uiu-pathshala.vercel.app/api/courses/${id}`
         );
         setCourse(response.data);
       } catch (err) {
@@ -61,7 +61,7 @@ const SingleCourse = () => {
             className="w-full h-full"
             controls
             autoPlay
-            src={`http://localhost:7000/uploads/${video.filename}`}>
+            src={`https://server-uiu-pathshala.vercel.app/uploads/${video.filename}`}>
             Your browser does not support the video tag.
           </video>
         </div>
@@ -112,7 +112,7 @@ const SingleCourse = () => {
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="relative h-96">
             <img
-              src={`http://localhost:7000/uploads/${course.bannerImage}`}
+              src={`https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`}
               alt={course.title}
               className="w-full h-full object-cover"
             />

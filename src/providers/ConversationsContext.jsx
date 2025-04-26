@@ -15,7 +15,7 @@ export const ConversationsProvider = ({ children }) => {
 
   useEffect(() => {
     // Initialize Socket.IO connection
-    const newSocket = io("http://localhost:8000");
+    const newSocket = io("https://server-uiu-pathshala.vercel.app");
     setSocket(newSocket);
 
     // Emit user online event
@@ -38,7 +38,7 @@ export const ConversationsProvider = ({ children }) => {
     const fetchConversations = async () => {
       if (userEmail) {
         try {
-          const res = await axios.get(`http://localhost:7000/chat/conversations/${userEmail}`);
+          const res = await axios.get(`https://server-uiu-pathshala.vercel.app/chat/conversations/${userEmail}`);
           setConversations(res.data);
         } catch (err) {
           console.error('Error fetching conversations', err);
@@ -139,7 +139,7 @@ export const ConversationsProvider = ({ children }) => {
   const refreshConversations = async () => {
     if (userEmail) {
       try {
-        const res = await axios.get(`http://localhost:7000/chat/conversations/${userEmail}`);
+        const res = await axios.get(`https://server-uiu-pathshala.vercel.app/chat/conversations/${userEmail}`);
         setConversations(res.data);
       } catch (err) {
         console.error('Error refreshing conversations', err);

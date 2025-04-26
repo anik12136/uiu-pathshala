@@ -6,7 +6,7 @@ const AnnouncementsList = () => {
     const [visibleCount, setVisibleCount] = useState(3); // Show first 3 initially
     const [expanded, setExpanded] = useState(false); // Toggle Show More/Less
 
-    const API_URL = "http://localhost:7000/announcements"; // Backend API
+    const API_URL = "https://server-uiu-pathshala.vercel.app/announcements"; // Backend API
 
     // Fetch announcements from backend
     const fetchAnnouncements = async () => {

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useNotifications from "./useNotification"; // Import for notifications
 
-const API_BASE_URL = "http://localhost:7000/api/courses"; // Base API URL
-const BOOKMARK_BASE_URL = "http://localhost:7000/BookMark"; // Bookmark API Base URL
+const API_BASE_URL = "https://server-uiu-pathshala.vercel.app/api/courses"; // Base API URL
+const BOOKMARK_BASE_URL = "https://server-uiu-pathshala.vercel.app/BookMark"; // Bookmark API Base URL
 
 const useCourses = () => {
   const [courses, setCourses] = useState([]);

@@ -8,14 +8,14 @@ const RecentlyUploaded = ({ course }) => {
   return (
     <div className=" border flex flex-col gap-2 p-4 bg-white text-gray-500 rounded-lg shadow-lg cursor-pointer">
       <img
-        src={`http://localhost:7000/uploads/${course.bannerImage}`}
+        src={`https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`}
         className="rounded-lg h-40"
         alt=""
       />
       <h1 className="">{course?.title}</h1>
       <p className="font-semibold">{course.publishedOn}</p>
       <div className="flex gap-2 ">
-        <img src={`http://localhost:7000/uploads/${course.bannerImage}`}
+        <img src={`https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`}
           className="w-7 h-7 object-cover rounded-full" />
         <h1>{course.title}</h1>
       </div>

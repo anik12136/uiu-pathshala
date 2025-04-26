@@ -13,13 +13,13 @@ const PDFUploader = () => {
       getPdf();
     }, []);
     const getPdf = async () => {
-      const result = await axios.get("http://localhost:5000/get-files");
+      const result = await axios.get("https://server-uiu-pathshala.vercel.app/get-files");
       console.log(result.data.data);
       setAllImage(result.data.data);
     };
     const showPdf = (pdf) => {
-      window.open(`http://localhost:5000/files/${pdf}`, "_blank", "noreferrer");
-      //   setPdfFile(`http://localhost:5000/files/${pdf}`);
+      window.open(`https://server-uiu-pathshala.vercel.app/files/${pdf}`, "_blank", "noreferrer");
+      //   setPdfFile(`https://server-uiu-pathshala.vercel.app/files/${pdf}`);
     };
     e.preventDefault();
     const formData = new FormData();
@@ -28,7 +28,7 @@ const PDFUploader = () => {
     console.log(title, file);
 
     const result = await axios.post(
-      "http://localhost:5000/upload-files",
+      "https://server-uiu-pathshala.vercel.app/upload-files",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },

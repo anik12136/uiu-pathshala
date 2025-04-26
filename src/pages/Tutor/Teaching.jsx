@@ -18,7 +18,7 @@ const Teaching = () => {
   useEffect(() => {
     const fetchTracks = async () => {
       try {
-        const res = await axios.get("http://localhost:7000/track/tracks");
+        const res = await axios.get("https://server-uiu-pathshala.vercel.app/track/tracks");
         setTracks(res.data);
       } catch (error) {
         console.error("Error fetching tracks:", error);
@@ -37,7 +37,7 @@ const Teaching = () => {
         description,
         email: userEmail,
       };
-      const res = await axios.post("http://localhost:7000/track/", payload);
+      const res = await axios.post("https://server-uiu-pathshala.vercel.app/track/", payload);
       // Append new track to list
       setTracks((prev) => [...prev, res.data.track]);
       setShowModal(false);

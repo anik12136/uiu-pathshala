@@ -27,7 +27,7 @@ const Courses = () => {
 
   const handleDeleteCourse = async (id) => {
     try {
-      await axios.delete(`http://localhost:7000/api/courses/${id}`);
+      await axios.delete(`https://server-uiu-pathshala.vercel.app/api/courses/${id}`);
       setCourses(courses.filter((course) => course._id !== id)); // Assuming `_id` is the unique identifier
     } catch (err) {
       console.error("Error deleting course:", err);
@@ -38,7 +38,7 @@ const Courses = () => {
   const fetchCourses = async () => {
     
     try {
-      const response = await axios.get(`http://localhost:7000/api/courses/user/${userContext.user.email}`);
+      const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/courses/user/${userContext.user.email}`);
       setCourses(response.data); // Assuming API returns an array of courses
       setLoading(false);
       

@@ -18,7 +18,7 @@ const SearchUserModal = ({ senderEmail, closeModal, redirectRoute }) => {
     try {
       // Make a GET call with the query as a route parameter.
       // Adjust the API endpoint as needed.
-      const res = await axios.get(`http://localhost:7000/chat/user/${query}`);
+      const res = await axios.get(`https://server-uiu-pathshala.vercel.app/chat/user/${query}`);
       setResults(res.data);
     } catch (error) {
       console.error("Search error:", error);
@@ -39,7 +39,7 @@ const SearchUserModal = ({ senderEmail, closeModal, redirectRoute }) => {
     try {
       // Make the POST request to create a conversation.
       // Adjust the endpoint as needed.
-      const res = await axios.post("http://localhost:7000/chat/message", payload)
+      const res = await axios.post("https://server-uiu-pathshala.vercel.app/chat/message", payload)
       .then((res) => {
         console.log("Conversation created:", res.data);
         refreshConversations(); // Refresh the conversations list

@@ -62,7 +62,7 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
     try {
       // Call your API endpoint, for example using fetch.
     
-      const response = await axios.put(`http://localhost:7000/api/courses/${course._id}/status`, {
+      const response = await axios.put(`https://server-uiu-pathshala.vercel.app/api/courses/${course._id}/status`, {
         "status": newStatus,
       });
 
@@ -86,7 +86,7 @@ const BannerTitleDescription = ({ course, onSaveField }) => {
         <img
           src={
             course.bannerImage
-              ? `http://localhost:7000/uploads/${course.bannerImage}`
+              ? `https://server-uiu-pathshala.vercel.app/uploads/${course.bannerImage}`
               : "https://placehold.co/800x400"
           }
           alt={course.title || "Untitled Course"}

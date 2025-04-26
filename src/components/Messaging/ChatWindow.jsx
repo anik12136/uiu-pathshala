@@ -21,7 +21,7 @@ const ChatWindow = ({ username, conversationId, currentUserEmail, socket }) => {
 
   const saveMessage = async (msg) => {
     try {
-      const response = await axios.post(`http://localhost:7000/chat/message`, msg);
+      const response = await axios.post(`https://server-uiu-pathshala.vercel.app/chat/message`, msg);
       console.log("Message saved:", response.data);
     } catch (err) {
       console.error("Error saving message:", err);
@@ -70,7 +70,7 @@ const ChatWindow = ({ username, conversationId, currentUserEmail, socket }) => {
   const markConversationAsRead = async () => {
     try {
       // Replace with your actual endpoint URL
-      await axios.patch("http://localhost:7000/chat/markRead", {
+      await axios.patch("https://server-uiu-pathshala.vercel.app/chat/markRead", {
         "conversationId": conversationId,
         "receiver": currentUserEmail,
       }).then((res) => {

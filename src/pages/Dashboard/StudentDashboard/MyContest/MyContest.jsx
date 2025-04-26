@@ -19,7 +19,7 @@ const MyContest = () => {
     const fetchContests = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:7000/BookMark/getAllBookMark/${user.email}`
+                `https://server-uiu-pathshala.vercel.app/BookMark/getAllBookMark/${user.email}`
             );
             setContests(response.data.filter(bookmark => bookmark.type === "contest"));
             setLoading(false);
@@ -35,7 +35,7 @@ const MyContest = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:7000/BookMark/deleteSingleBookMark/${id}`);
+            await axios.delete(`https://server-uiu-pathshala.vercel.app/BookMark/deleteSingleBookMark/${id}`);
             fetchContests();
         } catch (error) {
             console.error("Error deleting contest bookmark:", error);

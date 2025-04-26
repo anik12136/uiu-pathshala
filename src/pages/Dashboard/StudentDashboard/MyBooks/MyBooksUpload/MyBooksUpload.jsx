@@ -35,7 +35,7 @@ const MyBooksUpload = () => {
         try {
             // Initiating file upload with progress tracking
             const response = await axios.post(
-                'http://localhost:7000/api/upload',
+                'https://server-uiu-pathshala.vercel.app/api/upload',
                 formData,
                 {
                     headers: { 'Content-Type': 'multipart/form-data' },

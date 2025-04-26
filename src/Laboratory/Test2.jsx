@@ -11,7 +11,7 @@ const Test2 = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:7000/pdf-uploads", file)
+      .post("https://server-uiu-pathshala.vercel.app/pdf-uploads", file)
       .then((data) => setCloudFile(data.data));
   }, [file]);
 
@@ -28,7 +28,7 @@ const Test2 = () => {
         <input type="file" name="pdfFile" onChange={pdfUploadingHandler} />
       </form>
       <div className="w-full h-96 border">
-        {/* <img  src={`http://localhost:7000/uploads/${cloudFile.filename}`} alt="" /> */}
+        {/* <img  src={`https://server-uiu-pathshala.vercel.app/uploads/${cloudFile.filename}`} alt="" /> */}
       </div>
       <PDFUploader></PDFUploader>
     </div>

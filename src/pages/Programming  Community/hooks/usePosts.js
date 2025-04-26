@@ -8,7 +8,7 @@ import useNotifications from "../../../Hooks/useNotification";
 export const fetchPosts = async (setPosts, setError, setLoading) => {
     try {
         const response = await axios.get(
-          "http://localhost:7000/GetProgrammingPost"
+          "https://server-uiu-pathshala.vercel.app/GetProgrammingPost"
         );
         setPosts(response.data);
         setError(null);
@@ -25,7 +25,7 @@ export const fetchPosts = async (setPosts, setError, setLoading) => {
 export const createPost = async (postData) => {
     try {
         const response = await axios.post(
-          "http://localhost:7000/CreateProgrammingPost",
+          "https://server-uiu-pathshala.vercel.app/CreateProgrammingPost",
           postData,
           {
             headers: {
@@ -58,7 +58,7 @@ export const usePosts = () => {
     const deletePost = async (postId) => {
         try {
             await axios.delete(
-              `http://localhost:7000/DeleteProgrammingPost/${postId}`
+              `https://server-uiu-pathshala.vercel.app/DeleteProgrammingPost/${postId}`
             );
             setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
         } catch (err) {
@@ -70,7 +70,7 @@ export const usePosts = () => {
     const updatePost = async (postId, updatedData) => {
         try {
             const response = await axios.put(
-              `http://localhost:7000/UpdateProgrammingPost/${postId}`,
+              `https://server-uiu-pathshala.vercel.app/UpdateProgrammingPost/${postId}`,
               updatedData, // Pass the updatedData directly as the payload
               {
                 headers: {

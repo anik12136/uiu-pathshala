@@ -14,7 +14,7 @@ const BooksData = ({ subject }) => {
   const [books, setBooks] = useState([]);
   console.log(books);
   const booksLoader = () => {
-    fetch(`http://localhost:7000/books?courseName=${subject.courseName}`)
+    fetch(`https://server-uiu-pathshala.vercel.app/books?courseName=${subject.courseName}`)
       .then((res) => res.json())
       .then((data) => setBooks(data));
   };
@@ -33,7 +33,7 @@ const BooksData = ({ subject }) => {
     formData.append("edition", e.target.edition.value);
     formData.append("file", e.target.bookPDF.files[0]);
     axios
-      .post("http://localhost:7000/books", formData)
+      .post("https://server-uiu-pathshala.vercel.app/books", formData)
       .then((data) => {
         console.log(data.data);
         booksLoader();
@@ -43,7 +43,7 @@ const BooksData = ({ subject }) => {
   // view the pdf
   const showPdf = (filename) => {
     window.open(
-      `http://localhost:7000/uploads/${filename}`,
+      `https://server-uiu-pathshala.vercel.app/uploads/${filename}`,
       "_blank",
       "noreferrer"
     );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:7000";
+const API_URL = "https://server-uiu-pathshala.vercel.app";
 
 // Fetch all posts from the backend
 export const fetchPosts = async () => {

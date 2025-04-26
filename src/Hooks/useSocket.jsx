@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "http://localhost:7000"; // Adjust based on your backend URL
+const SOCKET_URL = "https://server-uiu-pathshala.vercel.app"; // Adjust based on your backend URL
 
 const useSocket = (email) => {
   useEffect(() => {

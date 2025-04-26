@@ -66,7 +66,7 @@ const SignupPage = () => {
         department: "",
       };
 
-      const response = await fetch("http://localhost:7000/users", {
+      const response = await fetch("https://server-uiu-pathshala.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

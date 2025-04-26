@@ -34,9 +34,9 @@ const Explore = () => {
     const fetchData = async () => {
       try {
         const [pdfResponse, videoResponse, trackResponse] = await Promise.all([
-          axios.get("http://localhost:7000/api/upload/explore"),
-          axios.get("http://localhost:7000/api/allvideos"),
-          axios.get("http://localhost:7000/track/tracks"),
+          axios.get("https://server-uiu-pathshala.vercel.app/api/upload/explore"),
+          axios.get("https://server-uiu-pathshala.vercel.app/api/allvideos"),
+          axios.get("https://server-uiu-pathshala.vercel.app/track/tracks"),
         ]);
         setPdfData(pdfResponse.data);
         setFilteredPdfData(pdfResponse.data);
@@ -268,7 +268,7 @@ const Explore = () => {
             <video
               className="w-full h-full"
               controls
-              src={`http://localhost:7000/uploads/${selectedVideo.filename}`}
+              src={`https://server-uiu-pathshala.vercel.app/uploads/${selectedVideo.filename}`}
             >
               Your browser does not support the video tag.
             </video>
