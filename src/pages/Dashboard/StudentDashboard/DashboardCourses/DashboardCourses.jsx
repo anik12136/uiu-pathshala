@@ -19,7 +19,7 @@ const DashboardCourses = () => {
     const fetchBookmarkedCourses = async () => {
       try {
         const response = await axios.get(
-          `https://server-uiu-pathshala.vercel.app/bookMarks/${user.email}`
+          `http://localhost:7000/bookMarks/${user.email}`
         );
         setBookMarks(response.data);
       } catch (err) {

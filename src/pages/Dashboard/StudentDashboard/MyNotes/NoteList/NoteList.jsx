@@ -12,7 +12,7 @@ const NoteList = () => {
         const fetchFiles = async () => {
             try {
                 if (!email) return;
-                const response = await axios.get(`https://server-uiu-pathshala.vercel.app/api/upload/notes?email=${email}`);
+                const response = await axios.get(`http://localhost:7000/api/upload/notes?email=${email}`);
                 setFiles(response.data);
             } catch (error) {
                 console.error('Error fetching files:', error);

@@ -84,7 +84,7 @@ export const ConversationsProvider = ({ children }) => {
     });
 
     socket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
+      // console.error('Connection error:', error);
     });
     // Cleanup when component unmounts or socket changes
     return () => socket.off('online-users');

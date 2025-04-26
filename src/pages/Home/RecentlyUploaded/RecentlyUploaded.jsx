@@ -4,7 +4,7 @@ import defaultImage from "../../../../src/assets/images/pylyp-sukhenko-SrsIBiJPp
 
 
 const RecentlyUploaded = ({ course }) => {
-  console.log(course);
+  // console.log(course);
   return (
     <div className=" border flex flex-col gap-2 p-4 bg-white text-gray-500 rounded-lg shadow-lg cursor-pointer">
       <img

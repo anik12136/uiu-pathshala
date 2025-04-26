@@ -16,12 +16,14 @@ const useUser = () => {
       return;
     }
 
+    
+
     try {
-      console.log("Fetching user for email:", user.email);
+      console.log("Fetching user for email:", user?.email);
 
       // API call to fetch user data by email
       const response = await axios.get(
-        `http://localhost:7000/dbUser/${user.email}`
+        `http://localhost:7000/dbUser/${user?.email}`
       );
 
       console.log("API Response:", response.data);
